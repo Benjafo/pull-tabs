@@ -303,7 +303,6 @@ PUT  /api/user/profile      // Update user profile
 - Initialize game boxes with 500 tickets and winner distribution
 - Generate tickets based on remaining winners in box
 - Implement winning line detection (positions 1-3, 4-6, 7-9, 10-12, 13-15)
-- Prize stacking logic for multiple wins per ticket
 - Real-time statistics updates
 - Game box auto-renewal when depleted
 
