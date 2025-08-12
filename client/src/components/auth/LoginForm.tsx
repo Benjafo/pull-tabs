@@ -24,7 +24,7 @@ export function LoginForm() {
     try {
       await login(formData);
       navigate('/game');
-    } catch (err) {
+    } catch {
       // Error is handled in context
     } finally {
       setIsSubmitting(false);
