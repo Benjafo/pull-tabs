@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import statsService, { UserStats, GameBoxStatus } from '../services/statsService';
+import statsService from '../services/statsService';
+import type { UserStats, GameBoxStatus } from '../services/statsService';
 
 export function GamePage() {
   const [stats, setStats] = useState<UserStats | null>(null);
