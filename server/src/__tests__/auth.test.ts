@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import sequelize from "../config/database";
-import { User, UserStatistics } from "../models";
+import { User, UserStatistics, Ticket } from "../models";
 
 describe("Authentication Endpoints", () => {
     beforeAll(async () => {
@@ -14,8 +14,10 @@ describe("Authentication Endpoints", () => {
     });
 
     beforeEach(async () => {
-        await User.destroy({ where: {} });
+        // Clean up in correct order to respect foreign keys
+        await Ticket.destroy({ where: {} });
         await UserStatistics.destroy({ where: {} });
+        await User.destroy({ where: {} });
     });
 
     describe("POST /api/auth/register", () => {

@@ -26,7 +26,24 @@ describe("Statistics Endpoints", () => {
             password: "TestPass123",
         });
 
+<<<<<<< HEAD
         authCookie = registerResponse.headers["set-cookie"][0];
+=======
+        // Extract cookie from headers
+        const cookies = registerResponse.headers["set-cookie"] || registerResponse.headers["Set-Cookie"];
+        authCookie = Array.isArray(cookies) ? cookies[0] : cookies;
+        
+        if (!authCookie) {
+            // Try logging in if registration didn't set cookie
+            const loginResponse = await request(app).post("/api/auth/login").send({
+                username: "testuser",
+                password: "TestPass123",
+            });
+            const loginCookies = loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
+            authCookie = Array.isArray(loginCookies) ? loginCookies[0] : loginCookies;
+        }
+        
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
         testUser = (await User.findOne({ where: { username: "testuser" } })) as User;
 
         // Create a game box
@@ -109,7 +126,12 @@ describe("Statistics Endpoints", () => {
                 password: "NewPass123",
             });
 
+<<<<<<< HEAD
             const newCookie = newUserResponse.headers["set-cookie"][0];
+=======
+            const newCookies = newUserResponse.headers["set-cookie"] || newUserResponse.headers["Set-Cookie"];
+            const newCookie = Array.isArray(newCookies) ? newCookies[0] : newCookies;
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 
             const response = await request(app).get("/api/stats").set("Cookie", newCookie);
 

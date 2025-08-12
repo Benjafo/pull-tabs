@@ -1,7 +1,13 @@
 import { Ticket, GameSymbol } from "../models/Ticket";
 import { UserStatistics } from "../models/UserStatistics";
 import { GameBoxService } from "./gameBox.service";
+<<<<<<< HEAD
 import sequelize from "../config/database";
+=======
+import { GameBox } from "../models/GameBox";
+import sequelize from "../config/database";
+import { Op } from "sequelize";
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 
 /**
  * Service for generating and managing tickets
@@ -139,32 +145,88 @@ export class TicketService {
         const transaction = await sequelize.transaction();
 
         try {
+<<<<<<< HEAD
             // Get current game box
             const gameBox = await GameBoxService.getCurrentBox();
+=======
+            // Get current game box with lock to prevent concurrent updates
+            let gameBox = await GameBox.findOne({
+                where: {
+                    completed_at: null,
+                    remaining_tickets: {
+                        [Op.gt]: 0,
+                    },
+                },
+                order: [["created_at", "DESC"]],
+                lock: transaction.LOCK.UPDATE,
+                transaction,
+            });
+
+            // If no active box exists, create a new one
+            if (!gameBox) {
+                gameBox = await GameBox.create(GameBox.createNewBox(), { transaction });
+            }
+            
+            // Verify we have tickets available
+            if (gameBox.remaining_tickets <= 0) {
+                throw new Error("Insufficient tickets in current game box");
+            }
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 
             // Determine if this should be a winner
             const shouldWin = GameBoxService.shouldGenerateWinner(gameBox);
             let symbols: GameSymbol[];
             let prizeAmount: number | null = null;
+<<<<<<< HEAD
+=======
+            let winningLines: any[] = [];
+            let totalPayout = 0;
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 
             if (shouldWin) {
                 // Select prize level based on remaining winners
                 prizeAmount = GameBoxService.selectPrizeLevel(gameBox);
                 if (prizeAmount !== null) {
                     symbols = this.generateWinningSymbols(prizeAmount);
+<<<<<<< HEAD
                 } else {
                     // No winners left, generate losing ticket
                     symbols = this.generateLosingSymbols();
+=======
+                    // Check the generated winning lines to ensure they match
+                    winningLines = Ticket.checkWinningLines(symbols);
+                    // Verify we actually generated a winner
+                    const calculatedPayout = Ticket.calculatePayout(winningLines);
+                    if (calculatedPayout > 0) {
+                        totalPayout = calculatedPayout; // Use actual calculated payout
+                    } else {
+                        // Fallback if pattern detection failed
+                        console.error("Warning: Generated winning symbols but no payout detected");
+                        totalPayout = prizeAmount;
+                    }
+                } else {
+                    // No winners left, generate losing ticket
+                    symbols = this.generateLosingSymbols();
+                    winningLines = Ticket.checkWinningLines(symbols);
+                    totalPayout = Ticket.calculatePayout(winningLines);
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
                 }
             } else {
                 // Generate losing ticket
                 symbols = this.generateLosingSymbols();
+<<<<<<< HEAD
             }
 
             // Check winning lines
             const winningLines = Ticket.checkWinningLines(symbols);
             const totalPayout = Ticket.calculatePayout(winningLines);
 
+=======
+                winningLines = Ticket.checkWinningLines(symbols);
+                totalPayout = Ticket.calculatePayout(winningLines);
+            }
+
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
             // Create the ticket
             const ticket = await Ticket.create(
                 {
@@ -178,8 +240,18 @@ export class TicketService {
                 { transaction }
             );
 
+<<<<<<< HEAD
             // Update game box
             await GameBoxService.useTicket(gameBox, totalPayout > 0 ? totalPayout : null);
+=======
+            // Update game box - decrement ticket count
+            await gameBox.useTicket(transaction);
+            
+            // If this was a winner, decrement the winner count
+            if (totalPayout > 0) {
+                await gameBox.useWinner(totalPayout as keyof typeof gameBox.winners_remaining, transaction);
+            }
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 
             // Update user statistics
             const userStats = await UserStatistics.findOne({
@@ -264,7 +336,14 @@ export class TicketService {
         const revealedTabs = ticket.revealed_tabs || [];
         if (!revealedTabs.includes(tabIndex)) {
             revealedTabs.push(tabIndex);
+<<<<<<< HEAD
             await ticket.update({ revealed_tabs: revealedTabs });
+=======
+            // Force array update for PostgreSQL
+            ticket.revealed_tabs = revealedTabs;
+            ticket.changed('revealed_tabs', true);
+            await ticket.save();
+>>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
         }
 
         // Get the symbols for this tab (3 symbols per tab)

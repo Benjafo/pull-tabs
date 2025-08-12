@@ -71,23 +71,24 @@ export class GameBox
     /**
      * Decrement ticket count and mark complete if needed
      */
-    public async useTicket(): Promise<void> {
+    public async useTicket(transaction?: any): Promise<void> {
         this.remaining_tickets -= 1;
         if (this.remaining_tickets === 0) {
             this.completed_at = new Date();
         }
-        await this.save();
+        await this.save({ transaction });
     }
 
     /**
      * Decrement winner count for specific prize
      */
-    public async useWinner(prize: keyof WinnersRemaining): Promise<void> {
+    public async useWinner(prize: keyof WinnersRemaining, transaction?: any): Promise<void> {
         const winners = { ...this.winners_remaining };
         if (winners[prize] > 0) {
             winners[prize] -= 1;
             this.winners_remaining = winners;
-            await this.save();
+            this.changed('winners_remaining', true);
+            await this.save({ transaction });
         }
     }
 }
