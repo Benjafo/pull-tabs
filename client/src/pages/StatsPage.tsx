@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import statsService, { UserStats } from '../services/statsService';
+import statsService from '../services/statsService';
+import type { UserStats } from '../services/statsService';
 import { useAuth } from '../hooks/useAuth';
 
 export function StatsPage() {
