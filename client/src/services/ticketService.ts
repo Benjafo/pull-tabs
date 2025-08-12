@@ -1,19 +1,21 @@
 import api from './api';
 import { API_ENDPOINTS } from '../config/constants';
 
-export enum SymbolType {
-  SKULL = 1,
-  TREASURE = 2,
-  SHIP = 3,
-  ANCHOR = 4,
-  COMPASS = 5,
-  MAP = 6,
-}
+export const SymbolType = {
+  SKULL: 1,
+  TREASURE: 2,
+  SHIP: 3,
+  ANCHOR: 4,
+  COMPASS: 5,
+  MAP: 6,
+} as const;
+
+export type SymbolType = typeof SymbolType[keyof typeof SymbolType];
 
 export interface WinningLine {
   lineNumber: number;
   positions: number[];
-  symbols: SymbolType[];
+  symbols: number[];
   prize: number;
 }
 
@@ -21,7 +23,7 @@ export interface Ticket {
   id: string;
   userId: string;
   gameBoxId: string;
-  symbols: SymbolType[];
+  symbols: number[];
   winningLines: WinningLine[];
   totalPayout: number;
   isWinner: boolean;
@@ -40,7 +42,7 @@ export interface PurchaseResponse {
 
 export interface RevealResponse {
   tabNumber: number;
-  symbols: SymbolType[];
+  symbols: number[];
   isComplete: boolean;
   winnings?: number;
 }
