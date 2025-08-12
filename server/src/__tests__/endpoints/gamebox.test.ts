@@ -1,11 +1,7 @@
 import request from "supertest";
 import app from "../../app";
 import sequelize from "../../config/database";
-<<<<<<< HEAD
-import { GameBox, User, Ticket } from "../../models";
-=======
 import { GameBox, User, Ticket, UserStatistics } from "../../models";
->>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
 import { GameSymbol } from "../../models/Ticket";
 
 describe("GameBox Endpoints", () => {
@@ -14,13 +10,9 @@ describe("GameBox Endpoints", () => {
     });
 
     beforeEach(async () => {
-<<<<<<< HEAD
-        await Ticket.destroy({ where: {} });
-=======
         // Clean up in correct order to respect foreign keys
         await Ticket.destroy({ where: {} });
         await UserStatistics.destroy({ where: {} });
->>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
         await GameBox.destroy({ where: {} });
         await User.destroy({ where: {} });
     });

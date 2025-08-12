@@ -30,9 +30,6 @@ export class TicketController {
             });
         } catch (error) {
             console.error("Error purchasing ticket:", error);
-<<<<<<< HEAD
-            res.status(500).json({ error: "Failed to purchase ticket" });
-=======
             if (error instanceof Error) {
                 if (error.message.includes("No game box available")) {
                     res.status(503).json({ error: "No game box available. Please try again later." });
@@ -44,7 +41,6 @@ export class TicketController {
             } else {
                 res.status(500).json({ error: "Failed to purchase ticket" });
             }
->>>>>>> 19b5c1f (task: modify server/src/__tests__/integration/gameFlow.test.ts - 17:51,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45,modify server/src/__tests__/integration/gameFlow.test.ts - 17:45, - 2025-08-12)
         }
     }
 
