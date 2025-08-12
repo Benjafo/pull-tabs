@@ -50,11 +50,13 @@ describe("Validation Middleware", () => {
         });
 
         it("should reject long username", async () => {
-            const response = await request(app).post("/test-register").send({
-                username: "a".repeat(51),
-                email: "valid@example.com",
-                password: "ValidPass123",
-            });
+            const response = await request(app)
+                .post("/test-register")
+                .send({
+                    username: "a".repeat(51),
+                    email: "valid@example.com",
+                    password: "ValidPass123",
+                });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
@@ -159,9 +161,14 @@ describe("Validation Middleware", () => {
 
     describe("Login Validation", () => {
         beforeEach(() => {
-            app.post("/test-login", validateLogin, handleValidationErrors, (_req: Request, res: Response) => {
-                res.json({ success: true });
-            });
+            app.post(
+                "/test-login",
+                validateLogin,
+                handleValidationErrors,
+                (_req: Request, res: Response) => {
+                    res.json({ success: true });
+                }
+            );
         });
 
         it("should pass with valid login data", async () => {

@@ -29,13 +29,13 @@ describe("JWT Utilities", () => {
             const payload = { userId: 123, username: "testuser" };
             const token = generateToken(payload);
 
-            const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
             expect(decoded.userId).toBe(123);
             expect(decoded.username).toBe("testuser");
         });
 
         it("should throw error if JWT_SECRET is not configured", () => {
-            process.env.JWT_SECRET = undefined as any;
+            process.env.JWT_SECRET = undefined as unknown as string;
 
             expect(() => {
                 generateToken({ userId: 1, username: "test" });
@@ -46,10 +46,10 @@ describe("JWT Utilities", () => {
             const payload = { userId: 1, username: "testuser" };
             const token = generateToken(payload);
 
-            const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
+            const decoded = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
             expect(decoded.exp).toBeDefined();
             expect(decoded.iat).toBeDefined();
-            expect(decoded.exp - decoded.iat).toBe(24 * 60 * 60); // 24 hours in seconds
+            expect((decoded.exp || 0) - (decoded.iat || 0)).toBe(24 * 60 * 60); // 24 hours in seconds
         });
     });
 
@@ -82,7 +82,7 @@ describe("JWT Utilities", () => {
 
         it("should throw error if JWT_SECRET is not configured", () => {
             const token = generateToken({ userId: 1, username: "test" });
-            process.env.JWT_SECRET = undefined as any;
+            process.env.JWT_SECRET = undefined as unknown as string;
 
             expect(() => {
                 verifyToken(token);

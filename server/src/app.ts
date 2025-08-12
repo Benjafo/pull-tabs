@@ -10,6 +10,9 @@ dotenv.config();
 
 // Import routes
 import authRoutes from "./routes/auth.routes";
+import ticketRoutes from "./routes/ticket.routes";
+import statsRoutes from "./routes/stats.routes";
+import gameboxRoutes from "./routes/gamebox.routes";
 
 // Import middleware
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
@@ -28,10 +31,10 @@ app.use(
     })
 );
 
-// Rate limiting
+// Rate limiting (relaxed in test environment)
 const limiter = rateLimit({
     windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || "900000"),
-    max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "100"),
+    max: process.env.NODE_ENV === "test" ? 10000 : parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "100"),
     message: "Too many requests from this IP, please try again later.",
 });
 app.use("/api", limiter);
@@ -48,6 +51,9 @@ app.get("/health", (_req, res) => {
 
 // API routes
 app.use("/api/auth", authRoutes);
+app.use("/api/tickets", ticketRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/gamebox", gameboxRoutes);
 
 // Error handling middleware (must be last)
 app.use(notFoundHandler);

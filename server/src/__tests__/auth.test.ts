@@ -1,16 +1,23 @@
 import request from "supertest";
 import app from "../app";
 import sequelize from "../config/database";
-import { User, UserStatistics } from "../models";
+import { User, UserStatistics, Ticket } from "../models";
 
 describe("Authentication Endpoints", () => {
     beforeAll(async () => {
-        await sequelize.sync({ force: true });
+        try {
+            await sequelize.sync({ force: true });
+        } catch (error) {
+            // If force sync fails, try to manually clean up
+            await sequelize.query('TRUNCATE TABLE tickets, user_statistics, game_boxes, users CASCADE');
+        }
     });
 
     beforeEach(async () => {
-        await User.destroy({ where: {} });
+        // Clean up in correct order to respect foreign keys
+        await Ticket.destroy({ where: {} });
         await UserStatistics.destroy({ where: {} });
+        await User.destroy({ where: {} });
     });
 
     describe("POST /api/auth/register", () => {
@@ -50,13 +57,11 @@ describe("Authentication Endpoints", () => {
 
             await request(app).post("/api/auth/register").send(userData);
 
-            const response = await request(app)
-                .post("/api/auth/register")
-                .send({
-                    username: "testuser",
-                    email: "test2@example.com",
-                    password: "TestPass456",
-                });
+            const response = await request(app).post("/api/auth/register").send({
+                username: "testuser",
+                email: "test2@example.com",
+                password: "TestPass456",
+            });
 
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("Username already taken");
@@ -71,26 +76,22 @@ describe("Authentication Endpoints", () => {
 
             await request(app).post("/api/auth/register").send(userData);
 
-            const response = await request(app)
-                .post("/api/auth/register")
-                .send({
-                    username: "testuser2",
-                    email: "test@example.com",
-                    password: "TestPass456",
-                });
+            const response = await request(app).post("/api/auth/register").send({
+                username: "testuser2",
+                email: "test@example.com",
+                password: "TestPass456",
+            });
 
             expect(response.status).toBe(400);
             expect(response.body.error).toBe("Email already registered");
         });
 
         it("should validate username format", async () => {
-            const response = await request(app)
-                .post("/api/auth/register")
-                .send({
-                    username: "ab",
-                    email: "test@example.com",
-                    password: "TestPass123",
-                });
+            const response = await request(app).post("/api/auth/register").send({
+                username: "ab",
+                email: "test@example.com",
+                password: "TestPass123",
+            });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
@@ -98,13 +99,11 @@ describe("Authentication Endpoints", () => {
         });
 
         it("should validate email format", async () => {
-            const response = await request(app)
-                .post("/api/auth/register")
-                .send({
-                    username: "testuser",
-                    email: "invalid-email",
-                    password: "TestPass123",
-                });
+            const response = await request(app).post("/api/auth/register").send({
+                username: "testuser",
+                email: "invalid-email",
+                password: "TestPass123",
+            });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
@@ -112,13 +111,11 @@ describe("Authentication Endpoints", () => {
         });
 
         it("should validate password complexity", async () => {
-            const response = await request(app)
-                .post("/api/auth/register")
-                .send({
-                    username: "testuser",
-                    email: "test@example.com",
-                    password: "weak",
-                });
+            const response = await request(app).post("/api/auth/register").send({
+                username: "testuser",
+                email: "test@example.com",
+                password: "weak",
+            });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
@@ -137,12 +134,10 @@ describe("Authentication Endpoints", () => {
         });
 
         it("should login with valid credentials", async () => {
-            const response = await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "testuser",
-                    password: "TestPass123",
-                });
+            const response = await request(app).post("/api/auth/login").send({
+                username: "testuser",
+                password: "TestPass123",
+            });
 
             expect(response.status).toBe(200);
             expect(response.body.message).toBe("Login successful");
@@ -151,36 +146,30 @@ describe("Authentication Endpoints", () => {
         });
 
         it("should login with email instead of username", async () => {
-            const response = await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "test@example.com",
-                    password: "TestPass123",
-                });
+            const response = await request(app).post("/api/auth/login").send({
+                username: "test@example.com",
+                password: "TestPass123",
+            });
 
             expect(response.status).toBe(200);
             expect(response.body.message).toBe("Login successful");
         });
 
         it("should reject login with invalid username", async () => {
-            const response = await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "wronguser",
-                    password: "TestPass123",
-                });
+            const response = await request(app).post("/api/auth/login").send({
+                username: "wronguser",
+                password: "TestPass123",
+            });
 
             expect(response.status).toBe(401);
             expect(response.body.error).toBe("Invalid credentials");
         });
 
         it("should reject login with invalid password", async () => {
-            const response = await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "testuser",
-                    password: "WrongPassword",
-                });
+            const response = await request(app).post("/api/auth/login").send({
+                username: "testuser",
+                password: "WrongPassword",
+            });
 
             expect(response.status).toBe(401);
             expect(response.body.error).toBe("Invalid credentials");
@@ -191,12 +180,10 @@ describe("Authentication Endpoints", () => {
             const initialStats = await UserStatistics.findOne({ where: { user_id: user?.id } });
             const initialSessions = initialStats?.sessions_played || 0;
 
-            await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "testuser",
-                    password: "TestPass123",
-                });
+            await request(app).post("/api/auth/login").send({
+                username: "testuser",
+                password: "TestPass123",
+            });
 
             const updatedStats = await UserStatistics.findOne({ where: { user_id: user?.id } });
             expect(updatedStats?.sessions_played).toBe(initialSessions + 1);
@@ -225,20 +212,16 @@ describe("Authentication Endpoints", () => {
                 password: "TestPass123",
             });
 
-            const loginResponse = await request(app)
-                .post("/api/auth/login")
-                .send({
-                    username: "testuser",
-                    password: "TestPass123",
-                });
+            const loginResponse = await request(app).post("/api/auth/login").send({
+                username: "testuser",
+                password: "TestPass123",
+            });
 
             authCookie = loginResponse.headers["set-cookie"][0];
         });
 
         it("should verify valid authentication token", async () => {
-            const response = await request(app)
-                .get("/api/auth/verify")
-                .set("Cookie", authCookie);
+            const response = await request(app).get("/api/auth/verify").set("Cookie", authCookie);
 
             expect(response.status).toBe(200);
             expect(response.body.user.username).toBe("testuser");
