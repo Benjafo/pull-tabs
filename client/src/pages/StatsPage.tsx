@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import statsService, { UserStats } from '../services/statsService';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 export function StatsPage() {
   const { user } = useAuth();
