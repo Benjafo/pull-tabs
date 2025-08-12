@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import authService, { User, LoginCredentials, RegisterCredentials } from '../services/authService';
 
 interface AuthContextType {
@@ -11,15 +11,7 @@ interface AuthContextType {
   clearError: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-}
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -38,7 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const user = await authService.verifyToken();
       setUser(user);
-    } catch (err) {
+    } catch {
       // User is not authenticated
       setUser(null);
     } finally {
