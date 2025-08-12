@@ -20,18 +20,18 @@ export class UserStatistics
     extends Model<UserStatisticsAttributes, UserStatisticsCreationAttributes>
     implements UserStatisticsAttributes
 {
-    public id!: number;
-    public user_id!: number;
-    public tickets_played!: number;
-    public total_winnings!: number;
-    public biggest_win!: number;
-    public sessions_played!: number;
-    public last_played!: Date | null;
-    public created_at!: Date;
-    public updated_at!: Date;
+    declare id: number;
+    declare user_id: number;
+    declare tickets_played: number;
+    declare total_winnings: number;
+    declare biggest_win: number;
+    declare sessions_played: number;
+    declare last_played: Date | null;
+    declare created_at: Date;
+    declare updated_at: Date;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 
     /**
      * Update statistics after a ticket purchase
@@ -90,11 +90,19 @@ UserStatistics.init(
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
             defaultValue: 0,
+            get() {
+                const value = this.getDataValue("total_winnings");
+                return value ? Number(value) : 0;
+            },
         },
         biggest_win: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
             defaultValue: 0,
+            get() {
+                const value = this.getDataValue("biggest_win");
+                return value ? Number(value) : 0;
+            },
         },
         sessions_played: {
             type: DataTypes.INTEGER,

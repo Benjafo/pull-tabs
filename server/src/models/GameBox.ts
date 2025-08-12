@@ -25,15 +25,15 @@ export class GameBox
     extends Model<GameBoxAttributes, GameBoxCreationAttributes>
     implements GameBoxAttributes
 {
-    public id!: number;
-    public total_tickets!: number;
-    public remaining_tickets!: number;
-    public winners_remaining!: WinnersRemaining;
-    public created_at!: Date;
-    public completed_at!: Date | null;
+    declare id: number;
+    declare total_tickets: number;
+    declare remaining_tickets: number;
+    declare winners_remaining: WinnersRemaining;
+    declare created_at: Date;
+    declare completed_at: Date | null;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 
     /**
      * Initialize a new game box with standard distribution

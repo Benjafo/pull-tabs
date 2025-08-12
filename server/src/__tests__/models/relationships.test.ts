@@ -1,6 +1,7 @@
 import sequelize from "../../config/database";
 import { User, UserStatistics, GameBox, Ticket } from "../../models";
 import { GameSymbol } from "../../models/Ticket";
+import "../../models/associations";
 
 describe("Model Relationships", () => {
     beforeAll(async () => {
@@ -136,7 +137,7 @@ describe("Model Relationships", () => {
                 is_winner: false,
             });
 
-            const ticket2 = await Ticket.create({
+            await Ticket.create({
                 user_id: user.id,
                 game_box_id: gameBox.id,
                 symbols: Array(15).fill(GameSymbol.COMPASS),

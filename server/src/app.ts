@@ -10,6 +10,9 @@ dotenv.config();
 
 // Import routes
 import authRoutes from "./routes/auth.routes";
+import ticketRoutes from "./routes/ticket.routes";
+import statsRoutes from "./routes/stats.routes";
+import gameboxRoutes from "./routes/gamebox.routes";
 
 // Import middleware
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
@@ -48,6 +51,9 @@ app.get("/health", (_req, res) => {
 
 // API routes
 app.use("/api/auth", authRoutes);
+app.use("/api/tickets", ticketRoutes);
+app.use("/api/stats", statsRoutes);
+app.use("/api/gamebox", gameboxRoutes);
 
 // Error handling middleware (must be last)
 app.use(notFoundHandler);

@@ -14,15 +14,15 @@ export interface UserAttributes {
 interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-    public id!: number;
-    public username!: string;
-    public email!: string;
-    public password_hash!: string;
-    public created_at!: Date;
-    public last_login!: Date | null;
+    declare id: number;
+    declare username: string;
+    declare email: string;
+    declare password_hash: string;
+    declare created_at: Date;
+    declare last_login: Date | null;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 
     /**
      * Hash password before saving

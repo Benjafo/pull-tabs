@@ -26,6 +26,7 @@ export interface TicketAttributes {
     winning_lines: WinningLine[];
     total_payout: number;
     is_winner: boolean;
+    revealed_tabs?: number[];
     created_at?: Date;
 }
 
@@ -35,17 +36,18 @@ export class Ticket
     extends Model<TicketAttributes, TicketCreationAttributes>
     implements TicketAttributes
 {
-    public id!: number;
-    public user_id!: number;
-    public game_box_id!: number;
-    public symbols!: GameSymbol[];
-    public winning_lines!: WinningLine[];
-    public total_payout!: number;
-    public is_winner!: boolean;
-    public created_at!: Date;
+    declare id: number;
+    declare user_id: number;
+    declare game_box_id: number;
+    declare symbols: GameSymbol[];
+    declare winning_lines: WinningLine[];
+    declare total_payout: number;
+    declare is_winner: boolean;
+    declare revealed_tabs: number[];
+    declare created_at: Date;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 
     /**
      * Check for winning lines in the ticket
@@ -135,7 +137,11 @@ Ticket.init(
             type: DataTypes.ARRAY(DataTypes.INTEGER),
             allowNull: false,
             validate: {
-                len: [15, 15],
+                isArrayLength(value: number[]) {
+                    if (value.length !== 15) {
+                        throw new Error("Symbols array must contain exactly 15 elements");
+                    }
+                },
             },
         },
         winning_lines: {
@@ -147,11 +153,20 @@ Ticket.init(
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false,
             defaultValue: 0,
+            get() {
+                const value = this.getDataValue("total_payout");
+                return value ? Number(value) : 0;
+            },
         },
         is_winner: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false,
+        },
+        revealed_tabs: {
+            type: DataTypes.ARRAY(DataTypes.INTEGER),
+            allowNull: false,
+            defaultValue: [],
         },
         created_at: {
             type: DataTypes.DATE,
