@@ -53,7 +53,7 @@ export function RegisterForm() {
         password: formData.password,
       });
       navigate('/game');
-    } catch (err) {
+    } catch {
       // Error is handled in context
     } finally {
       setIsSubmitting(false);
