@@ -20,31 +20,43 @@ export interface WinningLine {
 }
 
 export interface Ticket {
-  id: string;
-  userId: string;
-  gameBoxId: string;
-  symbols: number[];
-  winningLines: WinningLine[];
-  totalPayout: number;
-  isWinner: boolean;
+  id: string | number;
+  gameBoxId: string | number;
+  symbols?: number[];
+  winningLines?: WinningLine[];
+  totalPayout?: number;
+  isWinner?: boolean;
   createdAt: string;
   revealedTabs?: number[];
+  isFullyRevealed?: boolean;
 }
 
 export interface PurchaseResponse {
-  ticket: Ticket;
-  gameBox: {
-    id: string;
-    remainingTickets: number;
-    totalTickets: number;
+  message: string;
+  ticket: {
+    id: number;
+    gameBoxId: number;
+    createdAt: string;
   };
 }
 
 export interface RevealResponse {
-  tabNumber: number;
-  symbols: number[];
-  isComplete: boolean;
-  winnings?: number;
+  message: string;
+  tab: {
+    index: number;
+    symbols: number[];
+    winDetected: boolean;
+  };
+  ticket: {
+    id: number;
+    revealedTabs: number[];
+    isFullyRevealed: boolean;
+    symbols?: number[];
+    winningLines?: WinningLine[];
+    totalPayout?: number;
+    isWinner?: boolean;
+  };
+  totalPayout?: number;
 }
 
 class TicketService {
