@@ -52,7 +52,7 @@ export function GameStatusPanel({ gameBox, currentWinnings, isPlaying }: GameSta
           <div className="text-xs font-semibold text-gray-700 mb-2">Winners in Box</div>
           <div className="grid grid-cols-3 gap-1 text-xs">
             {Object.entries(gameBox.winnersRemaining)
-              .filter(([_, count]) => count > 0)
+              .filter(([, count]) => count > 0)
               .sort(([a], [b]) => Number(b) - Number(a))
               .map(([prize, count]) => (
                 <div key={prize} className="flex items-center gap-1">

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import type { GameBoxStatus, UserStats } from "../services/statsService";
-import type { Ticket } from "../services/ticketService";
-import statsService from "../services/statsService";
-import ticketService from "../services/ticketService";
+import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
 import { WinAnimation } from "../components/game/WinAnimation";
-import { GameStatusPanel } from "../components/game/GameStatusPanel";
+import type { GameBoxStatus, UserStats } from "../services/statsService";
+import statsService from "../services/statsService";
+import type { Ticket } from "../services/ticketService";
+import ticketService from "../services/ticketService";
 
 export function GamePage() {
     const [stats, setStats] = useState<UserStats | null>(null);
@@ -45,8 +45,9 @@ export function GamePage() {
             setIsPurchasing(true);
             setError(null);
             const response = await ticketService.purchaseTicket();
+            console.log("Ticket purchased:", response);
             setCurrentTicket(response.ticket);
-            setGameBox(prev => ({
+            setGameBox((prev) => ({
                 ...prev!,
                 remainingTickets: response.gameBox.remainingTickets,
             }));
@@ -64,7 +65,7 @@ export function GamePage() {
             setLastWinAmount(totalWinnings);
             setShowWinAnimation(true);
         }
-        
+
         // Reload stats to show updated values
         const [userStats, boxStatus] = await Promise.all([
             statsService.getUserStats(),
@@ -93,7 +94,7 @@ export function GamePage() {
                 <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
                     <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Game</h2>
                     <p className="text-gray-600 mb-6">{error}</p>
-                    <button 
+                    <button
                         onClick={loadGameData}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
                     >
@@ -117,7 +118,7 @@ export function GamePage() {
                                 disabled={isPurchasing}
                                 className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
-                                {isPurchasing ? 'Purchasing...' : 'Buy Ticket ($1)'}
+                                {isPurchasing ? "Purchasing..." : "Buy Ticket ($1)"}
                             </button>
                         ) : (
                             <button
@@ -134,10 +135,7 @@ export function GamePage() {
             {/* Game Area */}
             <div className="min-h-[650px] flex items-center justify-center">
                 {currentTicket ? (
-                    <TicketComponent 
-                        ticket={currentTicket} 
-                        onComplete={handleTicketComplete}
-                    />
+                    <TicketComponent ticket={currentTicket} onComplete={handleTicketComplete} />
                 ) : (
                     <div className="bg-gradient-treasure rounded-lg shadow-lg p-12 text-center text-white max-w-2xl">
                         <div className="text-6xl mb-6">🏴‍☠️</div>
@@ -150,7 +148,7 @@ export function GamePage() {
                             disabled={isPurchasing}
                             className="bg-yellow-400 hover:bg-yellow-500 text-indigo-900 px-10 py-4 rounded-lg text-xl font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            {isPurchasing ? 'Purchasing...' : 'Start Playing'}
+                            {isPurchasing ? "Purchasing..." : "Start Playing"}
                         </button>
                     </div>
                 )}
@@ -163,7 +161,9 @@ export function GamePage() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
                             <div className="text-sm text-gray-600 mb-1">Tickets Played</div>
-                            <div className="text-2xl font-bold text-blue-700">{stats.ticketsPlayed}</div>
+                            <div className="text-2xl font-bold text-blue-700">
+                                {stats.ticketsPlayed}
+                            </div>
                         </div>
                         <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
                             <div className="text-sm text-gray-600 mb-1">Total Winnings</div>
@@ -188,16 +188,16 @@ export function GamePage() {
             </div>
 
             {/* Game Status Panel */}
-            <GameStatusPanel 
-                gameBox={gameBox} 
+            <GameStatusPanel
+                gameBox={gameBox}
                 currentWinnings={currentWinnings}
                 isPlaying={!!currentTicket}
             />
 
             {/* Win Animation */}
             {showWinAnimation && (
-                <WinAnimation 
-                    amount={lastWinAmount} 
+                <WinAnimation
+                    amount={lastWinAmount}
                     onComplete={() => setShowWinAnimation(false)}
                 />
             )}
