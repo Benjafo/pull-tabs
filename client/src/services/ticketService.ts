@@ -66,14 +66,16 @@ class TicketService {
   }
 
   async getTicket(id: string): Promise<Ticket> {
-    const response = await api.get<Ticket>(API_ENDPOINTS.TICKETS.GET(id));
-    return response.data;
+    const response = await api.get<{ ticket: Ticket }>(API_ENDPOINTS.TICKETS.GET(id));
+    return response.data.ticket;
   }
 
-  async revealTab(ticketId: string, tabNumber: number): Promise<RevealResponse> {
+  async revealTab(ticketId: string | number, tabNumber: number): Promise<RevealResponse> {
+    // Backend expects tabIndex (0-based) instead of tabNumber (1-based)
+    const tabIndex = tabNumber - 1;
     const response = await api.post<RevealResponse>(
-      API_ENDPOINTS.TICKETS.REVEAL(ticketId),
-      { tabNumber }
+      API_ENDPOINTS.TICKETS.REVEAL(ticketId.toString()),
+      { tabIndex }
     );
     return response.data;
   }
