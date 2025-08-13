@@ -45,5 +45,21 @@ services:
       - /app/node_modules
     command: npm run dev
 
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: pulltabs-client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - server
+    environment:
+      VITE_API_URL: http://localhost:3001
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    command: npm run dev
+
 volumes:
   postgres_data:
