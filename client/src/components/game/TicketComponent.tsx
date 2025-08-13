@@ -15,7 +15,10 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
   const [revealedTabs, setRevealedTabs] = useState<number[]>(ticket.revealedTabs || []);
   const [currentWinnings, setCurrentWinnings] = useState(0);
   const [isRevealing, setIsRevealing] = useState(false);
-  const [symbols, setSymbols] = useState<number[]>(ticket.symbols || []);
+  // Initialize with 15 placeholder symbols if not provided
+  const [symbols, setSymbols] = useState<number[]>(
+    ticket.symbols || Array(15).fill(1)
+  );
 
   useEffect(() => {
     if (revealedTabs.length === 5 && onComplete) {
