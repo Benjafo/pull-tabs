@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
 import { WinAnimation } from "../components/game/WinAnimation";
