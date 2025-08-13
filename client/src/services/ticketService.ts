@@ -49,7 +49,7 @@ export interface RevealResponse {
   };
   ticket: {
     id: number;
-    revealedTabs: number[];
+    revealedTabs: boolean[]; // Boolean array where index represents tab position
     isFullyRevealed: boolean;
     symbols?: number[];
     winningLines?: WinningLine[];
