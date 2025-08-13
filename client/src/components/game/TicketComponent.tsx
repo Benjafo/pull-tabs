@@ -33,7 +33,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
 
     setIsRevealing(true);
     try {
-      const response = await ticketService.revealTab(ticket.id, tabNumber);
+      await ticketService.revealTab(ticket.id, tabNumber);
       
       setRevealedTabs(prev => [...prev, tabNumber]);
       
