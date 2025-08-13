@@ -12,9 +12,10 @@ interface TicketComponentProps {
 
 export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const [revealedTabs, setRevealedTabs] = useState<number[]>([]);
+  const [revealedTabs, setRevealedTabs] = useState<number[]>(ticket.revealedTabs || []);
   const [currentWinnings, setCurrentWinnings] = useState(0);
   const [isRevealing, setIsRevealing] = useState(false);
+  const [symbols, setSymbols] = useState<number[]>(ticket.symbols || []);
 
   useEffect(() => {
     if (revealedTabs.length === 5 && onComplete) {
