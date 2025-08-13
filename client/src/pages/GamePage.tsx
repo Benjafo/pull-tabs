@@ -63,7 +63,7 @@ export function GamePage() {
         }
     };
 
-    const handleTicketComplete = async (totalWinnings: number) => {
+    const handleTicketComplete = useCallback(async (totalWinnings: number) => {
         setCurrentWinnings(totalWinnings);
         if (totalWinnings > 0) {
             setLastWinAmount(totalWinnings);
@@ -77,7 +77,7 @@ export function GamePage() {
         ]);
         setStats(userStats);
         setGameBox(boxStatus);
-    };
+    }, []);
 
     const handleNewTicket = () => {
         setCurrentTicket(null);
