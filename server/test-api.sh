@@ -3,7 +3,7 @@
 # API Testing Script for Pull Tabs Game
 # This script tests all Phase 2 endpoints
 
-BASE_URL="http://localhost:3002"
+BASE_URL="http://localhost:3001"
 USERNAME="testuser_$(date +%s)"
 EMAIL="${USERNAME}@example.com"
 PASSWORD="TestPassword123"
