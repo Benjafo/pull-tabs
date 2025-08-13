@@ -55,11 +55,13 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
       // Update symbols for this specific tab from the response
       // Backend sends the tab index (0-based) in response.tab.index
       const tabIndex = response.tab.index;
-      const newSymbols = [...symbols];
-      response.tab.symbols.forEach((symbol, idx) => {
-        newSymbols[tabIndex * 3 + idx] = symbol;
+      setSymbols(prevSymbols => {
+        const newSymbols = [...prevSymbols];
+        response.tab.symbols.forEach((symbol, idx) => {
+          newSymbols[tabIndex * 3 + idx] = symbol;
+        });
+        return newSymbols;
       });
-      setSymbols(newSymbols);
       
       // Update current winnings if win detected
       if (response.tab.winDetected && response.totalPayout) {
