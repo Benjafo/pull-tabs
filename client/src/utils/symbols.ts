@@ -1,10 +1,10 @@
 export const SymbolType = {
-  SKULL: 1,
-  TREASURE: 2,
-  SHIP: 3,
-  ANCHOR: 4,
-  COMPASS: 5,
-  MAP: 6,
+  SKULL: 0,
+  TREASURE: 1,
+  SHIP: 2,
+  ANCHOR: 3,
+  COMPASS: 4,
+  MAP: 5,
 } as const;
 
 export type SymbolType = typeof SymbolType[keyof typeof SymbolType];
