@@ -3,7 +3,7 @@ import { Response } from "express";
 
 interface TokenPayload {
     userId: number;
-    username: string;
+    email: string;
 }
 
 /**

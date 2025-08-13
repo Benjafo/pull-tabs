@@ -164,7 +164,7 @@ export class StatsController {
                 include: [
                     {
                         model: User,
-                        attributes: ["username"],
+                        attributes: ["email"],
                     },
                 ],
             });
@@ -172,7 +172,7 @@ export class StatsController {
             res.json({
                 leaderboard: topPlayers.map((stat, index) => ({
                     rank: index + 1,
-                    username: stat.User?.username || "Anonymous",
+                    email: stat.User?.email || "Anonymous",
                     value: stat[metric as keyof UserStatistics],
                     ticketsPlayed: stat.tickets_played,
                     totalWinnings: stat.total_winnings,

@@ -1,6 +1,7 @@
 # Docker Setup Guide
 
 ## Prerequisites
+
 - Docker Desktop (Windows/Mac) or Docker Engine (Linux)
 - Docker Compose v2+
 
@@ -19,6 +20,7 @@ chmod +x scripts/*.sh
 ```
 
 The application will be available at:
+
 - **Server**: http://localhost:3001
 - **Database**: localhost:5432
 
@@ -125,6 +127,7 @@ Docker uses environment variables from `docker-compose.yml`:
 ## Troubleshooting
 
 ### Services won't start
+
 ```bash
 # Check service status
 docker-compose ps
@@ -138,6 +141,7 @@ docker-compose logs
 ```
 
 ### Database connection issues
+
 ```bash
 # Check if database is healthy
 docker-compose ps postgres
@@ -150,16 +154,19 @@ docker-compose exec postgres psql -U postgres
 ```
 
 ### Port conflicts
+
 If ports 3001 or 5432 are already in use:
 
 1. Stop conflicting services, or
 2. Change ports in `docker-compose.yml`:
+
 ```yaml
 ports:
-  - "3002:3001"  # Change external port
+  - "3001:3001" # Change external port
 ```
 
 ### Permission issues (Linux)
+
 ```bash
 # Fix script permissions
 chmod +x scripts/*.sh
@@ -172,6 +179,7 @@ sudo usermod -aG docker $USER
 ## Production Deployment
 
 For production, create `docker-compose.prod.yml` with:
+
 - Production database credentials
 - SSL/TLS configuration
 - Optimized build settings

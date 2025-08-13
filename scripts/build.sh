@@ -28,8 +28,8 @@ if docker-compose ps | grep -q "Up"; then
     echo "✅ Build complete! Services are running."
     echo ""
     echo "📍 Access points:"
-    echo "   Server:   http://localhost:3002"
-    echo "   Database: localhost:5433"
+    echo "   Server:   http://localhost:3001"
+    echo "   Database: localhost:5432"
     echo ""
 else
     echo "❌ Error: Services failed to start"

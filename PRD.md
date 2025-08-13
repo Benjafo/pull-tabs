@@ -228,7 +228,7 @@ GET  /api/user/profile      // Get user profile
 PUT  /api/user/profile      // Update user profile
 ```
 
-## 5.5 Authentication Implementation
+### 5.5 Authentication Implementation
 
 - **JWT Storage**: Store JWT tokens in httpOnly cookies for security
 - **Token Expiration**: 24-hour token expiration with refresh mechanism
@@ -236,27 +236,27 @@ PUT  /api/user/profile      // Update user profile
 - **Middleware**: Express middleware for token validation
 - **Frontend**: Automatic token refresh and redirect to login on expiration
 
-## 5.6 User Experience Updates
+### 5.6 User Experience Updates
 
 - **Landing Page**: Login/Register form before accessing game
 - **Guest Mode**: Optional anonymous play with limited features
 - **Profile Management**: Basic user profile with username/email management
 - **Persistent Progress**: All statistics and game progress tied to user account
 
-# 6. Performance Requirements
+## 6. Performance Requirements
 
 - **Load Time**: Initial page load under 2 seconds
 - **Animation Smoothness**: 60fps for all animations
 - **Response Time**: API calls under 200ms
 - **Browser Support**: Modern desktop browsers (Chrome, Firefox, Safari, Edge)
 
-# 7. Data Persistence
+## 7. Data Persistence
 
 - **Game State**: All game box states, ticket purchases, and user statistics persist across browser sessions
 - **User Authentication**: JWT-based authentication with secure token storage
 - **Backup Strategy**: Regular database backups to prevent loss of game progression
 
-# 8. Future Enhancements (Out of Scope for MVP)
+## 8. Future Enhancements (Out of Scope for MVP)
 
 - Multiple game themes beyond pirate treasure
 - Leaderboards and social features
@@ -266,7 +266,7 @@ PUT  /api/user/profile      // Update user profile
 
 ## 9. Development Phases
 
-### Phase 1: Backend Foundation
+#### Phase 1: Backend Foundation
 
 **Deliverables:**
 
@@ -288,7 +288,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 2: Game Logic Engine
+#### Phase 2: Game Logic Engine
 
 **Deliverables:**
 
@@ -316,7 +316,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 3: Frontend Core Structure
+#### Phase 3: Frontend Core Structure
 
 **Deliverables:**
 
@@ -338,7 +338,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 4: Game Interface Implementation
+#### Phase 4: Game Interface Implementation
 
 **Deliverables:**
 
@@ -368,7 +368,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 5: Visual Design and Animations
+#### Phase 5: Visual Design and Animations
 
 **Deliverables:**
 
@@ -396,7 +396,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 6: Integration and Polish
+#### Phase 6: Integration and Polish
 
 **Deliverables:**
 
@@ -418,7 +418,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Phase 7: Testing and Deployment
+#### Phase 7: Testing and Deployment
 
 **Deliverables:**
 
@@ -440,7 +440,7 @@ PUT  /api/user/profile      // Update user profile
 
 ---
 
-### Priority Order
+#### Priority Order
 
 1. **Start with Phase 1** - Backend foundation is critical for all other phases
 2. **Complete Phase 2** before moving to frontend - Game logic must be solid
@@ -448,7 +448,7 @@ PUT  /api/user/profile      // Update user profile
 4. **Phase 5** should only begin after core functionality is working
 5. **Phases 6-7** are final integration and deployment
 
-### Key Implementation Guidelines
+#### Key Implementation Guidelines
 
 - **Database First:** Ensure database schema and relationships are correct before building APIs
 - **API Testing:** Test each endpoint thoroughly before frontend integration
@@ -456,7 +456,7 @@ PUT  /api/user/profile      // Update user profile
 - **Security Focus:** Implement proper authentication and input validation from the start
 - **Performance Consideration:** Keep animations smooth and API responses fast
 
-### Success Criteria for Each Phase
+#### Success Criteria for Each Phase
 
 - **Phase 1:** User can register, login, and receive JWT tokens
 - **Phase 2:** Backend can generate tickets with correct odds and detect wins

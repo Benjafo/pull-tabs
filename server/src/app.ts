@@ -1,18 +1,18 @@
-import express, { Application } from "express";
-import cors from "cors";
-import helmet from "helmet";
 import cookieParser from "cookie-parser";
-import rateLimit from "express-rate-limit";
+import cors from "cors";
 import dotenv from "dotenv";
+import express, { Application } from "express";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 
 // Load environment variables
 dotenv.config();
 
 // Import routes
 import authRoutes from "./routes/auth.routes";
-import ticketRoutes from "./routes/ticket.routes";
-import statsRoutes from "./routes/stats.routes";
 import gameboxRoutes from "./routes/gamebox.routes";
+import statsRoutes from "./routes/stats.routes";
+import ticketRoutes from "./routes/ticket.routes";
 
 // Import middleware
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
@@ -31,10 +31,18 @@ app.use(
     })
 );
 
-// Rate limiting (relaxed in test environment)
+// Rate limiting
+let maxRequests;
+if (process.env.NODE_ENV === "test") {
+    maxRequests = 10000;
+} else if (process.env.NODE_ENV === "development") {
+    maxRequests = 1000;
+} else {
+    maxRequests = parseInt(process.env.RATE_LIMIT_MAX_REQUESTS);
+}
 const limiter = rateLimit({
     windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || "900000"),
-    max: process.env.NODE_ENV === "test" ? 10000 : parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || "100"),
+    max: maxRequests,
     message: "Too many requests from this IP, please try again later.",
 });
 app.use("/api", limiter);
