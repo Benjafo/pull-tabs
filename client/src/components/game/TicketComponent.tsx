@@ -34,16 +34,19 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
 
     setIsRevealing(true);
     try {
-      await ticketService.revealTab(ticket.id, tabNumber);
+      const response = await ticketService.revealTab(ticket.id, tabNumber);
       
-      setRevealedTabs(prev => [...prev, tabNumber]);
+      // Update revealed tabs
+      setRevealedTabs(response.ticket.revealedTabs);
       
-      const tabIndex = tabNumber - 1;
-      const lineSymbols = ticket.symbols.slice(tabIndex * 3, (tabIndex * 3) + 3);
-      const winAmount = checkWinningLine(lineSymbols);
+      // Update symbols if they're now available
+      if (response.ticket.symbols) {
+        setSymbols(response.ticket.symbols);
+      }
       
-      if (winAmount > 0) {
-        setCurrentWinnings(prev => prev + winAmount);
+      // Update current winnings if win detected
+      if (response.tab.winDetected && response.totalPayout) {
+        setCurrentWinnings(response.totalPayout);
       }
     } catch (error) {
       console.error('Failed to reveal tab:', error);
@@ -54,7 +57,11 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
 
   const getTabSymbols = (tabNumber: number) => {
     const startIndex = (tabNumber - 1) * 3;
-    return ticket.symbols.slice(startIndex, startIndex + 3);
+    // Generate placeholder symbols if not available yet
+    if (symbols.length === 0) {
+      return [1, 1, 1]; // Default symbols that will be replaced when revealed
+    }
+    return symbols.slice(startIndex, startIndex + 3);
   };
 
   const isTabWinning = (tabNumber: number) => {
