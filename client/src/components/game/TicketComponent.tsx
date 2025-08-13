@@ -40,6 +40,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     setIsRevealing(true);
     try {
       const response = await ticketService.revealTab(ticket.id, tabNumber);
+      console.log('Reveal response:', response);
       
       // Backend sends revealedTabs as a boolean array [true, false, false, false, false]
       // Convert to array of tab numbers (1-based) for revealed tabs
