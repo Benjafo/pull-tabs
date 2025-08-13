@@ -30,78 +30,86 @@ export function GamePage() {
 
     if (loading) {
         return (
-            <div className="game-page loading">
-                <div className="spinner">Loading game...</div>
+            <div className="flex justify-center items-center min-h-[400px]">
+                <div className="text-white text-xl animate-pulse">Loading game...</div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="game-page error">
-                <div className="error-message">
-                    <h2>Error Loading Game</h2>
-                    <p>{error}</p>
-                    <button onClick={loadGameData}>Try Again</button>
+            <div className="flex justify-center items-center min-h-[400px]">
+                <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
+                    <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Game</h2>
+                    <p className="text-gray-600 mb-6">{error}</p>
+                    <button 
+                        onClick={loadGameData}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                    >
+                        Try Again
+                    </button>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="game-page">
-            <div className="game-container">
-                <div className="game-header">
-                    <h2>Pull Tabs Treasure Game</h2>
+        <div className="space-y-6">
+            {/* Game Header */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                    <h2 className="text-3xl font-bold text-primary-800">Pull Tabs Treasure Game</h2>
                     {gameBox && (
-                        <div className="box-status">
-                            <span>
-                                Box Progress: {gameBox.totalTickets - gameBox.remainingTickets}/
-                                {gameBox.totalTickets}
-                            </span>
-                            <span className="remaining">
-                                ({gameBox.remainingTickets} tickets remaining)
-                            </span>
+                        <div className="text-right">
+                            <div className="text-sm text-gray-600">
+                                Box Progress: {gameBox.totalTickets - gameBox.remainingTickets}/{gameBox.totalTickets}
+                            </div>
+                            <div className="text-lg font-semibold text-blue-600">
+                                {gameBox.remainingTickets} tickets remaining
+                            </div>
                         </div>
                     )}
                 </div>
+            </div>
 
-                <div className="game-area">
-                    <div className="ticket-placeholder">
-                        <p>🎫 Ticket interface will be implemented in Phase 4</p>
-                        <button className="buy-ticket-btn">Buy Ticket ($1)</button>
+            {/* Game Area */}
+            <div className="bg-gradient-treasure rounded-lg shadow-lg p-8 text-center text-white">
+                <p className="text-4xl mb-6">🎫</p>
+                <p className="text-xl mb-8">Ticket interface will be implemented in Phase 4</p>
+                <button className="bg-accent-500 hover:bg-accent-600 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl">
+                    Buy Ticket ($1)
+                </button>
+            </div>
+
+            {/* Stats Panel */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+                <h3 className="text-2xl font-bold text-primary-800 mb-6">Your Statistics</h3>
+                {stats && (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+                            <div className="text-sm text-gray-600 mb-1">Tickets Played</div>
+                            <div className="text-2xl font-bold text-blue-700">{stats.ticketsPlayed}</div>
+                        </div>
+                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+                            <div className="text-sm text-gray-600 mb-1">Total Winnings</div>
+                            <div className="text-2xl font-bold text-green-700">
+                                ${stats.totalWinnings.toFixed(2)}
+                            </div>
+                        </div>
+                        <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-lg">
+                            <div className="text-sm text-gray-600 mb-1">Biggest Win</div>
+                            <div className="text-2xl font-bold text-amber-700">
+                                ${stats.biggestWin.toFixed(2)}
+                            </div>
+                        </div>
+                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                            <div className="text-sm text-gray-600 mb-1">Win Rate</div>
+                            <div className="text-2xl font-bold text-purple-700">
+                                {stats.winRate.toFixed(1)}%
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div className="stats-panel">
-                    <h3>Your Statistics</h3>
-                    {stats && (
-                        <div className="stats-grid">
-                            <div className="stat-item">
-                                <span className="stat-label">Tickets Played:</span>
-                                <span className="stat-value">{stats.ticketsPlayed}</span>
-                            </div>
-                            <div className="stat-item">
-                                <span className="stat-label">Total Winnings:</span>
-                                <span className="stat-value">
-                                    ${stats.totalWinnings.toFixed(2)}
-                                </span>
-                            </div>
-                            <div className="stat-item">
-                                <span className="stat-label">Biggest Win:</span>
-                                <span className="stat-value">
-                                    ${stats.biggestWin.toFixed(2)}
-                                </span>
-                            </div>
-                            <div className="stat-item">
-                                <span className="stat-label">Win Rate:</span>
-                                <span className="stat-value">
-                                    {stats.winRate.toFixed(1)}%
-                                </span>
-                            </div>
-                        </div>
-                    )}
-                </div>
+                )}
             </div>
         </div>
     );
