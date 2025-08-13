@@ -36,13 +36,17 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     try {
       const response = await ticketService.revealTab(ticket.id, tabNumber);
       
-      // Update revealed tabs
-      setRevealedTabs(response.ticket.revealedTabs);
+      // Update revealed tabs - backend sends 0-based indices, we use 1-based tab numbers
+      const updatedRevealedTabs = response.ticket.revealedTabs.map(idx => idx + 1);
+      setRevealedTabs(updatedRevealedTabs);
       
-      // Update symbols if they're now available
-      if (response.ticket.symbols) {
-        setSymbols(response.ticket.symbols);
-      }
+      // Update symbols for this specific tab from the response
+      const tabIndex = tabNumber - 1;
+      const newSymbols = [...symbols];
+      response.tab.symbols.forEach((symbol, idx) => {
+        newSymbols[tabIndex * 3 + idx] = symbol;
+      });
+      setSymbols(newSymbols);
       
       // Update current winnings if win detected
       if (response.tab.winDetected && response.totalPayout) {
