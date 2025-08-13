@@ -79,24 +79,24 @@ export function GamePage() {
                         <div className="stats-grid">
                             <div className="stat-item">
                                 <span className="stat-label">Tickets Played:</span>
-                                <span className="stat-value">{stats.statistics.ticketsPlayed}</span>
+                                <span className="stat-value">{stats.ticketsPlayed}</span>
                             </div>
                             <div className="stat-item">
                                 <span className="stat-label">Total Winnings:</span>
                                 <span className="stat-value">
-                                    ${stats.statistics.totalWinnings.toFixed(2)}
+                                    ${stats.totalWinnings.toFixed(2)}
                                 </span>
                             </div>
                             <div className="stat-item">
                                 <span className="stat-label">Biggest Win:</span>
                                 <span className="stat-value">
-                                    ${stats.statistics.biggestWin.toFixed(2)}
+                                    ${stats.biggestWin.toFixed(2)}
                                 </span>
                             </div>
                             <div className="stat-item">
                                 <span className="stat-label">Win Rate:</span>
                                 <span className="stat-value">
-                                    {stats.statistics.winRate.toFixed(1)}%
+                                    {stats.winRate.toFixed(1)}%
                                 </span>
                             </div>
                         </div>

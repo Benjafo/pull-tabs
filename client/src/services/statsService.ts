@@ -22,13 +22,13 @@ export interface GameBoxStatus {
 
 class StatsService {
   async getUserStats(): Promise<UserStats> {
-    const response = await api.get<UserStats>(API_ENDPOINTS.STATS);
-    return response.data;
+    const response = await api.get<{ statistics: UserStats }>(API_ENDPOINTS.STATS);
+    return response.data.statistics;
   }
 
   async getCurrentGameBox(): Promise<GameBoxStatus> {
-    const response = await api.get<GameBoxStatus>(API_ENDPOINTS.GAMEBOX.CURRENT);
-    return response.data;
+    const response = await api.get<{ gameBox: GameBoxStatus }>(API_ENDPOINTS.GAMEBOX.CURRENT);
+    return response.data.gameBox;
   }
 }
 

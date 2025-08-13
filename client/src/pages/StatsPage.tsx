@@ -59,7 +59,7 @@ export function StatsPage() {
                             <div className="stat-icon">🎫</div>
                             <div className="stat-content">
                                 <h3>Tickets Played</h3>
-                                <p className="stat-number">{stats.statistics.ticketsPlayed}</p>
+                                <p className="stat-number">{stats.ticketsPlayed}</p>
                             </div>
                         </div>
 
@@ -68,7 +68,7 @@ export function StatsPage() {
                             <div className="stat-content">
                                 <h3>Total Winnings</h3>
                                 <p className="stat-number">
-                                    ${stats.statistics.totalWinnings.toFixed(2)}
+                                    ${stats.totalWinnings.toFixed(2)}
                                 </p>
                             </div>
                         </div>
@@ -78,7 +78,7 @@ export function StatsPage() {
                             <div className="stat-content">
                                 <h3>Biggest Win</h3>
                                 <p className="stat-number">
-                                    ${stats.statistics.biggestWin.toFixed(2)}
+                                    ${stats.biggestWin.toFixed(2)}
                                 </p>
                             </div>
                         </div>
@@ -88,7 +88,7 @@ export function StatsPage() {
                             <div className="stat-content">
                                 <h3>Win Rate</h3>
                                 <p className="stat-number">
-                                    {stats.statistics.winRate.toFixed(1)}%
+                                    {stats.winRate.toFixed(1)}%
                                 </p>
                             </div>
                         </div>
@@ -97,7 +97,7 @@ export function StatsPage() {
                             <div className="stat-icon">🎮</div>
                             <div className="stat-content">
                                 <h3>Sessions Played</h3>
-                                <p className="stat-number">{stats.statistics.sessionsPlayed}</p>
+                                <p className="stat-number">{stats.sessionsPlayed}</p>
                             </div>
                         </div>
 
@@ -107,7 +107,7 @@ export function StatsPage() {
                                 <h3>Last Played</h3>
                                 <p className="stat-number">
                                     {stats.lastPlayed
-                                        ? new Date(stats.statistics.lastPlayed).toLocaleDateString()
+                                        ? new Date(stats.lastPlayed).toLocaleDateString()
                                         : "Never"}
                                 </p>
                             </div>
