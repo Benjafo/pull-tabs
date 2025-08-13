@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import statsService from '../services/statsService';
-import type { UserStats } from '../services/statsService';
-import { useAuth } from '../hooks/useAuth';
+import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
+import type { UserStats } from "../services/statsService";
+import statsService from "../services/statsService";
 
 export function StatsPage() {
   const { user } = useAuth();
@@ -19,7 +19,9 @@ export function StatsPage() {
       const userStats = await statsService.getUserStats();
       setStats(userStats);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load statistics');
+      setError(
+        err instanceof Error ? err.message : "Failed to load statistics"
+      );
     } finally {
       setLoading(false);
     }
@@ -50,7 +52,7 @@ export function StatsPage() {
       <div className="stats-container">
         <h1>Player Statistics</h1>
         <div className="player-info">
-          <h2>{user?.username}'s Performance</h2>
+          <h2>{user?.email}'s Performance</h2>
         </div>
 
         {stats && (
@@ -59,7 +61,7 @@ export function StatsPage() {
               <div className="stat-icon">🎫</div>
               <div className="stat-content">
                 <h3>Tickets Played</h3>
-                <p className="stat-number">{stats.ticketsPlayed}</p>
+                <p className="stat-number">{stats.statistics.ticketsPlayed}</p>
               </div>
             </div>
 
@@ -67,7 +69,9 @@ export function StatsPage() {
               <div className="stat-icon">💰</div>
               <div className="stat-content">
                 <h3>Total Winnings</h3>
-                <p className="stat-number">${stats.totalWinnings.toFixed(2)}</p>
+                <p className="stat-number">
+                  ${stats.statistics.totalWinnings.toFixed(2)}
+                </p>
               </div>
             </div>
 
@@ -75,7 +79,9 @@ export function StatsPage() {
               <div className="stat-icon">🏆</div>
               <div className="stat-content">
                 <h3>Biggest Win</h3>
-                <p className="stat-number">${stats.biggestWin.toFixed(2)}</p>
+                <p className="stat-number">
+                  ${stats.statistics.biggestWin.toFixed(2)}
+                </p>
               </div>
             </div>
 
@@ -83,7 +89,9 @@ export function StatsPage() {
               <div className="stat-icon">📊</div>
               <div className="stat-content">
                 <h3>Win Rate</h3>
-                <p className="stat-number">{stats.winRate.toFixed(1)}%</p>
+                <p className="stat-number">
+                  {stats.statistics.winRate.toFixed(1)}%
+                </p>
               </div>
             </div>
 
@@ -91,7 +99,7 @@ export function StatsPage() {
               <div className="stat-icon">🎮</div>
               <div className="stat-content">
                 <h3>Sessions Played</h3>
-                <p className="stat-number">{stats.sessionsPlayed}</p>
+                <p className="stat-number">{stats.statistics.sessionsPlayed}</p>
               </div>
             </div>
 
@@ -100,9 +108,9 @@ export function StatsPage() {
               <div className="stat-content">
                 <h3>Last Played</h3>
                 <p className="stat-number">
-                  {stats.lastPlayed 
-                    ? new Date(stats.lastPlayed).toLocaleDateString()
-                    : 'Never'}
+                  {stats.statistics.lastPlayed
+                    ? new Date(stats.statistics.lastPlayed).toLocaleDateString()
+                    : "Never"}
                 </p>
               </div>
             </div>
@@ -114,9 +122,14 @@ export function StatsPage() {
             <>
               <h3>Performance Summary</h3>
               <p>
-                You've spent ${stats.ticketsPlayed.toFixed(2)} and won ${stats.totalWinnings.toFixed(2)}, 
-                giving you a net {stats.totalWinnings - stats.ticketsPlayed >= 0 ? 'profit' : 'loss'} of 
-                ${Math.abs(stats.totalWinnings - stats.ticketsPlayed).toFixed(2)}.
+                You've spent ${stats.ticketsPlayed.toFixed(2)} and won $
+                {stats.totalWinnings.toFixed(2)}, giving you a net{" "}
+                {stats.totalWinnings - stats.ticketsPlayed >= 0
+                  ? "profit"
+                  : "loss"}{" "}
+                of $
+                {Math.abs(stats.totalWinnings - stats.ticketsPlayed).toFixed(2)}
+                .
               </p>
             </>
           )}

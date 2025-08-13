@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export interface UserAttributes {
     id: number;
-    username: string;
+    username?: string;  // Optional for backwards compatibility
     email: string;
     password_hash: string;
     created_at?: Date;
@@ -15,7 +15,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     declare id: number;
-    declare username: string;
+    declare username?: string;  // Optional for backwards compatibility
     declare email: string;
     declare password_hash: string;
     declare created_at: Date;
@@ -57,12 +57,8 @@ User.init(
         },
         username: {
             type: DataTypes.STRING(50),
-            allowNull: false,
+            allowNull: true,  // Made optional
             unique: true,
-            validate: {
-                len: [3, 50],
-                isAlphanumeric: true,
-            },
         },
         email: {
             type: DataTypes.STRING(255),

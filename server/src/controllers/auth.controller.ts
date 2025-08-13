@@ -9,28 +9,23 @@ import { Op } from "sequelize";
  */
 export const register = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
 
         // Check if user already exists
         const existingUser = await User.findOne({
-            where: {
-                [Op.or]: [{ username }, { email }],
-            },
+            where: { email },
         });
 
         if (existingUser) {
             res.status(400).json({
-                error:
-                    existingUser.username === username
-                        ? "Username already taken"
-                        : "Email already registered",
+                error: "Email already registered",
             });
             return;
         }
 
         // Create new user
         const user = await User.create({
-            username,
+            username: email.split('@')[0], // Use email prefix as username
             email,
             password_hash: password, // Will be hashed by beforeCreate hook
         });
@@ -47,7 +42,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         // Generate token and set cookie
         const token = generateToken({
             userId: user.id,
-            username: user.username,
+            email: user.email,
         });
         setTokenCookie(res, token);
 
@@ -58,7 +53,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             message: "Registration successful",
             user: {
                 id: user.id,
-                username: user.username,
+                username: user.username || user.email,  // Use email as fallback
                 email: user.email,
             },
         });
@@ -73,13 +68,11 @@ export const register = async (req: Request, res: Response): Promise<void> => {
  */
 export const login = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
-        // Find user by username or email
+        // Find user by email
         const user = await User.findOne({
-            where: {
-                [Op.or]: [{ username }, { email: username }],
-            },
+            where: { email },
         });
 
         if (!user) {
@@ -97,7 +90,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
         // Generate token and set cookie
         const token = generateToken({
             userId: user.id,
-            username: user.username,
+            email: user.email,
         });
         setTokenCookie(res, token);
 
@@ -113,7 +106,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             message: "Login successful",
             user: {
                 id: user.id,
-                username: user.username,
+                username: user.username || user.email,  // Use email as fallback
                 email: user.email,
             },
         });

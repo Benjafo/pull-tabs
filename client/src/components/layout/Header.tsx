@@ -23,7 +23,7 @@ export function Header() {
               <Link to="/game" className="nav-link">Play Game</Link>
               <Link to="/stats" className="nav-link">My Stats</Link>
               <div className="user-info">
-                <span className="username">Ahoy, {user.username}!</span>
+                <span className="username">Ahoy, {user.email}!</span>
                 <button onClick={handleLogout} className="logout-btn">
                   Logout
                 </button>

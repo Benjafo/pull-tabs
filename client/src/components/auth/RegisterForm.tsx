@@ -7,7 +7,6 @@ export function RegisterForm() {
   const navigate = useNavigate();
   const { register, error, clearError } = useAuth();
   const [formData, setFormData] = useState({
-    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -31,10 +30,6 @@ export function RegisterForm() {
       setValidationError('Password must be at least 6 characters');
       return false;
     }
-    if (formData.username.length < 3) {
-      setValidationError('Username must be at least 3 characters');
-      return false;
-    }
     return true;
   };
 
@@ -49,7 +44,6 @@ export function RegisterForm() {
     
     try {
       await register({
-        username: formData.username,
         email: formData.email,
         password: formData.password,
       });
@@ -73,21 +67,6 @@ export function RegisterForm() {
             {displayError}
           </div>
         )}
-        
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-            disabled={isSubmitting}
-            placeholder="Choose a username"
-            minLength={3}
-          />
-        </div>
         
         <div className="form-group">
           <label htmlFor="email">Email</label>

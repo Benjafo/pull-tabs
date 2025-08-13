@@ -27,11 +27,6 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error: AxiosError<ApiError>) => {
-    if (error.response?.status === 401) {
-      // Token expired or invalid - redirect to login
-      window.location.href = '/login';
-    }
-    
     const errorMessage = error.response?.data?.message || 'An unexpected error occurred';
     return Promise.reject(new Error(errorMessage));
   }

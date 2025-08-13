@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import statsService from '../services/statsService';
-import type { UserStats, GameBoxStatus } from '../services/statsService';
+import { useEffect, useState } from "react";
+import type { GameBoxStatus, UserStats } from "../services/statsService";
+import statsService from "../services/statsService";
 
 export function GamePage() {
   const [stats, setStats] = useState<UserStats | null>(null);
@@ -17,12 +17,12 @@ export function GamePage() {
       setLoading(true);
       const [userStats, boxStatus] = await Promise.all([
         statsService.getUserStats(),
-        statsService.getCurrentGameBox()
+        statsService.getCurrentGameBox(),
       ]);
       setStats(userStats);
       setGameBox(boxStatus);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to load game data');
+      setError(err instanceof Error ? err.message : "Failed to load game data");
     } finally {
       setLoading(false);
     }
@@ -55,8 +55,13 @@ export function GamePage() {
           <h2>Pull Tabs Treasure Game</h2>
           {gameBox && (
             <div className="box-status">
-              <span>Box Progress: {gameBox.totalTickets - gameBox.remainingTickets}/{gameBox.totalTickets}</span>
-              <span className="remaining">({gameBox.remainingTickets} tickets remaining)</span>
+              <span>
+                Box Progress: {gameBox.totalTickets - gameBox.remainingTickets}/
+                {gameBox.totalTickets}
+              </span>
+              <span className="remaining">
+                ({gameBox.remainingTickets} tickets remaining)
+              </span>
             </div>
           )}
         </div>
@@ -64,9 +69,7 @@ export function GamePage() {
         <div className="game-area">
           <div className="ticket-placeholder">
             <p>🎫 Ticket interface will be implemented in Phase 4</p>
-            <button className="buy-ticket-btn">
-              Buy Ticket ($1)
-            </button>
+            <button className="buy-ticket-btn">Buy Ticket ($1)</button>
           </div>
         </div>
 
@@ -76,19 +79,27 @@ export function GamePage() {
             <div className="stats-grid">
               <div className="stat-item">
                 <span className="stat-label">Tickets Played:</span>
-                <span className="stat-value">{stats.ticketsPlayed}</span>
+                <span className="stat-value">
+                  {stats.statistics.ticketsPlayed}
+                </span>
               </div>
               <div className="stat-item">
                 <span className="stat-label">Total Winnings:</span>
-                <span className="stat-value">${stats.totalWinnings.toFixed(2)}</span>
+                <span className="stat-value">
+                  ${stats.statistics.totalWinnings.toFixed(2)}
+                </span>
               </div>
               <div className="stat-item">
                 <span className="stat-label">Biggest Win:</span>
-                <span className="stat-value">${stats.biggestWin.toFixed(2)}</span>
+                <span className="stat-value">
+                  ${stats.statistics.biggestWin.toFixed(2)}
+                </span>
               </div>
               <div className="stat-item">
                 <span className="stat-label">Win Rate:</span>
-                <span className="stat-value">{stats.winRate.toFixed(1)}%</span>
+                <span className="stat-value">
+                  {stats.statistics.winRate.toFixed(1)}%
+                </span>
               </div>
             </div>
           )}

@@ -1,5 +1,5 @@
-import api from './api';
-import { API_ENDPOINTS } from '../config/constants';
+import { API_ENDPOINTS } from "../config/constants";
+import api from "./api";
 
 export interface LoginCredentials {
   email: string;
@@ -7,14 +7,13 @@ export interface LoginCredentials {
 }
 
 export interface RegisterCredentials {
-  username: string;
   email: string;
   password: string;
 }
 
 export interface User {
   id: string;
-  username: string;
+  username?: string; // Optional, for backwards compatibility
   email: string;
   createdAt: string;
 }
@@ -26,12 +25,18 @@ export interface AuthResponse {
 
 class AuthService {
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    const response = await api.post<AuthResponse>(API_ENDPOINTS.AUTH.LOGIN, credentials);
+    const response = await api.post<AuthResponse>(
+      API_ENDPOINTS.AUTH.LOGIN,
+      credentials
+    );
     return response.data;
   }
 
   async register(credentials: RegisterCredentials): Promise<AuthResponse> {
-    const response = await api.post<AuthResponse>(API_ENDPOINTS.AUTH.REGISTER, credentials);
+    const response = await api.post<AuthResponse>(
+      API_ENDPOINTS.AUTH.REGISTER,
+      credentials
+    );
     return response.data;
   }
 
