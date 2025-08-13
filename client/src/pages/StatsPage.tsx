@@ -27,85 +27,96 @@ export function StatsPage() {
 
     if (loading) {
         return (
-            <div className="stats-page loading">
-                <div className="spinner">Loading statistics...</div>
+            <div className="flex justify-center items-center min-h-[400px]">
+                <div className="text-white text-xl animate-pulse">Loading statistics...</div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="stats-page error">
-                <div className="error-message">
-                    <h2>Error Loading Statistics</h2>
-                    <p>{error}</p>
-                    <button onClick={loadStats}>Try Again</button>
+            <div className="flex justify-center items-center min-h-[400px]">
+                <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
+                    <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Statistics</h2>
+                    <p className="text-gray-600 mb-6">{error}</p>
+                    <button 
+                        onClick={loadStats}
+                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                    >
+                        Try Again
+                    </button>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="stats-page">
-            <div className="stats-container">
-                <h1>Player Statistics</h1>
-                <div className="player-info">
-                    <h2>{user?.email}'s Performance</h2>
-                </div>
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+                <h1 className="text-3xl font-bold text-primary-800 mb-2">Player Statistics</h1>
+                <h2 className="text-xl text-blue-600">{user?.email}'s Performance</h2>
+            </div>
 
-                {stats && (
-                    <div className="stats-dashboard">
-                        <div className="stat-card primary">
-                            <div className="stat-icon">🎫</div>
-                            <div className="stat-content">
-                                <h3>Tickets Played</h3>
-                                <p className="stat-number">{stats.ticketsPlayed}</p>
+            {/* Stats Grid */}
+            {stats && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">🎫</div>
+                                <h3 className="text-lg font-semibold opacity-90">Tickets Played</h3>
+                                <p className="text-3xl font-bold mt-2">{stats.ticketsPlayed}</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="stat-card success">
-                            <div className="stat-icon">💰</div>
-                            <div className="stat-content">
-                                <h3>Total Winnings</h3>
-                                <p className="stat-number">
-                                    ${stats.totalWinnings.toFixed(2)}
-                                </p>
+                    <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">💰</div>
+                                <h3 className="text-lg font-semibold opacity-90">Total Winnings</h3>
+                                <p className="text-3xl font-bold mt-2">${stats.totalWinnings.toFixed(2)}</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="stat-card highlight">
-                            <div className="stat-icon">🏆</div>
-                            <div className="stat-content">
-                                <h3>Biggest Win</h3>
-                                <p className="stat-number">
-                                    ${stats.biggestWin.toFixed(2)}
-                                </p>
+                    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">🏆</div>
+                                <h3 className="text-lg font-semibold opacity-90">Biggest Win</h3>
+                                <p className="text-3xl font-bold mt-2">${stats.biggestWin.toFixed(2)}</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="stat-card info">
-                            <div className="stat-icon">📊</div>
-                            <div className="stat-content">
-                                <h3>Win Rate</h3>
-                                <p className="stat-number">
-                                    {stats.winRate.toFixed(1)}%
-                                </p>
+                    <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">📊</div>
+                                <h3 className="text-lg font-semibold opacity-90">Win Rate</h3>
+                                <p className="text-3xl font-bold mt-2">{stats.winRate.toFixed(1)}%</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="stat-card">
-                            <div className="stat-icon">🎮</div>
-                            <div className="stat-content">
-                                <h3>Sessions Played</h3>
-                                <p className="stat-number">{stats.sessionsPlayed}</p>
+                    <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">🎮</div>
+                                <h3 className="text-lg font-semibold opacity-90">Sessions Played</h3>
+                                <p className="text-3xl font-bold mt-2">{stats.sessionsPlayed}</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="stat-card">
-                            <div className="stat-icon">📅</div>
-                            <div className="stat-content">
-                                <h3>Last Played</h3>
-                                <p className="stat-number">
+                    <div className="bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg shadow-lg p-6 text-white">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <div className="text-4xl mb-2">📅</div>
+                                <h3 className="text-lg font-semibold opacity-90">Last Played</h3>
+                                <p className="text-2xl font-bold mt-2">
                                     {stats.lastPlayed
                                         ? new Date(stats.lastPlayed).toLocaleDateString()
                                         : "Never"}
@@ -113,23 +124,28 @@ export function StatsPage() {
                             </div>
                         </div>
                     </div>
-                )}
-
-                <div className="stats-summary">
-                    {stats && stats.ticketsPlayed > 0 && (
-                        <>
-                            <h3>Performance Summary</h3>
-                            <p>
-                                You've spent ${stats.ticketsPlayed.toFixed(2)} and won $
-                                {stats.totalWinnings.toFixed(2)}, giving you a net{" "}
-                                {stats.totalWinnings - stats.ticketsPlayed >= 0 ? "profit" : "loss"}{" "}
-                                of ${Math.abs(stats.totalWinnings - stats.ticketsPlayed).toFixed(2)}
-                                .
-                            </p>
-                        </>
-                    )}
                 </div>
-            </div>
+            )}
+
+            {/* Performance Summary */}
+            {stats && stats.ticketsPlayed > 0 && (
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                    <h3 className="text-2xl font-bold text-primary-800 mb-4">Performance Summary</h3>
+                    <div className="text-lg text-gray-700">
+                        <p>
+                            You've spent <span className="font-bold text-red-600">${stats.ticketsPlayed.toFixed(2)}</span> and 
+                            won <span className="font-bold text-green-600">${stats.totalWinnings.toFixed(2)}</span>, 
+                            giving you a net{" "}
+                            <span className={`font-bold ${stats.totalWinnings - stats.ticketsPlayed >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                {stats.totalWinnings - stats.ticketsPlayed >= 0 ? "profit" : "loss"}
+                            </span>{" "}
+                            of <span className={`font-bold ${stats.totalWinnings - stats.ticketsPlayed >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                ${Math.abs(stats.totalWinnings - stats.ticketsPlayed).toFixed(2)}
+                            </span>.
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
