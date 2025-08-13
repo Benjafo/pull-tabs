@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
 import { WinAnimation } from "../components/game/WinAnimation";
@@ -45,16 +45,15 @@ export function GamePage() {
             setIsPurchasing(true);
             setError(null);
             const response = await ticketService.purchaseTicket();
-            console.log("Ticket purchased:", response);
-            
+
             // Fetch the full ticket details after purchase
             const fullTicket = await ticketService.getTicket(response.ticket.id.toString());
             setCurrentTicket(fullTicket);
-            
+
             // Refresh game box status
             const boxStatus = await statsService.getCurrentGameBox();
             setGameBox(boxStatus);
-            
+
             setCurrentWinnings(0);
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to purchase ticket");
