@@ -64,6 +64,11 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
       if (response.tab.winDetected && response.totalPayout) {
         setCurrentWinnings(response.totalPayout);
       }
+      
+      // Also check if ticket is fully revealed and has a payout
+      if (response.ticket.isFullyRevealed && response.ticket.totalPayout) {
+        setCurrentWinnings(response.ticket.totalPayout);
+      }
     } catch (error) {
       console.error('Failed to reveal tab:', error);
     } finally {
