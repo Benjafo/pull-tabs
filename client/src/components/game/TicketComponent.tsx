@@ -64,10 +64,6 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
 
   const getTabSymbols = (tabNumber: number) => {
     const startIndex = (tabNumber - 1) * 3;
-    // Generate placeholder symbols if not available yet
-    if (symbols.length === 0) {
-      return [1, 1, 1]; // Default symbols that will be replaced when revealed
-    }
     return symbols.slice(startIndex, startIndex + 3);
   };
 
