@@ -46,11 +46,15 @@ export function GamePage() {
             setError(null);
             const response = await ticketService.purchaseTicket();
             console.log("Ticket purchased:", response);
-            setCurrentTicket(response.ticket);
-            setGameBox((prev) => ({
-                ...prev!,
-                remainingTickets: response.gameBox.remainingTickets,
-            }));
+            
+            // Fetch the full ticket details after purchase
+            const fullTicket = await ticketService.getTicket(response.ticket.id.toString());
+            setCurrentTicket(fullTicket);
+            
+            // Refresh game box status
+            const boxStatus = await statsService.getCurrentGameBox();
+            setGameBox(boxStatus);
+            
             setCurrentWinnings(0);
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to purchase ticket");
