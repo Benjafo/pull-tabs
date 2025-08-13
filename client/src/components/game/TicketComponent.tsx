@@ -41,12 +41,13 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     try {
       const response = await ticketService.revealTab(ticket.id, tabNumber);
       
-      // Update revealed tabs - backend sends 0-based indices, we use 1-based tab numbers
+      // Update revealed tabs - backend sends 0-based indices, frontend uses 1-based tab numbers
       const updatedRevealedTabs = response.ticket.revealedTabs.map(idx => idx + 1);
       setRevealedTabs(updatedRevealedTabs);
       
       // Update symbols for this specific tab from the response
-      const tabIndex = tabNumber - 1;
+      // Backend sends the tab index (0-based) in response.tab.index
+      const tabIndex = response.tab.index;
       const newSymbols = [...symbols];
       response.tab.symbols.forEach((symbol, idx) => {
         newSymbols[tabIndex * 3 + idx] = symbol;
