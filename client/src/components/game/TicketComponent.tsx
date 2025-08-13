@@ -18,7 +18,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
   const [hasCompleted, setHasCompleted] = useState(false);
   // Initialize with 15 placeholder symbols if not provided
   const [symbols, setSymbols] = useState<number[]>(
-    ticket.symbols || Array(15).fill(1)
+    ticket.symbols || Array(15).fill(0)
   );
 
   useEffect(() => {
