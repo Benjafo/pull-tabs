@@ -1,6 +1,8 @@
 import sequelize from "../../config/database";
-import { User } from "../../models";
+import { User, UserAttributes } from "../../models";
 import bcrypt from "bcryptjs";
+
+interface UserCreationAttributes extends Partial<UserAttributes> {}
 
 describe("User Model", () => {
     beforeAll(async () => {
