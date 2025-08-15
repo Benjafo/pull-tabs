@@ -64,7 +64,7 @@ export function GameStatusPanel({ gameBox, currentWinnings, isPlaying }: GameSta
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes shimmer {
           0% {
             transform: translateX(-100%);
