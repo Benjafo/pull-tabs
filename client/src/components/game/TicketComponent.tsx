@@ -221,7 +221,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .perspective-1000 {
           perspective: 1000px;
         }
