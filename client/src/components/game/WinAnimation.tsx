@@ -96,7 +96,7 @@ export function WinAnimation({ amount, onComplete }: WinAnimationProps) {
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float-up {
           0% {
             transform: translateY(100vh) rotate(0deg);

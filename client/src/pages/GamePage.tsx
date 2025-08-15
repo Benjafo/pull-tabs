@@ -1,14 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
+import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
-import { WinAnimation } from "../components/game/WinAnimation";
-import type { GameBoxStatus, UserStats } from "../services/statsService";
+import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
 import type { Ticket } from "../services/ticketService";
 import ticketService from "../services/ticketService";
 
 export function GamePage() {
-    const [stats, setStats] = useState<UserStats | null>(null);
     const [gameBox, setGameBox] = useState<GameBoxStatus | null>(null);
     const [currentTicket, setCurrentTicket] = useState<Ticket | null>(null);
     const [loading, setLoading] = useState(true);
@@ -25,11 +24,7 @@ export function GamePage() {
     const loadGameData = async () => {
         try {
             setLoading(true);
-            const [userStats, boxStatus] = await Promise.all([
-                statsService.getUserStats(),
-                statsService.getCurrentGameBox(),
-            ]);
-            setStats(userStats);
+            const boxStatus = await statsService.getCurrentGameBox();
             setGameBox(boxStatus);
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to load game data");
@@ -69,12 +64,8 @@ export function GamePage() {
             setShowWinAnimation(true);
         }
 
-        // Reload stats to show updated values
-        const [userStats, boxStatus] = await Promise.all([
-            statsService.getUserStats(),
-            statsService.getCurrentGameBox(),
-        ]);
-        setStats(userStats);
+        // Reload game box to show updated values
+        const boxStatus = await statsService.getCurrentGameBox();
         setGameBox(boxStatus);
     }, []);
 
@@ -94,9 +85,9 @@ export function GamePage() {
     if (error && !currentTicket) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <div className="bg-white rounded-lg shadow-xl p-8 max-w-md text-center">
-                    <h2 className="text-2xl font-bold text-red-600 mb-4">Error Loading Game</h2>
-                    <p className="text-gray-600 mb-6">{error}</p>
+                <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-xl p-8 max-w-md text-center border border-amber-400/30">
+                    <h2 className="text-2xl font-bold text-red-400 mb-4">Error Loading Game</h2>
+                    <p className="text-amber-200/80 mb-6">{error}</p>
                     <button
                         onClick={loadGameData}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
@@ -111,9 +102,9 @@ export function GamePage() {
     return (
         <div className="space-y-6">
             {/* Game Header */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-lg p-6 border border-amber-400/30">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                    <h2 className="text-3xl font-bold text-primary-800">Pull Tabs Treasure Game</h2>
+                    <h2 className="text-3xl font-bold text-amber-200">Pull Tabs Treasure Game</h2>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
                         {!currentTicket ? (
                             <button
@@ -157,39 +148,6 @@ export function GamePage() {
                 )}
             </div>
 
-            {/* Stats Panel */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-2xl font-bold text-primary-800 mb-6">Your Statistics</h3>
-                {stats && (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
-                            <div className="text-sm text-gray-600 mb-1">Tickets Played</div>
-                            <div className="text-2xl font-bold text-blue-700">
-                                {stats.ticketsPlayed}
-                            </div>
-                        </div>
-                        <div className="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
-                            <div className="text-sm text-gray-600 mb-1">Total Winnings</div>
-                            <div className="text-2xl font-bold text-green-700">
-                                ${stats.totalWinnings.toFixed(2)}
-                            </div>
-                        </div>
-                        <div className="bg-gradient-to-br from-amber-50 to-amber-100 p-4 rounded-lg">
-                            <div className="text-sm text-gray-600 mb-1">Biggest Win</div>
-                            <div className="text-2xl font-bold text-amber-700">
-                                ${stats.biggestWin.toFixed(2)}
-                            </div>
-                        </div>
-                        <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
-                            <div className="text-sm text-gray-600 mb-1">Win Rate</div>
-                            <div className="text-2xl font-bold text-purple-700">
-                                {stats.winRate.toFixed(1)}%
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </div>
-
             {/* Game Status Panel */}
             <GameStatusPanel
                 gameBox={gameBox}
@@ -199,7 +157,7 @@ export function GamePage() {
 
             {/* Win Animation */}
             {showWinAnimation && (
-                <WinAnimation
+                <EnhancedWinAnimation
                     amount={lastWinAmount}
                     onComplete={() => setShowWinAnimation(false)}
                 />
