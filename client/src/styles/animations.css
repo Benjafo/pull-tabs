@@ -1,0 +1,222 @@
+/* Tab peel animation */
+@keyframes peelOff {
+  0% {
+    transform: rotateX(0deg) translateY(0) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: rotateX(-15deg) translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: rotateX(-45deg) translateY(-15px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  }
+  75% {
+    transform: rotateX(-75deg) translateY(-25px) scale(0.95);
+    opacity: 0.7;
+  }
+  100% {
+    transform: rotateX(-90deg) translateY(-40px) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Enhanced flip animation */
+@keyframes flipCard {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(180deg);
+  }
+}
+
+/* Coin float animation */
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: translateY(80vh) rotate(72deg) scale(1);
+    opacity: 1;
+  }
+  90% {
+    transform: translateY(-80vh) rotate(720deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Sparkle animation */
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+/* Confetti fall */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 1;
+  }
+}
+
+/* Pulse glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.4);
+  }
+}
+
+/* Wave motion */
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-20px) translateY(-5px);
+  }
+  50% {
+    transform: translateX(0) translateY(-10px);
+  }
+  75% {
+    transform: translateX(20px) translateY(-5px);
+  }
+}
+
+/* Treasure chest bounce */
+@keyframes treasureBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.05);
+  }
+  80% {
+    transform: translateY(-5px) scale(1.02);
+  }
+}
+
+/* Screen shake for jackpot */
+@keyframes screenShake {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2px, -2px);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  30% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  50% {
+    transform: translate(-1px, -1px);
+  }
+  60% {
+    transform: translate(1px, -1px);
+  }
+  70% {
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    transform: translate(1px, 1px);
+  }
+  90% {
+    transform: translate(0, -1px);
+  }
+}
+
+/* Custom animation classes */
+.tab-peel-animation {
+  animation: peelOff 0.6s ease-in-out forwards;
+  transform-origin: top center;
+}
+
+.flip-animation {
+  animation: flipCard 0.7s ease-in-out forwards;
+  transform-style: preserve-3d;
+}
+
+.coin-float {
+  animation: floatUp 3s ease-in-out forwards;
+}
+
+.sparkle-effect {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.confetti-fall {
+  animation: confettiFall 3s linear forwards;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.wave-motion {
+  animation: wave 4s ease-in-out infinite;
+}
+
+.treasure-bounce {
+  animation: treasureBounce 1s ease-out;
+}
+
+.screen-shake {
+  animation: screenShake 0.5s ease-in-out;
+}
+
+/* Perforated edge effect */
+.perforated-edge {
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    #ffffff 4px,
+    #ffffff 8px
+  );
+  background-size: 100% 2px;
+  background-repeat: no-repeat;
+  background-position: top;
+}
+
+.perforated-edge-vertical {
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 4px,
+    #ffffff 4px,
+    #ffffff 8px
+  );
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: left;
+}
