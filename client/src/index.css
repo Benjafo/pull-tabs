@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-700 min-h-screen;
+    @apply bg-navy-700 min-h-screen;
   }
 }
