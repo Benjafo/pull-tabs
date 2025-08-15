@@ -28,7 +28,6 @@ describe("Game Flow Integration Tests", () => {
 
         // Create test user
         const registerResponse = await request(app).post("/api/auth/register").send({
-            username: "testplayer",
             email: "player@example.com",
             password: "PlayerPass123",
         });
@@ -39,14 +38,14 @@ describe("Game Flow Integration Tests", () => {
             authCookie = Array.isArray(cookies) ? cookies[0] : cookies;
             
             // Get user ID immediately after successful registration
-            const user = await User.findOne({ where: { username: "testplayer" } });
+            const user = await User.findOne({ where: { email: "player@example.com" } });
             if (user) {
                 userId = user.id;
             }
         } else {
             // Try logging in if registration failed (user might already exist)
             const loginResponse = await request(app).post("/api/auth/login").send({
-                username: "testplayer",
+                email: "player@example.com",
                 password: "PlayerPass123",
             });
             
@@ -54,7 +53,7 @@ describe("Game Flow Integration Tests", () => {
                 const cookies = loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
                 authCookie = Array.isArray(cookies) ? cookies[0] : cookies;
                 
-                const user = await User.findOne({ where: { username: "testplayer" } });
+                const user = await User.findOne({ where: { email: "player@example.com" } });
                 if (user) {
                     userId = user.id;
                 }
