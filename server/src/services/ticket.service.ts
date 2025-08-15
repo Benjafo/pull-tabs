@@ -1,4 +1,4 @@
-import { Ticket, GameSymbol } from "../models/Ticket";
+import { Ticket, GameSymbol, WinningLine } from "../models/Ticket";
 import { UserStatistics } from "../models/UserStatistics";
 import { GameBoxService } from "./gameBox.service";
 import { GameBox } from "../models/GameBox";
