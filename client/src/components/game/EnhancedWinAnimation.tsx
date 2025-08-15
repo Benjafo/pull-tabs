@@ -61,11 +61,11 @@ export function EnhancedWinAnimation({ amount, onComplete }: EnhancedWinAnimatio
           
           {/* Win card */}
           <div className={`
-            relative bg-gradient-to-br rounded-2xl shadow-2xl p-8 border-4
-            ${tier === 'jackpot' ? 'from-yellow-400 via-amber-500 to-orange-600 border-yellow-300 pulse-glow' : ''}
-            ${tier === 'big' ? 'from-purple-500 to-pink-600 border-purple-300' : ''}
-            ${tier === 'medium' ? 'from-blue-500 to-cyan-600 border-blue-300' : ''}
-            ${tier === 'small' ? 'from-green-500 to-emerald-600 border-green-300' : ''}
+            relative rounded-2xl shadow-2xl p-8 border-4
+            ${tier === 'jackpot' ? 'bg-gold-600 border-gold-400 pulse-glow' : ''}
+            ${tier === 'big' ? 'bg-gold-700 border-gold-500' : ''}
+            ${tier === 'medium' ? 'bg-navy-500 border-gold-600' : ''}
+            ${tier === 'small' ? 'bg-navy-600 border-gold-600/50' : ''}
           `}>
             {/* Treasure chest for jackpot */}
             {tier === 'jackpot' && (
