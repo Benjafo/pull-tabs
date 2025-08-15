@@ -199,7 +199,7 @@ export function GamePage() {
 
             {/* Win Animation */}
             {showWinAnimation && (
-                <WinAnimation
+                <EnhancedWinAnimation
                     amount={lastWinAmount}
                     onComplete={() => setShowWinAnimation(false)}
                 />
