@@ -236,7 +236,7 @@ describe("Statistics Endpoints", () => {
 
             expect(response.status).toBe(200);
             expect(response.body.leaderboard).toHaveLength(3);
-            expect(response.body.leaderboard[0].username).toBe("player3");
+            expect(response.body.leaderboard[0].email).toBe("p3@test.com");
             expect(response.body.leaderboard[0].value).toBe(750);
             expect(response.body.leaderboard[0].rank).toBe(1);
         });
