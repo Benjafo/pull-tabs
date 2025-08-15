@@ -71,7 +71,7 @@ describe("User Model", () => {
             await expect(
                 User.create({
                     password_hash: "password123",
-                } as Partial<UserAttributes>)
+                } as unknown as UserAttributes)
             ).rejects.toThrow();
         });
 
