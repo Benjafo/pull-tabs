@@ -18,7 +18,6 @@ describe("Box Payout Verification Tests", () => {
 
             // Create a test user for purchasing tickets
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "dummy_hash",
             });
@@ -172,7 +171,6 @@ describe("Box Payout Verification Tests", () => {
 
             // Create a test user
             const user = await User.create({
-                username: "testuser2",
                 email: "test2@example.com",
                 password_hash: "dummy_hash",
             });
