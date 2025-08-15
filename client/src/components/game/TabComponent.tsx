@@ -121,7 +121,7 @@ export function TabComponent({
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .tab-peel-animation {
           animation: peelOff 0.6s ease-in-out forwards;
         }
