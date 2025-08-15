@@ -18,7 +18,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
         const revealed: number[] = [];
         if (ticket.revealedTabs && Array.isArray(ticket.revealedTabs)) {
             ticket.revealedTabs.forEach((isRevealed, index) => {
-                if (isRevealed === true) {
+                if (isRevealed) {
                     revealed.push(index + 1); // Convert 0-based index to 1-based tab number
                 }
             });
