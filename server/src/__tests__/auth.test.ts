@@ -23,7 +23,6 @@ describe("Authentication Endpoints", () => {
     describe("POST /api/auth/register", () => {
         it("should register a new user successfully", async () => {
             const userData = {
-                username: "testuser",
                 email: "test@example.com",
                 password: "TestPass123",
             };
@@ -33,12 +32,11 @@ describe("Authentication Endpoints", () => {
             expect(response.status).toBe(201);
             expect(response.body.message).toBe("Registration successful");
             expect(response.body.user).toHaveProperty("id");
-            expect(response.body.user.username).toBe("testuser");
             expect(response.body.user.email).toBe("test@example.com");
             expect(response.headers["set-cookie"]).toBeDefined();
 
             // Verify user was created in database
-            const user = await User.findOne({ where: { username: "testuser" } });
+            const user = await User.findOne({ where: { email: "test@example.com" } });
             expect(user).toBeTruthy();
             expect(user?.email).toBe("test@example.com");
 
@@ -48,28 +46,8 @@ describe("Authentication Endpoints", () => {
             expect(stats?.sessions_played).toBe(1);
         });
 
-        it("should reject registration with duplicate username", async () => {
-            const userData = {
-                username: "testuser",
-                email: "test1@example.com",
-                password: "TestPass123",
-            };
-
-            await request(app).post("/api/auth/register").send(userData);
-
-            const response = await request(app).post("/api/auth/register").send({
-                username: "testuser",
-                email: "test2@example.com",
-                password: "TestPass456",
-            });
-
-            expect(response.status).toBe(400);
-            expect(response.body.error).toBe("Username already taken");
-        });
-
         it("should reject registration with duplicate email", async () => {
             const userData = {
-                username: "testuser1",
                 email: "test@example.com",
                 password: "TestPass123",
             };
@@ -77,7 +55,6 @@ describe("Authentication Endpoints", () => {
             await request(app).post("/api/auth/register").send(userData);
 
             const response = await request(app).post("/api/auth/register").send({
-                username: "testuser2",
                 email: "test@example.com",
                 password: "TestPass456",
             });
@@ -86,21 +63,34 @@ describe("Authentication Endpoints", () => {
             expect(response.body.error).toBe("Email already registered");
         });
 
-        it("should validate username format", async () => {
-            const response = await request(app).post("/api/auth/register").send({
-                username: "ab",
+        it("should reject registration with different email but same one", async () => {
+            const userData = {
                 email: "test@example.com",
+                password: "TestPass123",
+            };
+
+            await request(app).post("/api/auth/register").send(userData);
+
+            const response = await request(app).post("/api/auth/register").send({
+                email: "test@example.com",
+                password: "TestPass456",
+            });
+
+            expect(response.status).toBe(400);
+            expect(response.body.error).toBe("Email already registered");
+        });
+
+        it("should validate email is provided", async () => {
+            const response = await request(app).post("/api/auth/register").send({
                 password: "TestPass123",
             });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
-            expect(response.body.errors[0].msg).toContain("between 3 and 50 characters");
         });
 
         it("should validate email format", async () => {
             const response = await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "invalid-email",
                 password: "TestPass123",
             });
@@ -112,7 +102,6 @@ describe("Authentication Endpoints", () => {
 
         it("should validate password complexity", async () => {
             const response = await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "test@example.com",
                 password: "weak",
             });
@@ -127,7 +116,6 @@ describe("Authentication Endpoints", () => {
         beforeEach(async () => {
             // Create a test user
             await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "test@example.com",
                 password: "TestPass123",
             });
@@ -135,29 +123,27 @@ describe("Authentication Endpoints", () => {
 
         it("should login with valid credentials", async () => {
             const response = await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "TestPass123",
             });
 
             expect(response.status).toBe(200);
             expect(response.body.message).toBe("Login successful");
-            expect(response.body.user.username).toBe("testuser");
+            expect(response.body.user.email).toBe("test@example.com");
             expect(response.headers["set-cookie"]).toBeDefined();
         });
 
-        it("should login with email instead of username", async () => {
+        it("should reject login with missing email", async () => {
             const response = await request(app).post("/api/auth/login").send({
-                username: "test@example.com",
                 password: "TestPass123",
             });
 
-            expect(response.status).toBe(200);
-            expect(response.body.message).toBe("Login successful");
+            expect(response.status).toBe(400);
         });
 
-        it("should reject login with invalid username", async () => {
+        it("should reject login with invalid email", async () => {
             const response = await request(app).post("/api/auth/login").send({
-                username: "wronguser",
+                email: "wrong@example.com",
                 password: "TestPass123",
             });
 
@@ -167,7 +153,7 @@ describe("Authentication Endpoints", () => {
 
         it("should reject login with invalid password", async () => {
             const response = await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "WrongPassword",
             });
 
@@ -176,12 +162,12 @@ describe("Authentication Endpoints", () => {
         });
 
         it("should increment session count on login", async () => {
-            const user = await User.findOne({ where: { username: "testuser" } });
+            const user = await User.findOne({ where: { email: "test@example.com" } });
             const initialStats = await UserStatistics.findOne({ where: { user_id: user?.id } });
             const initialSessions = initialStats?.sessions_played || 0;
 
             await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "TestPass123",
             });
 
@@ -207,13 +193,12 @@ describe("Authentication Endpoints", () => {
         beforeEach(async () => {
             // Register and login to get auth cookie
             await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "test@example.com",
                 password: "TestPass123",
             });
 
             const loginResponse = await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "TestPass123",
             });
 
@@ -224,7 +209,6 @@ describe("Authentication Endpoints", () => {
             const response = await request(app).get("/api/auth/verify").set("Cookie", authCookie);
 
             expect(response.status).toBe(200);
-            expect(response.body.user.username).toBe("testuser");
             expect(response.body.user.email).toBe("test@example.com");
         });
 
