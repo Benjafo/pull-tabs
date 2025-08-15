@@ -7,34 +7,48 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
+        // Navy blues for primary theme
+        navy: {
           50: '#f0f4f8',
           100: '#d9e2ec',
-          200: '#bcccdc',
-          300: '#9fb3c8',
-          400: '#829ab1',
-          500: '#627d98',
-          600: '#486581',
-          700: '#334e68',
-          800: '#243b53',
-          900: '#102a43',
+          200: '#94a3b8',
+          300: '#64748b',
+          400: '#475569',
+          500: '#334155',
+          600: '#1e293b',
+          700: '#0f172a',
+          800: '#0c1220',
+          900: '#080b16',
         },
-        accent: {
-          50: '#fffbea',
-          100: '#fff3c4',
-          200: '#fce588',
-          300: '#fadb5f',
-          400: '#f7c948',
-          500: '#f0b429',
-          600: '#de911d',
-          700: '#cb6e17',
-          800: '#b44d12',
-          900: '#8d2b0b',
+        // Rich golds for accents and wins
+        gold: {
+          50: '#fefce8',
+          100: '#fef3c7',
+          200: '#fde68a',
+          300: '#fcd34d',
+          400: '#fbbf24',
+          500: '#f59e0b',
+          600: '#d97706',
+          700: '#b45309',
+          800: '#92400e',
+          900: '#78350f',
         },
-        treasure: {
-          gold: '#f0b429',
-          silver: '#9fb3c8',
-          bronze: '#cb6e17',
+        // Neutral cream/off-white
+        cream: {
+          50: '#fefdfb',
+          100: '#fef3c7',
+          200: '#fae8b6',
+          300: '#f5dca5',
+        },
+        // Semantic colors for game states
+        casino: {
+          bg: '#0f172a',        // navy-700
+          surface: '#1e293b',   // navy-600
+          card: '#334155',      // navy-500
+          accent: '#d97706',    // gold-600
+          highlight: '#fbbf24', // gold-400
+          text: '#fef3c7',      // cream-100
+          muted: '#64748b',     // navy-300
         }
       },
       backgroundImage: {
