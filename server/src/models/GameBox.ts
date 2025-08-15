@@ -71,7 +71,7 @@ export class GameBox
     /**
      * Decrement ticket count and mark complete if needed
      */
-    public async useTicket(transaction?: any): Promise<void> {
+    public async useTicket(transaction?: Transaction): Promise<void> {
         this.remaining_tickets -= 1;
         if (this.remaining_tickets === 0) {
             this.completed_at = new Date();
@@ -82,7 +82,7 @@ export class GameBox
     /**
      * Decrement winner count for specific prize
      */
-    public async useWinner(prize: keyof WinnersRemaining, transaction?: any): Promise<void> {
+    public async useWinner(prize: keyof WinnersRemaining, transaction?: Transaction): Promise<void> {
         const winners = { ...this.winners_remaining };
         if (winners[prize] > 0) {
             winners[prize] -= 1;
