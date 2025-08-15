@@ -13,7 +13,19 @@ interface TicketComponentProps {
 
 export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
-    const [revealedTabs, setRevealedTabs] = useState<number[]>(ticket.revealedTabs || []);
+    // Convert boolean array to array of tab numbers for already revealed tabs
+    const getInitialRevealedTabs = () => {
+        const revealed: number[] = [];
+        if (ticket.revealedTabs && Array.isArray(ticket.revealedTabs)) {
+            ticket.revealedTabs.forEach((isRevealed, index) => {
+                if (isRevealed === true) {
+                    revealed.push(index + 1); // Convert 0-based index to 1-based tab number
+                }
+            });
+        }
+        return revealed;
+    };
+    const [revealedTabs, setRevealedTabs] = useState<number[]>(getInitialRevealedTabs());
     const [currentWinnings, setCurrentWinnings] = useState(0);
     const [isRevealing, setIsRevealing] = useState(false);
     const [hasCompleted, setHasCompleted] = useState(false);
@@ -28,6 +40,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     }, [revealedTabs.length, currentWinnings, onComplete, hasCompleted]);
 
     const handleFlip = () => {
+        console.log(revealedTabs);
         if (!isFlipped) {
             setIsFlipped(true);
         }
@@ -92,7 +105,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
     return (
         <div className="relative w-full max-w-md mx-auto" style={{ perspective: "1000px" }}>
             <div
-                className="relative w-full h-[600px] transition-transform duration-700"
+                className="relative w-full h-[700px] transition-transform duration-700"
                 style={{
                     backfaceVisibility: "hidden",
                     WebkitBackfaceVisibility: "hidden",
@@ -119,15 +132,12 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                             {/* Header with ornate border */}
                             <div className="text-center mb-4">
                                 <div className="inline-block relative">
-                                    <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-lg mb-2 font-serif">
+                                    <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-lg mb-2 text-amber-200/90 font-serif italic">
                                         Pirate's Treasure
                                     </h2>
-                                    <div className="absolute -top-2 -left-4 text-2xl">⚓</div>
-                                    <div className="absolute -top-2 -right-4 text-2xl">⚓</div>
+                                    <div className="absolute -top-2 -left-10 text-2xl">⚓</div>
+                                    <div className="absolute -top-2 -right-10 text-2xl">⚓</div>
                                 </div>
-                                <p className="text-amber-200/90 text-lg font-serif italic">
-                                    Pull Tab Adventure
-                                </p>
                                 <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mt-2" />
                             </div>
 
@@ -213,15 +223,15 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                 >
                     <div className="w-full h-full bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl shadow-2xl p-6">
                         {/* Header */}
-                        <div className="text-center mb-4">
+                        <div className="text-center mb-8">
                             <h3 className="text-2xl font-bold text-white drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
-                            {currentWinnings > 0 && (
+                            {/* {currentWinnings > 0 && (
                                 <div className="mt-2 text-3xl font-bold text-yellow-300 animate-pulse">
                                     Won: ${currentWinnings}
                                 </div>
-                            )}
+                            )} */}
                         </div>
 
                         {/* Tabs */}
@@ -240,8 +250,8 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                         </div>
 
                         {/* Status */}
-                        {revealedTabs.length === 5 && (
-                            <div className="mt-4 text-center">
+                        {(currentWinnings > 0 || revealedTabs.length === 5) && (
+                            <div className="mt-6 text-center">
                                 <div className="text-white text-xl font-bold">
                                     {currentWinnings > 0 ? (
                                         <span className="text-yellow-300 text-2xl animate-bounce">
