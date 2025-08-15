@@ -102,22 +102,22 @@ export function GamePage() {
     return (
         <div className="space-y-6">
             {/* Game Header */}
-            <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-lg p-6 border border-amber-400/30">
+            <div className="bg-navy-600 rounded-lg shadow-lg p-6 border border-gold-600/30">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                    <h2 className="text-3xl font-bold text-amber-200">Pull Tabs Treasure Game</h2>
+                    <h2 className="text-3xl font-bold text-gold-400">Pull Tabs Treasure Game</h2>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
                         {!currentTicket ? (
                             <button
                                 onClick={handlePurchaseTicket}
                                 disabled={isPurchasing}
-                                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="bg-gold-600 hover:bg-gold-700 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {isPurchasing ? "Purchasing..." : "Buy Ticket ($1)"}
                             </button>
                         ) : (
                             <button
                                 onClick={handleNewTicket}
-                                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl"
+                                className="bg-navy-500 hover:bg-navy-400 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl border border-navy-400"
                             >
                                 New Ticket
                             </button>
@@ -131,7 +131,7 @@ export function GamePage() {
                 {currentTicket ? (
                     <TicketComponent ticket={currentTicket} onComplete={handleTicketComplete} />
                 ) : (
-                    <div className="bg-gradient-treasure rounded-lg shadow-lg p-12 text-center text-white max-w-2xl">
+                    <div className="bg-navy-600 rounded-lg shadow-lg p-12 text-center text-cream-100 max-w-2xl border border-gold-600/20">
                         <div className="text-6xl mb-6">🏴‍☠️</div>
                         <h3 className="text-3xl font-bold mb-4">Welcome to Pirate's Treasure!</h3>
                         <p className="text-xl mb-8 opacity-90">
