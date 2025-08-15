@@ -6,7 +6,7 @@ interface PrizeTableProps {
 
 export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
     return (
-        <div className="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-lg p-6 shadow-xl">
+        <div className="bg-navy-600 rounded-lg p-6 shadow-xl border border-navy-500">
             {/* <h3 className="text-2xl font-bold text-yellow-400 mb-4 text-center drop-shadow-lg">
                 Prize Table
             </h3> */}
@@ -22,8 +22,8 @@ export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
                 flex items-center justify-between p-3 rounded-lg
                 ${
                     isCurrentWin
-                        ? "bg-gradient-to-r from-yellow-400 to-amber-400 animate-pulse shadow-lg"
-                        : "bg-white/10"
+                        ? "bg-gold-600 animate-pulse shadow-lg"
+                        : "bg-navy-500/50"
                 }
                 transition-all duration-300 select-none
               `}
@@ -54,7 +54,7 @@ export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
                                 <span
                                     className={`
                   font-bold text-lg
-                  ${isCurrentWin ? "text-indigo-900" : "text-yellow-400"}
+                  ${isCurrentWin ? "text-navy-900" : "text-gold-400"}
                 `}
                                 >
                                     ${combo.prize}
@@ -69,7 +69,7 @@ export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
             </div>
 
             <div className="pt-4">
-                <div className="text-center text-yellow-400/80 text-sm">
+                <div className="text-center text-cream-100/80 text-sm">
                     Match symbols on any line to win!
                 </div>
             </div>
