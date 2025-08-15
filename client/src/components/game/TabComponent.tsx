@@ -50,27 +50,73 @@ export function TabComponent({
         <div
           className={`
             absolute inset-0 cursor-pointer
-            bg-gradient-to-br from-amber-400 to-amber-600
+            bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600
             rounded-lg shadow-lg
-            flex items-center justify-center
-            transform-gpu transition-all duration-600
-            ${isPeeling ? 'tab-peel-animation' : 'hover:scale-105'}
+            flex flex-col items-center justify-center
+            transform-gpu transition-all duration-300
+            ${isPeeling ? 'tab-peel-animation' : 'hover:scale-105 hover:brightness-110'}
             ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-xl'}
           `}
+          style={{
+            transformStyle: 'preserve-3d',
+            transformOrigin: 'top center'
+          }}
           onClick={handleClick}
         >
-          <div className="text-center">
-            <div className="text-white font-bold text-lg drop-shadow-md">
+          {/* Perforated edges on all sides */}
+          <div className="absolute inset-0 rounded-lg overflow-hidden">
+            {/* Top perforation */}
+            <div 
+              className="absolute top-0 left-0 right-0 h-1"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)',
+              }}
+            />
+            {/* Bottom perforation */}
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-1"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)',
+              }}
+            />
+            {/* Left perforation */}
+            <div 
+              className="absolute top-0 bottom-0 left-0 w-1"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)',
+              }}
+            />
+            {/* Right perforation */}
+            <div 
+              className="absolute top-0 bottom-0 right-0 w-1"
+              style={{
+                backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)',
+              }}
+            />
+          </div>
+          
+          {/* Metallic foil effect */}
+          <div className="absolute inset-0 rounded-lg opacity-20 bg-gradient-to-tr from-white via-transparent to-white" />
+          
+          {/* Tab content */}
+          <div className="relative text-center z-10">
+            <div className="text-white font-bold text-lg drop-shadow-lg">
               TAB {tabNumber}
             </div>
-            <div className="text-white/80 text-xs mt-1">
-              Click to reveal
+            <div className="text-amber-100/90 text-xs mt-1 font-semibold">
+              PULL TO REVEAL
             </div>
           </div>
           
-          {/* Perforated edge effect */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-repeating-linear-gradient">
-            <div className="w-full h-full opacity-30 bg-gradient-to-b from-black to-transparent" />
+          {/* Scratch texture overlay */}
+          <div className="absolute inset-0 rounded-lg opacity-10">
+            <svg width="100%" height="100%">
+              <filter id="scratches">
+                <feTurbulence baseFrequency="0.02" numOctaves="5" result="noise" seed={tabNumber} />
+                <feColorMatrix in="noise" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" />
+              </filter>
+              <rect width="100%" height="100%" filter="url(#scratches)" />
+            </svg>
           </div>
         </div>
       )}
