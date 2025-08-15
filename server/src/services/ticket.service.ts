@@ -168,7 +168,7 @@ export class TicketService {
             const shouldWin = GameBoxService.shouldGenerateWinner(gameBox);
             let symbols: GameSymbol[];
             let prizeAmount: number | null = null;
-            let winningLines: any[] = [];
+            let winningLines: WinningLine[] = [];
             let totalPayout = 0;
 
             if (shouldWin) {
