@@ -158,7 +158,7 @@ export class TicketService {
             if (!gameBox) {
                 gameBox = await GameBox.create(GameBox.createNewBox(), { transaction });
             }
-            
+
             // Verify we have tickets available
             if (gameBox.remaining_tickets <= 0) {
                 throw new Error("Insufficient tickets in current game box");
@@ -215,10 +215,13 @@ export class TicketService {
 
             // Update game box - decrement ticket count
             await gameBox.useTicket(transaction);
-            
+
             // If this was a winner, decrement the winner count
             if (totalPayout > 0) {
-                await gameBox.useWinner(totalPayout as keyof typeof gameBox.winners_remaining, transaction);
+                await gameBox.useWinner(
+                    totalPayout as keyof typeof gameBox.winners_remaining,
+                    transaction
+                );
             }
 
             // Update user statistics
@@ -306,7 +309,7 @@ export class TicketService {
             revealedTabs.push(tabIndex);
             // Force array update for PostgreSQL
             ticket.revealed_tabs = revealedTabs;
-            ticket.changed('revealed_tabs', true);
+            ticket.changed("revealed_tabs", true);
             await ticket.save();
         }
 

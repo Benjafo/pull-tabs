@@ -26,19 +26,21 @@ describe("Statistics Endpoints", () => {
         });
 
         // Extract cookie from headers
-        const cookies = registerResponse.headers["set-cookie"] || registerResponse.headers["Set-Cookie"];
+        const cookies =
+            registerResponse.headers["set-cookie"] || registerResponse.headers["Set-Cookie"];
         authCookie = Array.isArray(cookies) ? cookies[0] : cookies;
-        
+
         if (!authCookie) {
             // Try logging in if registration didn't set cookie
             const loginResponse = await request(app).post("/api/auth/login").send({
                 email: "test@example.com",
                 password: "TestPass123",
             });
-            const loginCookies = loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
+            const loginCookies =
+                loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
             authCookie = Array.isArray(loginCookies) ? loginCookies[0] : loginCookies;
         }
-        
+
         testUser = (await User.findOne({ where: { email: "test@example.com" } })) as User;
 
         // Create a game box
@@ -120,7 +122,8 @@ describe("Statistics Endpoints", () => {
                 password: "NewPass123",
             });
 
-            const newCookies = newUserResponse.headers["set-cookie"] || newUserResponse.headers["Set-Cookie"];
+            const newCookies =
+                newUserResponse.headers["set-cookie"] || newUserResponse.headers["Set-Cookie"];
             const newCookie = Array.isArray(newCookies) ? newCookies[0] : newCookies;
 
             const response = await request(app).get("/api/stats").set("Cookie", newCookie);

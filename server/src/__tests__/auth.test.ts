@@ -9,7 +9,9 @@ describe("Authentication Endpoints", () => {
             await sequelize.sync({ force: true });
         } catch (error) {
             // If force sync fails, try to manually clean up
-            await sequelize.query('TRUNCATE TABLE tickets, user_statistics, game_boxes, users CASCADE');
+            await sequelize.query(
+                "TRUNCATE TABLE tickets, user_statistics, game_boxes, users CASCADE"
+            );
         }
     });
 
