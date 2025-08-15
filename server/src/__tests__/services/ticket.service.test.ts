@@ -21,7 +21,6 @@ describe("TicketService", () => {
 
         // Create test user
         testUser = await User.create({
-            username: "testuser",
             email: "test@example.com",
             password_hash: "password123",
         });
@@ -162,7 +161,6 @@ describe("TicketService", () => {
 
         it("should reject ticket from different user", async () => {
             const otherUser = await User.create({
-                username: "otheruser",
                 email: "other@example.com",
                 password_hash: "password123",
             });
