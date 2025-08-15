@@ -116,7 +116,6 @@ describe("Statistics Endpoints", () => {
         it("should handle user with no statistics", async () => {
             // Create a new user without stats
             const newUserResponse = await request(app).post("/api/auth/register").send({
-                username: "newuser",
                 email: "new@example.com",
                 password: "NewPass123",
             });
@@ -211,14 +210,13 @@ describe("Statistics Endpoints", () => {
         beforeEach(async () => {
             // Create multiple users with different stats
             const users = [
-                { username: "player1", email: "p1@test.com", winnings: 500 },
-                { username: "player2", email: "p2@test.com", winnings: 300 },
-                { username: "player3", email: "p3@test.com", winnings: 750 },
+                { email: "p1@test.com", winnings: 500 },
+                { email: "p2@test.com", winnings: 300 },
+                { email: "p3@test.com", winnings: 750 },
             ];
 
             for (const userData of users) {
                 const user = await User.create({
-                    username: userData.username,
                     email: userData.email,
                     password_hash: "password123",
                 });
