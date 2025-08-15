@@ -33,7 +33,7 @@ export function TabComponent({
     return (
         <div className="relative">
             {/* Symbols underneath */}
-            <div className="flex gap-3 p-3 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg">
+            <div className="flex gap-3 p-3 bg-navy-800/30 rounded-lg border border-navy-600/30">
                 {symbols.map((symbolId, index) => (
                     <SymbolDisplay
                         key={`${tabNumber}-${index}`}
@@ -50,7 +50,7 @@ export function TabComponent({
                 <div
                     className={`
             absolute inset-0 cursor-pointer
-            bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600
+            bg-gold-600
             rounded-lg shadow-lg
             flex flex-col items-center justify-center
             transform-gpu transition-all duration-300
