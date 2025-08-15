@@ -103,7 +103,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             message: "Login successful",
             user: {
                 id: user.id,
-                username: user.username || user.email, // Use email as fallback
                 email: user.email,
             },
         });
@@ -133,7 +132,6 @@ export const verify = async (req: Request, res: Response): Promise<void> => {
     res.json({
         user: {
             id: req.user.id,
-            username: req.user.username,
             email: req.user.email,
         },
     });
