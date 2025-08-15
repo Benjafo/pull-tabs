@@ -2,13 +2,12 @@ import { useCallback, useEffect, useState } from "react";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
-import type { GameBoxStatus, UserStats } from "../services/statsService";
+import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
 import type { Ticket } from "../services/ticketService";
 import ticketService from "../services/ticketService";
 
 export function GamePage() {
-    const [stats, setStats] = useState<UserStats | null>(null);
     const [gameBox, setGameBox] = useState<GameBoxStatus | null>(null);
     const [currentTicket, setCurrentTicket] = useState<Ticket | null>(null);
     const [loading, setLoading] = useState(true);
@@ -25,11 +24,7 @@ export function GamePage() {
     const loadGameData = async () => {
         try {
             setLoading(true);
-            const [userStats, boxStatus] = await Promise.all([
-                statsService.getUserStats(),
-                statsService.getCurrentGameBox(),
-            ]);
-            setStats(userStats);
+            const boxStatus = await statsService.getCurrentGameBox();
             setGameBox(boxStatus);
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to load game data");
@@ -69,12 +64,8 @@ export function GamePage() {
             setShowWinAnimation(true);
         }
 
-        // Reload stats to show updated values
-        const [userStats, boxStatus] = await Promise.all([
-            statsService.getUserStats(),
-            statsService.getCurrentGameBox(),
-        ]);
-        setStats(userStats);
+        // Reload game box to show updated values
+        const boxStatus = await statsService.getCurrentGameBox();
         setGameBox(boxStatus);
     }, []);
 
@@ -145,6 +136,9 @@ export function GamePage() {
                         <h3 className="text-3xl font-bold mb-4">Welcome to Pirate's Treasure!</h3>
                         <p className="text-xl mb-8 opacity-90">
                             Purchase a ticket to reveal hidden treasures and win up to $100!
+                        </p>
+                        <p className="text-lg mb-4 text-amber-300">
+                            ⚡ Test Change - Ready to play!
                         </p>
                         <button
                             onClick={handlePurchaseTicket}
