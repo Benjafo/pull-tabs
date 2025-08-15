@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import User from "../models/User";
 import UserStatistics from "../models/UserStatistics";
-import { generateToken, setTokenCookie, clearTokenCookie } from "../utils/jwt";
-import { Op } from "sequelize";
+import { clearTokenCookie, generateToken, setTokenCookie } from "../utils/jwt";
 
 /**
  * Register a new user
@@ -25,7 +24,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
         // Create new user
         const user = await User.create({
-            username: email.split('@')[0], // Use email prefix as username
+            username: email.split("@")[0], // Use email prefix as username
             email,
             password_hash: password, // Will be hashed by beforeCreate hook
         });
@@ -53,7 +52,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             message: "Registration successful",
             user: {
                 id: user.id,
-                username: user.username || user.email,  // Use email as fallback
+                username: user.username || user.email, // Use email as fallback
                 email: user.email,
             },
         });
@@ -106,7 +105,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             message: "Login successful",
             user: {
                 id: user.id,
-                username: user.username || user.email,  // Use email as fallback
+                username: user.username || user.email, // Use email as fallback
                 email: user.email,
             },
         });

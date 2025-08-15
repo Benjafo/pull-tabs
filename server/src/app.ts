@@ -33,10 +33,8 @@ app.use(
 
 // Rate limiting
 let maxRequests;
-if (process.env.NODE_ENV === "test") {
+if (process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development") {
     maxRequests = 10000;
-} else if (process.env.NODE_ENV === "development") {
-    maxRequests = 1000;
 } else {
     maxRequests = parseInt(process.env.RATE_LIMIT_MAX_REQUESTS);
 }
