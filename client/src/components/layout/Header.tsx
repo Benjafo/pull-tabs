@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { useState } from 'react';
 
 export function Header() {
   const { user, logout } = useAuth();
@@ -22,25 +22,25 @@ export function Header() {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center">
             {user ? (
-              <>
+              <div className="flex items-center">
                 <Link to="/game" className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors">
                   Play Game
                 </Link>
-                <Link to="/stats" className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors">
+                <Link to="/stats" className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2">
                   My Stats
                 </Link>
-                <div className="flex items-center space-x-4 ml-4 pl-4 border-l border-primary-600">
+                <div className="flex items-center ml-8 pl-8 border-l border-primary-600">
                   <span className="text-sm">Ahoy, {user.email}!</span>
                   <button 
                     onClick={handleLogout} 
-                    className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors ml-4"
                   >
                     Logout
                   </button>
                 </div>
-              </>
+              </div>
             ) : (
               <>
                 <Link to="/login" className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors">
