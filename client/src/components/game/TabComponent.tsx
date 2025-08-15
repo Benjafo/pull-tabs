@@ -100,11 +100,11 @@ export function TabComponent({
                     </div>
 
                     {/* Metallic foil effect */}
-                    <div className="absolute inset-0 rounded-lg opacity-20 bg-gradient-to-tr from-white via-transparent to-white" />
+                    <div className="absolute inset-0 rounded-lg opacity-20 bg-gradient-to-tr from-cream-100 via-transparent to-cream-100" />
 
                     {/* Tab content */}
                     <div className="relative text-center z-10">
-                        <div className="text-white font-bold text-lg drop-shadow-lg">
+                        <div className="text-cream-100 font-bold text-lg drop-shadow-lg">
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">
