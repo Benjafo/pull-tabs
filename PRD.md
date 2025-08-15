@@ -131,7 +131,6 @@ All winning combinations require consecutive Skull-Skull-X patterns on specific 
 
 ```sql
 id (Primary Key)
-username (String, unique)
 email (String, unique)
 password_hash (String)
 created_at (Timestamp)
@@ -240,7 +239,7 @@ PUT  /api/user/profile      // Update user profile
 
 - **Landing Page**: Login/Register form before accessing game
 - **Guest Mode**: Optional anonymous play with limited features
-- **Profile Management**: Basic user profile with username/email management
+- **Profile Management**: Basic user profile with email management
 - **Persistent Progress**: All statistics and game progress tied to user account
 
 ## 6. Performance Requirements
