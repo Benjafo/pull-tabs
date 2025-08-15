@@ -130,7 +130,6 @@ describe("Ticket Endpoints", () => {
         it("should not allow access to other user's ticket", async () => {
             // Create another user
             const otherUserResponse = await request(app).post("/api/auth/register").send({
-                username: "otheruser",
                 email: "other@example.com",
                 password: "OtherPass123",
             });
