@@ -28,7 +28,6 @@ describe("Validation Middleware", () => {
 
         it("should pass with valid registration data", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "valid@example.com",
                 password: "ValidPass123",
             });
@@ -37,47 +36,18 @@ describe("Validation Middleware", () => {
             expect(response.body.success).toBe(true);
         });
 
-        it("should reject short username", async () => {
+        it("should reject missing email", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "ab",
-                email: "valid@example.com",
                 password: "ValidPass123",
             });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
-            expect(response.body.errors[0].msg).toContain("between 3 and 50 characters");
-        });
-
-        it("should reject long username", async () => {
-            const response = await request(app)
-                .post("/test-register")
-                .send({
-                    username: "a".repeat(51),
-                    email: "valid@example.com",
-                    password: "ValidPass123",
-                });
-
-            expect(response.status).toBe(400);
-            expect(response.body.errors).toBeDefined();
-            expect(response.body.errors[0].msg).toContain("between 3 and 50 characters");
-        });
-
-        it("should reject non-alphanumeric username", async () => {
-            const response = await request(app).post("/test-register").send({
-                username: "user@name",
-                email: "valid@example.com",
-                password: "ValidPass123",
-            });
-
-            expect(response.status).toBe(400);
-            expect(response.body.errors).toBeDefined();
-            expect(response.body.errors[0].msg).toContain("only letters and numbers");
+            expect(response.body.errors[0].msg).toContain("valid email");
         });
 
         it("should reject invalid email format", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "not-an-email",
                 password: "ValidPass123",
             });
@@ -89,7 +59,6 @@ describe("Validation Middleware", () => {
 
         it("should reject short password", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "valid@example.com",
                 password: "Short1",
             });
@@ -101,7 +70,6 @@ describe("Validation Middleware", () => {
 
         it("should reject password without uppercase", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "valid@example.com",
                 password: "lowercase123",
             });
@@ -113,7 +81,6 @@ describe("Validation Middleware", () => {
 
         it("should reject password without lowercase", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "valid@example.com",
                 password: "UPPERCASE123",
             });
@@ -125,7 +92,6 @@ describe("Validation Middleware", () => {
 
         it("should reject password without number", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "validuser",
                 email: "valid@example.com",
                 password: "NoNumbers",
             });
@@ -135,9 +101,8 @@ describe("Validation Middleware", () => {
             expect(response.body.errors[0].msg).toContain("one number");
         });
 
-        it("should trim whitespace from inputs", async () => {
+        it("should trim whitespace from email", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "  validuser  ",
                 email: "  valid@example.com  ",
                 password: "ValidPass123",
             });
@@ -148,7 +113,6 @@ describe("Validation Middleware", () => {
 
         it("should return multiple validation errors", async () => {
             const response = await request(app).post("/test-register").send({
-                username: "a",
                 email: "invalid",
                 password: "bad",
             });
@@ -173,7 +137,7 @@ describe("Validation Middleware", () => {
 
         it("should pass with valid login data", async () => {
             const response = await request(app).post("/test-login").send({
-                username: "validuser",
+                email: "user@example.com",
                 password: "anypassword",
             });
 
@@ -181,30 +145,31 @@ describe("Validation Middleware", () => {
             expect(response.body.success).toBe(true);
         });
 
-        it("should pass with email as username", async () => {
+        it("should reject empty email", async () => {
             const response = await request(app).post("/test-login").send({
-                username: "user@example.com",
-                password: "anypassword",
-            });
-
-            expect(response.status).toBe(200);
-            expect(response.body.success).toBe(true);
-        });
-
-        it("should reject empty username", async () => {
-            const response = await request(app).post("/test-login").send({
-                username: "",
+                email: "",
                 password: "password",
             });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
-            expect(response.body.errors[0].msg).toContain("Username is required");
+            expect(response.body.errors[0].msg).toContain("valid email");
+        });
+
+        it("should reject invalid email format", async () => {
+            const response = await request(app).post("/test-login").send({
+                email: "not-an-email",
+                password: "password",
+            });
+
+            expect(response.status).toBe(400);
+            expect(response.body.errors).toBeDefined();
+            expect(response.body.errors[0].msg).toContain("valid email");
         });
 
         it("should reject empty password", async () => {
             const response = await request(app).post("/test-login").send({
-                username: "validuser",
+                email: "user@example.com",
                 password: "",
             });
 
@@ -213,7 +178,7 @@ describe("Validation Middleware", () => {
             expect(response.body.errors[0].msg).toContain("Password is required");
         });
 
-        it("should reject missing username field", async () => {
+        it("should reject missing email field", async () => {
             const response = await request(app).post("/test-login").send({
                 password: "password",
             });
@@ -224,16 +189,16 @@ describe("Validation Middleware", () => {
 
         it("should reject missing password field", async () => {
             const response = await request(app).post("/test-login").send({
-                username: "validuser",
+                email: "user@example.com",
             });
 
             expect(response.status).toBe(400);
             expect(response.body.errors).toBeDefined();
         });
 
-        it("should trim whitespace from username", async () => {
+        it("should trim whitespace from email", async () => {
             const response = await request(app).post("/test-login").send({
-                username: "  validuser  ",
+                email: "  user@example.com  ",
                 password: "password",
             });
 

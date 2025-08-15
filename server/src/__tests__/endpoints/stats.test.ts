@@ -21,26 +21,27 @@ describe("Statistics Endpoints", () => {
 
         // Create and login test user
         const registerResponse = await request(app).post("/api/auth/register").send({
-            username: "testuser",
             email: "test@example.com",
             password: "TestPass123",
         });
 
         // Extract cookie from headers
-        const cookies = registerResponse.headers["set-cookie"] || registerResponse.headers["Set-Cookie"];
+        const cookies =
+            registerResponse.headers["set-cookie"] || registerResponse.headers["Set-Cookie"];
         authCookie = Array.isArray(cookies) ? cookies[0] : cookies;
-        
+
         if (!authCookie) {
             // Try logging in if registration didn't set cookie
             const loginResponse = await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "TestPass123",
             });
-            const loginCookies = loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
+            const loginCookies =
+                loginResponse.headers["set-cookie"] || loginResponse.headers["Set-Cookie"];
             authCookie = Array.isArray(loginCookies) ? loginCookies[0] : loginCookies;
         }
-        
-        testUser = (await User.findOne({ where: { username: "testuser" } })) as User;
+
+        testUser = (await User.findOne({ where: { email: "test@example.com" } })) as User;
 
         // Create a game box
         gameBox = await GameBox.create(GameBox.createNewBox());
@@ -117,12 +118,12 @@ describe("Statistics Endpoints", () => {
         it("should handle user with no statistics", async () => {
             // Create a new user without stats
             const newUserResponse = await request(app).post("/api/auth/register").send({
-                username: "newuser",
                 email: "new@example.com",
                 password: "NewPass123",
             });
 
-            const newCookies = newUserResponse.headers["set-cookie"] || newUserResponse.headers["Set-Cookie"];
+            const newCookies =
+                newUserResponse.headers["set-cookie"] || newUserResponse.headers["Set-Cookie"];
             const newCookie = Array.isArray(newCookies) ? newCookies[0] : newCookies;
 
             const response = await request(app).get("/api/stats").set("Cookie", newCookie);
@@ -212,14 +213,13 @@ describe("Statistics Endpoints", () => {
         beforeEach(async () => {
             // Create multiple users with different stats
             const users = [
-                { username: "player1", email: "p1@test.com", winnings: 500 },
-                { username: "player2", email: "p2@test.com", winnings: 300 },
-                { username: "player3", email: "p3@test.com", winnings: 750 },
+                { email: "p1@test.com", winnings: 500 },
+                { email: "p2@test.com", winnings: 300 },
+                { email: "p3@test.com", winnings: 750 },
             ];
 
             for (const userData of users) {
                 const user = await User.create({
-                    username: userData.username,
                     email: userData.email,
                     password_hash: "password123",
                 });
@@ -239,7 +239,7 @@ describe("Statistics Endpoints", () => {
 
             expect(response.status).toBe(200);
             expect(response.body.leaderboard).toHaveLength(3);
-            expect(response.body.leaderboard[0].username).toBe("player3");
+            expect(response.body.leaderboard[0].email).toBe("p3@test.com");
             expect(response.body.leaderboard[0].value).toBe(750);
             expect(response.body.leaderboard[0].rank).toBe(1);
         });

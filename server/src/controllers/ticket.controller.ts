@@ -32,11 +32,16 @@ export class TicketController {
             console.error("Error purchasing ticket:", error);
             if (error instanceof Error) {
                 if (error.message.includes("No game box available")) {
-                    res.status(503).json({ error: "No game box available. Please try again later." });
+                    res.status(503).json({
+                        error: "No game box available. Please try again later.",
+                    });
                 } else if (error.message.includes("Insufficient tickets")) {
                     res.status(409).json({ error: "No tickets remaining in current game box" });
                 } else {
-                    res.status(500).json({ error: "Failed to purchase ticket", details: error.message });
+                    res.status(500).json({
+                        error: "Failed to purchase ticket",
+                        details: error.message,
+                    });
                 }
             } else {
                 res.status(500).json({ error: "Failed to purchase ticket" });
@@ -114,7 +119,7 @@ export class TicketController {
             }
 
             const result = await TicketService.revealTab(ticketId, req.userId, tabIndex);
-            
+
             // Get updated ticket state
             const ticketState = await TicketService.getTicketWithRevealState(ticketId, req.userId);
 

@@ -18,7 +18,6 @@ describe("Model Relationships", () => {
     describe("User - UserStatistics Relationship", () => {
         it("should create one-to-one relationship", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -36,7 +35,7 @@ describe("Model Relationships", () => {
                 include: [User],
             });
             expect(statsWithUser?.User).toBeDefined();
-            expect(statsWithUser?.User?.username).toBe("testuser");
+            expect(statsWithUser?.User?.email).toBe("test@example.com");
 
             // Test association from User to UserStatistics
             const userWithStats = await User.findByPk(user.id, {
@@ -48,7 +47,6 @@ describe("Model Relationships", () => {
 
         it("should enforce unique user_id in UserStatistics", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -76,7 +74,6 @@ describe("Model Relationships", () => {
     describe("User - Ticket Relationship", () => {
         it("should create one-to-many relationship", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -114,14 +111,13 @@ describe("Model Relationships", () => {
                 include: [User],
             });
             expect(ticketWithUser?.User).toBeDefined();
-            expect(ticketWithUser?.User?.username).toBe("testuser");
+            expect(ticketWithUser?.User?.email).toBe("test@example.com");
         });
     });
 
     describe("GameBox - Ticket Relationship", () => {
         it("should create one-to-many relationship", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -219,7 +215,6 @@ describe("Model Relationships", () => {
     describe("UserStatistics Methods", () => {
         it("should update statistics after ticket", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -242,7 +237,6 @@ describe("Model Relationships", () => {
 
         it("should increment session count", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });

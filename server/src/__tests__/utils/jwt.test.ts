@@ -17,7 +17,7 @@ describe("JWT Utilities", () => {
 
     describe("generateToken", () => {
         it("should generate a valid JWT token", () => {
-            const payload = { userId: 1, username: "testuser" };
+            const payload = { userId: 1, email: "test@example.com" };
             const token = generateToken(payload);
 
             expect(token).toBeDefined();
@@ -26,24 +26,24 @@ describe("JWT Utilities", () => {
         });
 
         it("should include payload data in token", () => {
-            const payload = { userId: 123, username: "testuser" };
+            const payload = { userId: 123, email: "test@example.com" };
             const token = generateToken(payload);
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
             expect(decoded.userId).toBe(123);
-            expect(decoded.username).toBe("testuser");
+            expect(decoded.email).toBe("test@example.com");
         });
 
         it("should throw error if JWT_SECRET is not configured", () => {
             process.env.JWT_SECRET = undefined as unknown as string;
 
             expect(() => {
-                generateToken({ userId: 1, username: "test" });
+                generateToken({ userId: 1, email: "test@example.com" });
             }).toThrow("JWT_SECRET is not configured");
         });
 
         it("should set expiration time", () => {
-            const payload = { userId: 1, username: "testuser" };
+            const payload = { userId: 1, email: "test@example.com" };
             const token = generateToken(payload);
 
             const decoded = jwt.verify(token, process.env.JWT_SECRET!) as jwt.JwtPayload;
@@ -55,12 +55,12 @@ describe("JWT Utilities", () => {
 
     describe("verifyToken", () => {
         it("should verify and decode valid token", () => {
-            const payload = { userId: 456, username: "testuser" };
+            const payload = { userId: 456, email: "test@example.com" };
             const token = generateToken(payload);
 
             const decoded = verifyToken(token);
             expect(decoded.userId).toBe(456);
-            expect(decoded.username).toBe("testuser");
+            expect(decoded.email).toBe("test@example.com");
         });
 
         it("should throw error for invalid token", () => {
@@ -70,7 +70,7 @@ describe("JWT Utilities", () => {
         });
 
         it("should throw error for expired token", () => {
-            const payload = { userId: 1, username: "testuser" };
+            const payload = { userId: 1, email: "test@example.com" };
             const expiredToken = jwt.sign(payload, process.env.JWT_SECRET!, {
                 expiresIn: "-1h", // Already expired
             });
@@ -81,7 +81,7 @@ describe("JWT Utilities", () => {
         });
 
         it("should throw error if JWT_SECRET is not configured", () => {
-            const token = generateToken({ userId: 1, username: "test" });
+            const token = generateToken({ userId: 1, email: "test@example.com" });
             process.env.JWT_SECRET = undefined as unknown as string;
 
             expect(() => {
@@ -90,7 +90,7 @@ describe("JWT Utilities", () => {
         });
 
         it("should throw error for token signed with different secret", () => {
-            const payload = { userId: 1, username: "testuser" };
+            const payload = { userId: 1, email: "test@example.com" };
             const tokenWithDifferentSecret = jwt.sign(payload, "different_secret");
 
             expect(() => {

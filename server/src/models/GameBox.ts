@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize";
+import { DataTypes, Model, Optional, Transaction } from "sequelize";
 import sequelize from "../config/database";
 
 interface WinnersRemaining {
@@ -71,7 +71,7 @@ export class GameBox
     /**
      * Decrement ticket count and mark complete if needed
      */
-    public async useTicket(transaction?: any): Promise<void> {
+    public async useTicket(transaction?: Transaction): Promise<void> {
         this.remaining_tickets -= 1;
         if (this.remaining_tickets === 0) {
             this.completed_at = new Date();
@@ -82,12 +82,15 @@ export class GameBox
     /**
      * Decrement winner count for specific prize
      */
-    public async useWinner(prize: keyof WinnersRemaining, transaction?: any): Promise<void> {
+    public async useWinner(
+        prize: keyof WinnersRemaining,
+        transaction?: Transaction
+    ): Promise<void> {
         const winners = { ...this.winners_remaining };
         if (winners[prize] > 0) {
             winners[prize] -= 1;
             this.winners_remaining = winners;
-            this.changed('winners_remaining', true);
+            this.changed("winners_remaining", true);
             await this.save({ transaction });
         }
     }

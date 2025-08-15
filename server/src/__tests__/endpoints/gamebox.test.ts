@@ -88,7 +88,6 @@ describe("GameBox Endpoints", () => {
         it("should update after ticket purchases", async () => {
             // Register a user
             const registerResponse = await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "test@example.com",
                 password: "TestPass123",
             });
@@ -127,13 +126,12 @@ describe("GameBox Endpoints", () => {
 
             // Register a user
             await request(app).post("/api/auth/register").send({
-                username: "testuser",
                 email: "test@example.com",
                 password: "TestPass123",
             });
 
             // authCookie not needed for this test
-            const testUser = await User.findOne({ where: { username: "testuser" } });
+            const testUser = await User.findOne({ where: { email: "test@example.com" } });
 
             // Manually create a winning ticket to simulate winner depletion
             await Ticket.create({

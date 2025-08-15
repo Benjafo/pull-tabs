@@ -1,4 +1,4 @@
-import { Ticket, GameSymbol } from "../models/Ticket";
+import { Ticket, GameSymbol, WinningLine } from "../models/Ticket";
 import { UserStatistics } from "../models/UserStatistics";
 import { GameBoxService } from "./gameBox.service";
 import { GameBox } from "../models/GameBox";
@@ -158,7 +158,7 @@ export class TicketService {
             if (!gameBox) {
                 gameBox = await GameBox.create(GameBox.createNewBox(), { transaction });
             }
-            
+
             // Verify we have tickets available
             if (gameBox.remaining_tickets <= 0) {
                 throw new Error("Insufficient tickets in current game box");
@@ -168,7 +168,7 @@ export class TicketService {
             const shouldWin = GameBoxService.shouldGenerateWinner(gameBox);
             let symbols: GameSymbol[];
             let prizeAmount: number | null = null;
-            let winningLines: any[] = [];
+            let winningLines: WinningLine[] = [];
             let totalPayout = 0;
 
             if (shouldWin) {
@@ -215,10 +215,13 @@ export class TicketService {
 
             // Update game box - decrement ticket count
             await gameBox.useTicket(transaction);
-            
+
             // If this was a winner, decrement the winner count
             if (totalPayout > 0) {
-                await gameBox.useWinner(totalPayout as keyof typeof gameBox.winners_remaining, transaction);
+                await gameBox.useWinner(
+                    totalPayout as keyof typeof gameBox.winners_remaining,
+                    transaction
+                );
             }
 
             // Update user statistics
@@ -306,7 +309,7 @@ export class TicketService {
             revealedTabs.push(tabIndex);
             // Force array update for PostgreSQL
             ticket.revealed_tabs = revealedTabs;
-            ticket.changed('revealed_tabs', true);
+            ticket.changed("revealed_tabs", true);
             await ticket.save();
         }
 

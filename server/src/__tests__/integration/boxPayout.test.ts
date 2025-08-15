@@ -18,7 +18,6 @@ describe("Box Payout Verification Tests", () => {
 
             // Create a test user for purchasing tickets
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "dummy_hash",
             });
@@ -97,11 +96,11 @@ describe("Box Payout Verification Tests", () => {
             Object.entries(expectedDistribution).forEach(([prize, expectedCount]) => {
                 const prizeAmount = parseInt(prize);
                 const actualCount = actualWins[prizeAmount] || 0;
-                const match = expectedCount === actualCount ? "✓" : "✗";
+                // const match = expectedCount === actualCount ? "✓" : "✗";
 
-                console.log(
-                    `$${prize.padEnd(4)} | ${expectedCount.toString().padEnd(8)} | ${actualCount.toString().padEnd(6)} | ${match}`
-                );
+                // console.log(
+                //     `$${prize.padEnd(4)} | ${expectedCount.toString().padEnd(8)} | ${actualCount.toString().padEnd(6)} | ${match}`
+                // );
 
                 totalExpectedWinners += expectedCount;
                 totalActualWinners += actualCount;
@@ -172,7 +171,6 @@ describe("Box Payout Verification Tests", () => {
 
             // Create a test user
             const user = await User.create({
-                username: "testuser2",
                 email: "test2@example.com",
                 password_hash: "dummy_hash",
             });

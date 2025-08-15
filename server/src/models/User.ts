@@ -1,10 +1,10 @@
+import bcrypt from "bcryptjs";
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../config/database";
-import bcrypt from "bcryptjs";
 
 export interface UserAttributes {
     id: number;
-    username?: string;  // Optional for backwards compatibility
+    username?: string; // Optional for backwards compatibility
     email: string;
     password_hash: string;
     created_at?: Date;
@@ -15,7 +15,7 @@ interface UserCreationAttributes extends Optional<UserAttributes, "id"> {}
 
 export class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     declare id: number;
-    declare username?: string;  // Optional for backwards compatibility
+    declare username?: string; // Optional for backwards compatibility
     declare email: string;
     declare password_hash: string;
     declare created_at: Date;
@@ -57,7 +57,7 @@ User.init(
         },
         username: {
             type: DataTypes.STRING(50),
-            allowNull: true,  // Made optional
+            allowNull: true, // Made optional
             unique: true,
         },
         email: {

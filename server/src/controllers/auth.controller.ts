@@ -24,7 +24,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
 
         // Create new user
         const user = await User.create({
-            username: email.split("@")[0], // Use email prefix as username
             email,
             password_hash: password, // Will be hashed by beforeCreate hook
         });
@@ -52,7 +51,6 @@ export const register = async (req: Request, res: Response): Promise<void> => {
             message: "Registration successful",
             user: {
                 id: user.id,
-                username: user.username || user.email, // Use email as fallback
                 email: user.email,
             },
         });
@@ -105,7 +103,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             message: "Login successful",
             user: {
                 id: user.id,
-                username: user.username || user.email, // Use email as fallback
                 email: user.email,
             },
         });
@@ -135,7 +132,6 @@ export const verify = async (req: Request, res: Response): Promise<void> => {
     res.json({
         user: {
             id: req.user.id,
-            username: req.user.username,
             email: req.user.email,
         },
     });
