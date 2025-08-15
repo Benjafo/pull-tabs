@@ -1,8 +1,6 @@
-import sequelize from "../../config/database";
-import { User, UserAttributes } from "../../models";
 import bcrypt from "bcryptjs";
-
-interface UserCreationAttributes extends Partial<UserAttributes> {}
+import sequelize from "../../config/database";
+import { User } from "../../models";
 
 describe("User Model", () => {
     beforeAll(async () => {
@@ -72,7 +70,7 @@ describe("User Model", () => {
             await expect(
                 User.create({
                     password_hash: "password123",
-                } as Partial<UserCreationAttributes>)
+                } as any)
             ).rejects.toThrow();
         });
 
