@@ -42,7 +42,7 @@ export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
                       `}
                                             style={{ animationDelay: `${idx * 100}ms` }}
                                         >
-                                            <span className="text-white text-xl">
+                                            <span className="text-cream-100 text-xl">
                                                 {symbol.emoji}
                                             </span>
                                         </div>
