@@ -137,9 +137,6 @@ export function GamePage() {
                         <p className="text-xl mb-8 opacity-90">
                             Purchase a ticket to reveal hidden treasures and win up to $100!
                         </p>
-                        <p className="text-lg mb-4 text-amber-300">
-                            ⚡ Test Change - Ready to play!
-                        </p>
                         <button
                             onClick={handlePurchaseTicket}
                             disabled={isPurchasing}
