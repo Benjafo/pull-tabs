@@ -1,4 +1,12 @@
-import { getSymbolById } from '../../utils/symbols';
+import { getSymbolById, SymbolType } from '../../utils/symbols';
+import {
+  SkullSymbol,
+  TreasureSymbol,
+  ShipSymbol,
+  AnchorSymbol,
+  CompassSymbol,
+  MapSymbol
+} from '../symbols';
 
 interface SymbolDisplayProps {
   symbolId: number;
@@ -15,13 +23,39 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
   }
 
   const sizeClasses = {
-    small: 'w-12 h-12 text-2xl',
-    medium: 'w-16 h-16 text-3xl',
-    large: 'w-20 h-20 text-4xl',
+    small: 'w-12 h-12',
+    medium: 'w-16 h-16',
+    large: 'w-20 h-20',
+  };
+
+  const sizePixels = {
+    small: 48,
+    medium: 64,
+    large: 80,
   };
 
   const animationClass = isRevealed ? 'animate-bounce-slow' : '';
   const winningClass = isWinning ? 'ring-4 ring-yellow-400 ring-opacity-75 animate-pulse' : '';
+
+  const renderSymbol = () => {
+    const symbolSize = sizePixels[size];
+    switch (symbolId) {
+      case SymbolType.SKULL:
+        return <SkullSymbol size={symbolSize} />;
+      case SymbolType.TREASURE:
+        return <TreasureSymbol size={symbolSize} />;
+      case SymbolType.SHIP:
+        return <ShipSymbol size={symbolSize} />;
+      case SymbolType.ANCHOR:
+        return <AnchorSymbol size={symbolSize} />;
+      case SymbolType.COMPASS:
+        return <CompassSymbol size={symbolSize} />;
+      case SymbolType.MAP:
+        return <MapSymbol size={symbolSize} />;
+      default:
+        return <span className="text-white drop-shadow-lg text-2xl">{symbol.emoji}</span>;
+    }
+  };
 
   return (
     <div
@@ -33,12 +67,11 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
         bg-gradient-to-br ${symbol.bgGradient}
         rounded-lg shadow-lg
         transform transition-all duration-500
-        ${isRevealed ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}
+        ${isRevealed ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-180'}
       `}
     >
-      <span className="text-white drop-shadow-lg">
-        {symbol.emoji}
-      </span>
+      <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-10 rounded-lg" />
+      {renderSymbol()}
       {isWinning && (
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-transparent opacity-30 rounded-lg animate-pulse" />
       )}
