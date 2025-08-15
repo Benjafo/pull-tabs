@@ -18,7 +18,6 @@ describe("Model Relationships", () => {
     describe("User - UserStatistics Relationship", () => {
         it("should create one-to-one relationship", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
@@ -36,7 +35,7 @@ describe("Model Relationships", () => {
                 include: [User],
             });
             expect(statsWithUser?.User).toBeDefined();
-            expect(statsWithUser?.User?.username).toBe("testuser");
+            expect(statsWithUser?.User?.email).toBe("test@example.com");
 
             // Test association from User to UserStatistics
             const userWithStats = await User.findByPk(user.id, {
@@ -48,7 +47,6 @@ describe("Model Relationships", () => {
 
         it("should enforce unique user_id in UserStatistics", async () => {
             const user = await User.create({
-                username: "testuser",
                 email: "test@example.com",
                 password_hash: "password123",
             });
