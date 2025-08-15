@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TabComponent } from './TabComponent';
 import { PrizeTable } from './PrizeTable';
+import { TreasureMapBackground } from './TreasureMapBackground';
 import { checkWinningLine } from '../../utils/symbols';
 import type { Ticket } from '../../services/ticketService';
 import ticketService from '../../services/ticketService';
