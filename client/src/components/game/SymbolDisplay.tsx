@@ -35,7 +35,7 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
   };
 
   const animationClass = isRevealed ? 'animate-bounce-slow' : '';
-  const winningClass = isWinning ? 'ring-4 ring-yellow-400 ring-opacity-75 animate-pulse' : '';
+  const winningClass = isWinning ? 'ring-4 ring-gold-400 ring-opacity-75 animate-pulse' : '';
 
   const renderSymbol = () => {
     const symbolSize = sizePixels[size];
@@ -53,7 +53,7 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
       case SymbolType.MAP:
         return <MapSymbol size={symbolSize} />;
       default:
-        return <span className="text-white drop-shadow-lg text-2xl">{symbol.emoji}</span>;
+        return <span className="text-cream-100 drop-shadow-lg text-2xl">{symbol.emoji}</span>;
     }
   };
 
@@ -70,10 +70,10 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
         ${isRevealed ? 'scale-100 opacity-100 rotate-0' : 'scale-0 opacity-0 rotate-180'}
       `}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-transparent opacity-10 rounded-lg" />
+      <div className="absolute inset-0 bg-gradient-to-br from-cream-100 to-transparent opacity-10 rounded-lg" />
       {renderSymbol()}
       {isWinning && (
-        <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 to-transparent opacity-30 rounded-lg animate-pulse" />
+        <div className="absolute inset-0 bg-gradient-to-br from-gold-400 to-transparent opacity-30 rounded-lg animate-pulse" />
       )}
     </div>
   );
