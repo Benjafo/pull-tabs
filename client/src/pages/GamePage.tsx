@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
-import { WinAnimation } from "../components/game/WinAnimation";
+import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import type { GameBoxStatus, UserStats } from "../services/statsService";
 import statsService from "../services/statsService";
 import type { Ticket } from "../services/ticketService";
