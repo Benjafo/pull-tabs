@@ -38,17 +38,17 @@ export function WinAnimation({ amount, onComplete }: WinAnimationProps) {
       `}>
         {/* Main win display */}
         <div className={`
-          relative bg-gradient-to-br rounded-2xl shadow-2xl p-8
-          ${tier === 'jackpot' ? 'from-yellow-400 to-amber-600 animate-pulse' : ''}
-          ${tier === 'big' ? 'from-purple-500 to-pink-600' : ''}
-          ${tier === 'medium' ? 'from-blue-500 to-cyan-600' : ''}
-          ${tier === 'small' ? 'from-green-500 to-emerald-600' : ''}
+          relative rounded-2xl shadow-2xl p-8
+          ${tier === 'jackpot' ? 'bg-gold-600 animate-pulse border-4 border-gold-400' : ''}
+          ${tier === 'big' ? 'bg-gold-700 border-2 border-gold-500' : ''}
+          ${tier === 'medium' ? 'bg-navy-500 border-2 border-gold-600' : ''}
+          ${tier === 'small' ? 'bg-navy-600 border border-gold-600/50' : ''}
         `}>
           <div className="text-center">
-            <div className="text-white text-6xl font-bold mb-4 animate-bounce">
+            <div className="text-cream-100 text-6xl font-bold mb-4 animate-bounce">
               ${amount}
             </div>
-            <div className="text-white text-2xl font-semibold">
+            <div className="text-cream-100 text-2xl font-semibold">
               {tier === 'jackpot' && '🎉 JACKPOT! 🎉'}
               {tier === 'big' && '💰 BIG WIN! 💰'}
               {tier === 'medium' && '🎊 Nice Win! 🎊'}
