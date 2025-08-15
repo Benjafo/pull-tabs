@@ -107,32 +107,64 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
           `}
           onClick={handleFlip}
         >
-          <div className="w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 rounded-xl shadow-2xl p-6 flex flex-col">
-            {/* Header */}
-            <div className="text-center mb-4">
-              <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-lg mb-2">
-                🏴‍☠️ Pirate's Treasure 🏴‍☠️
-              </h2>
-              <p className="text-white/90 text-lg">Pull Tab Adventure</p>
-            </div>
+          <div className="relative w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 rounded-xl shadow-2xl overflow-hidden">
+            {/* Treasure map background */}
+            <TreasureMapBackground />
+            
+            {/* Aged paper effect overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-900/10" />
+            
+            {/* Content */}
+            <div className="relative z-10 p-6 flex flex-col h-full">
+              {/* Header with ornate border */}
+              <div className="text-center mb-4">
+                <div className="inline-block relative">
+                  <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-lg mb-2 font-serif">
+                    Pirate's Treasure
+                  </h2>
+                  <div className="absolute -top-2 -left-4 text-2xl">⚓</div>
+                  <div className="absolute -top-2 -right-4 text-2xl">⚓</div>
+                </div>
+                <p className="text-amber-200/90 text-lg font-serif italic">Pull Tab Adventure</p>
+                <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mt-2" />
+              </div>
 
-            {/* Prize Table */}
-            <div className="flex-1 flex items-center justify-center">
-              <PrizeTable />
-            </div>
+              {/* Prize Table */}
+              <div className="flex-1 flex items-center justify-center">
+                <PrizeTable />
+              </div>
 
-            {/* Footer */}
-            <div className="text-center mt-4">
-              <p className="text-yellow-400 text-lg font-semibold animate-pulse">
-                Click to flip and play!
-              </p>
-            </div>
+              {/* Footer */}
+              <div className="text-center mt-4">
+                <div className="inline-block px-6 py-2 bg-gradient-to-r from-amber-600/50 to-amber-700/50 rounded-full border-2 border-yellow-400/50">
+                  <p className="text-yellow-300 text-lg font-bold animate-pulse">
+                    Click to flip and play!
+                  </p>
+                </div>
+              </div>
 
-            {/* Decorative elements */}
-            <div className="absolute top-4 left-4 text-4xl opacity-50">⚓</div>
-            <div className="absolute top-4 right-4 text-4xl opacity-50">🗺️</div>
-            <div className="absolute bottom-4 left-4 text-4xl opacity-50">💰</div>
-            <div className="absolute bottom-4 right-4 text-4xl opacity-50">🦜</div>
+              {/* Corner decorations */}
+              <div className="absolute top-2 left-2">
+                <svg width="40" height="40" viewBox="0 0 40 40" className="text-yellow-400/30">
+                  <path d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="absolute top-2 right-2 rotate-90">
+                <svg width="40" height="40" viewBox="0 0 40 40" className="text-yellow-400/30">
+                  <path d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="absolute bottom-2 left-2 -rotate-90">
+                <svg width="40" height="40" viewBox="0 0 40 40" className="text-yellow-400/30">
+                  <path d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z" fill="currentColor" />
+                </svg>
+              </div>
+              <div className="absolute bottom-2 right-2 rotate-180">
+                <svg width="40" height="40" viewBox="0 0 40 40" className="text-yellow-400/30">
+                  <path d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
 
