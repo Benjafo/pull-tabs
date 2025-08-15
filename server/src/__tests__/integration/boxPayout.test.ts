@@ -1,5 +1,5 @@
 import sequelize from "../../config/database";
-import { User, GameBox, Ticket } from "../../models";
+import { User, GameBox } from "../../models";
 import { TicketService } from "../../services/ticket.service";
 
 describe("Box Payout Verification Tests", () => {
