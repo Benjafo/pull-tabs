@@ -161,7 +161,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -174,7 +174,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -187,7 +187,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -200,7 +200,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -224,11 +224,11 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                     <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-6 border-2 border-gold-600/30">
                         {/* Header */}
                         <div className="text-center mb-8">
-                            <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                            <h3 className="text-2xl font-bold text-cream-100 drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
                             {/* {currentWinnings > 0 && (
-                                <div className="mt-2 text-3xl font-bold text-yellow-300 animate-pulse">
+                                <div className="mt-2 text-3xl font-bold text-gold-400 animate-pulse">
                                     Won: ${currentWinnings}
                                 </div>
                             )} */}
@@ -252,9 +252,9 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                         {/* Status */}
                         {(currentWinnings > 0 || revealedTabs.length === 5) && (
                             <div className="mt-6 text-center">
-                                <div className="text-white text-xl font-bold">
+                                <div className="text-cream-100 text-xl font-bold">
                                     {currentWinnings > 0 ? (
-                                        <span className="text-yellow-300 text-2xl animate-bounce">
+                                        <span className="text-gold-400 text-2xl animate-bounce">
                                             🎉 You won ${currentWinnings}! 🎉
                                         </span>
                                     ) : (
