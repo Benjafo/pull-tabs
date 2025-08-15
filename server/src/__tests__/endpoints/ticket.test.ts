@@ -19,7 +19,6 @@ describe("Ticket Endpoints", () => {
 
         // Create and login test user
         const registerResponse = await request(app).post("/api/auth/register").send({
-            username: "testuser",
             email: "test@example.com",
             password: "TestPass123",
         });
@@ -32,7 +31,7 @@ describe("Ticket Endpoints", () => {
         if (!authCookie) {
             // Try logging in if registration didn't set cookie
             const loginResponse = await request(app).post("/api/auth/login").send({
-                username: "testuser",
+                email: "test@example.com",
                 password: "TestPass123",
             });
             const loginCookies =
@@ -40,7 +39,7 @@ describe("Ticket Endpoints", () => {
             authCookie = Array.isArray(loginCookies) ? loginCookies[0] : loginCookies;
         }
 
-        testUser = (await User.findOne({ where: { username: "testuser" } })) as User;
+        testUser = (await User.findOne({ where: { email: "test@example.com" } })) as User;
     });
 
     describe("POST /api/tickets/purchase", () => {
