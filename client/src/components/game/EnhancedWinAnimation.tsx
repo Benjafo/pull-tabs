@@ -80,12 +80,12 @@ export function EnhancedWinAnimation({ amount, onComplete }: EnhancedWinAnimatio
             
             <div className="text-center relative z-10">
               {/* Amount display */}
-              <div className="text-white font-bold mb-4">
+              <div className="text-cream-100 font-bold mb-4">
                 <span className="text-6xl drop-shadow-lg">${amount}</span>
               </div>
               
               {/* Win message */}
-              <div className="text-white text-2xl font-bold uppercase tracking-wider">
+              <div className="text-cream-100 text-2xl font-bold uppercase tracking-wider">
                 {tier === 'jackpot' && (
                   <div>
                     <div className="text-4xl mb-2">JACKPOT!</div>
