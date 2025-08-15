@@ -85,12 +85,12 @@ export function GamePage() {
     if (error && !currentTicket) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-xl p-8 max-w-md text-center border border-amber-400/30">
-                    <h2 className="text-2xl font-bold text-red-400 mb-4">Error Loading Game</h2>
-                    <p className="text-amber-200/80 mb-6">{error}</p>
+                <div className="bg-navy-600 rounded-lg shadow-xl p-8 max-w-md text-center border border-gold-600/30">
+                    <h2 className="text-2xl font-bold text-gold-400 mb-4">Error Loading Game</h2>
+                    <p className="text-cream-100/80 mb-6">{error}</p>
                     <button
                         onClick={loadGameData}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                        className="bg-gold-600 hover:bg-gold-700 text-cream-100 px-6 py-2 rounded-lg transition-colors"
                     >
                         Try Again
                     </button>
