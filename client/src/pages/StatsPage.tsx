@@ -55,15 +55,15 @@ export function StatsPage() {
     return (
         <div className="space-y-6">
             {/* Header */}
-            <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-lg p-6 border border-amber-400/30">
-                <h1 className="text-3xl font-bold text-amber-200 mb-2">Player Statistics</h1>
-                <h2 className="text-xl text-yellow-400">{user?.email}'s Performance</h2>
+            <div className="bg-navy-600 rounded-lg shadow-lg p-6 border border-gold-600/30">
+                <h1 className="text-3xl font-bold text-gold-400 mb-2">Player Statistics</h1>
+                <h2 className="text-xl text-cream-100">{user?.email}'s Performance</h2>
             </div>
 
             {/* Stats Grid */}
             {stats && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">🎫</div>
@@ -73,7 +73,7 @@ export function StatsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-gold-600/20">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">💰</div>
@@ -85,7 +85,7 @@ export function StatsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-gold-700 rounded-lg shadow-lg p-6 text-cream-100 border border-gold-600">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">🏆</div>
@@ -97,7 +97,7 @@ export function StatsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">📊</div>
@@ -109,7 +109,7 @@ export function StatsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">🎮</div>
@@ -121,7 +121,7 @@ export function StatsPage() {
                         </div>
                     </div>
 
-                    <div className="bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg shadow-lg p-6 text-white">
+                    <div className="bg-navy-600 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-500">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-4xl mb-2">📅</div>
@@ -139,16 +139,16 @@ export function StatsPage() {
 
             {/* Performance Summary */}
             {stats && stats.ticketsPlayed > 0 && (
-                <div className="bg-gradient-to-br from-amber-700 via-amber-600 to-orange-700 rounded-lg shadow-lg p-6 border border-yellow-400/30">
-                    <h3 className="text-2xl font-bold text-yellow-100 mb-4">Performance Summary</h3>
-                    <div className="text-lg text-yellow-50">
+                <div className="bg-navy-600 rounded-lg shadow-lg p-6 border border-gold-600/30">
+                    <h3 className="text-2xl font-bold text-gold-400 mb-4">Performance Summary</h3>
+                    <div className="text-lg text-cream-100">
                         <p>
                             You've spent{" "}
-                            <span className="font-bold text-red-400">
+                            <span className="font-bold text-gold-300">
                                 ${stats.ticketsPlayed.toFixed(2)}
                             </span>{" "}
                             and won{" "}
-                            <span className="font-bold text-green-400">
+                            <span className="font-bold text-gold-400">
                                 ${stats.totalWinnings.toFixed(2)}
                             </span>
                             , giving you a net{" "}
