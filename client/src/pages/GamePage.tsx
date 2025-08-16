@@ -20,6 +20,7 @@ export function GamePage() {
     const [lastWinAmount, setLastWinAmount] = useState(0);
     const [currentWinnings, setCurrentWinnings] = useState(0);
     const [isTicketFlipped, setIsTicketFlipped] = useState(false);
+    const [liveWinnings, setLiveWinnings] = useState(0);
     const [sessionStats, setSessionStats] = useState({
         ticketsPlayed: 0,
         totalWinnings: 0,
