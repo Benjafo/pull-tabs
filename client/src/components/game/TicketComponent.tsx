@@ -120,25 +120,25 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                     }`}
                     onClick={handleFlip}
                 >
-                    <div className="relative w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-800 rounded-xl shadow-2xl overflow-hidden">
+                    <div className="relative w-full h-full bg-navy-600 rounded-xl shadow-2xl overflow-hidden border-2 border-gold-600/30">
                         {/* Treasure map background */}
                         <TreasureMapBackground />
 
                         {/* Aged paper effect overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-transparent to-amber-900/10" />
+                        <div className="absolute inset-0 bg-gold-900/5" />
 
                         {/* Content */}
                         <div className="relative z-10 p-6 flex flex-col h-full">
                             {/* Header with ornate border */}
                             <div className="text-center mb-4">
                                 <div className="inline-block relative">
-                                    <h2 className="text-3xl font-bold text-yellow-400 drop-shadow-lg mb-2 text-amber-200/90 font-serif italic">
+                                    <h2 className="text-3xl font-bold text-gold-400 drop-shadow-lg mb-2 font-serif italic">
                                         Pirate's Treasure
                                     </h2>
                                     <div className="absolute -top-2 -left-10 text-2xl">⚓</div>
                                     <div className="absolute -top-2 -right-10 text-2xl">⚓</div>
                                 </div>
-                                <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-yellow-400 to-transparent mx-auto mt-2" />
+                                <div className="w-48 h-0.5 bg-gold-400/50 mx-auto mt-2" />
                             </div>
 
                             {/* Prize Table */}
@@ -148,8 +148,8 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
 
                             {/* Footer */}
                             <div className="text-center mt-4">
-                                <div className="inline-block px-6 py-2 bg-gradient-to-r from-amber-600/50 to-amber-700/50 rounded-full border-2 border-yellow-400/50">
-                                    <p className="text-yellow-300 text-lg font-bold animate-pulse">
+                                <div className="inline-block px-6 py-2 bg-gold-700/30 rounded-full border-2 border-gold-400/50">
+                                    <p className="text-gold-300 text-lg font-bold animate-pulse">
                                         Click to flip and play!
                                     </p>
                                 </div>
@@ -161,7 +161,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -174,7 +174,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -187,7 +187,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -200,7 +200,7 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     width="40"
                                     height="40"
                                     viewBox="0 0 40 40"
-                                    className="text-yellow-400/30"
+                                    className="text-gold-400/30"
                                 >
                                     <path
                                         d="M0,0 L40,0 L40,5 L5,5 L5,40 L0,40 Z"
@@ -221,14 +221,14 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                         transform: "rotateY(180deg)",
                     }}
                 >
-                    <div className="w-full h-full bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl shadow-2xl p-6">
+                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-6 border-2 border-gold-600/30">
                         {/* Header */}
                         <div className="text-center mb-8">
-                            <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                            <h3 className="text-2xl font-bold text-cream-100 drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
                             {/* {currentWinnings > 0 && (
-                                <div className="mt-2 text-3xl font-bold text-yellow-300 animate-pulse">
+                                <div className="mt-2 text-3xl font-bold text-gold-400 animate-pulse">
                                     Won: ${currentWinnings}
                                 </div>
                             )} */}
@@ -252,9 +252,9 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                         {/* Status */}
                         {(currentWinnings > 0 || revealedTabs.length === 5) && (
                             <div className="mt-6 text-center">
-                                <div className="text-white text-xl font-bold">
+                                <div className="text-cream-100 text-xl font-bold">
                                     {currentWinnings > 0 ? (
-                                        <span className="text-yellow-300 text-2xl animate-bounce">
+                                        <span className="text-gold-400 text-2xl animate-bounce">
                                             🎉 You won ${currentWinnings}! 🎉
                                         </span>
                                     ) : (

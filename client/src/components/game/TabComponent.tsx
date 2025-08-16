@@ -33,7 +33,7 @@ export function TabComponent({
     return (
         <div className="relative">
             {/* Symbols underneath */}
-            <div className="flex gap-3 p-3 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg">
+            <div className="flex gap-3 p-3 bg-navy-800/30 rounded-lg border border-navy-600/30">
                 {symbols.map((symbolId, index) => (
                     <SymbolDisplay
                         key={`${tabNumber}-${index}`}
@@ -50,7 +50,7 @@ export function TabComponent({
                 <div
                     className={`
             absolute inset-0 cursor-pointer
-            bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600
+            bg-gold-600
             rounded-lg shadow-lg
             flex flex-col items-center justify-center
             transform-gpu transition-all duration-300
@@ -100,11 +100,11 @@ export function TabComponent({
                     </div>
 
                     {/* Metallic foil effect */}
-                    <div className="absolute inset-0 rounded-lg opacity-20 bg-gradient-to-tr from-white via-transparent to-white" />
+                    <div className="absolute inset-0 rounded-lg opacity-20 bg-gradient-to-tr from-cream-100 via-transparent to-cream-100" />
 
                     {/* Tab content */}
                     <div className="relative text-center z-10">
-                        <div className="text-white font-bold text-lg drop-shadow-lg">
+                        <div className="text-cream-100 font-bold text-lg drop-shadow-lg">
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">

@@ -3,19 +3,6 @@
 echo "🚀 Starting development environment..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# Ensure clean start
-echo "📦 Ensuring clean environment..."
-docker-compose down
-
-# Start services
-echo "🔨 Building and starting services..."
-docker-compose up -d --build
-
-# Wait for services
-echo "⏳ Waiting for services to be ready..."
-sleep 5
-
-# Run database migrations (if any)
 echo "📊 Ensuring database is ready..."
 docker-compose exec server npm run typecheck
 

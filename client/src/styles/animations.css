@@ -155,6 +155,46 @@
   }
 }
 
+/* Wave animations for background */
+@keyframes wave-slow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes wave-medium {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes wave-fast {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-wave-slow {
+  animation: wave-slow 60s linear infinite;
+}
+
+.animate-wave-medium {
+  animation: wave-medium 45s linear infinite;
+}
+
+.animate-wave-fast {
+  animation: wave-fast 30s linear infinite;
+}
+
 /* Custom animation classes */
 .tab-peel-animation {
   animation: peelOff 0.6s ease-in-out forwards;

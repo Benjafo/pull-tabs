@@ -20,15 +20,12 @@ Quick reference for development scripts:
 ## Examples
 
 ```bash
+# Complete rebuild
+./scripts/build.sh
+
 # Start development
 ./scripts/dev.sh
 
 # Run specific tests
 ./scripts/test.sh auth
-
-# View only server logs
-./scripts/logs.sh server
-
-# Complete rebuild
-./scripts/build.sh
 ```

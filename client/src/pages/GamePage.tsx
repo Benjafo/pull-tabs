@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
+import { OceanBackground } from "../components/layout/OceanBackground";
 import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
 import type { Ticket } from "../services/ticketService";
@@ -85,12 +86,12 @@ export function GamePage() {
     if (error && !currentTicket) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-xl p-8 max-w-md text-center border border-amber-400/30">
-                    <h2 className="text-2xl font-bold text-red-400 mb-4">Error Loading Game</h2>
-                    <p className="text-amber-200/80 mb-6">{error}</p>
+                <div className="bg-navy-600 rounded-lg shadow-xl p-8 max-w-md text-center border border-gold-600/30">
+                    <h2 className="text-2xl font-bold text-gold-400 mb-4">Error Loading Game</h2>
+                    <p className="text-cream-100/80 mb-6">{error}</p>
                     <button
                         onClick={loadGameData}
-                        className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
+                        className="bg-gold-600 hover:bg-gold-700 text-cream-100 px-6 py-2 rounded-lg transition-colors"
                     >
                         Try Again
                     </button>
@@ -100,68 +101,163 @@ export function GamePage() {
     }
 
     return (
-        <div className="space-y-6">
-            {/* Game Header */}
-            <div className="bg-gradient-to-br from-indigo-800 via-purple-800 to-indigo-900 rounded-lg shadow-lg p-6 border border-amber-400/30">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                    <h2 className="text-3xl font-bold text-amber-200">Pull Tabs Treasure Game</h2>
-                    <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        {!currentTicket ? (
-                            <button
-                                onClick={handlePurchaseTicket}
-                                disabled={isPurchasing}
-                                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {isPurchasing ? "Purchasing..." : "Buy Ticket ($1)"}
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleNewTicket}
-                                className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl"
-                            >
-                                New Ticket
-                            </button>
-                        )}
+        <div className="relative">
+            <OceanBackground variant="waves" intensity="medium" />
+
+            <div className="relative space-y-6 z-10">
+                {/* Game Header with Glow Effect */}
+                <div className="bg-gradient-to-br from-navy-600/95 to-navy-700/95 backdrop-blur-sm rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
+                    {/* Shimmer effect */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-400/10 to-transparent -skew-x-12 translate-x-[-200%] animate-[shimmer_3s_infinite]" />
+
+                    <div className="relative flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 mb-1">
+                                Pull Tabs Treasure Game
+                            </h2>
+                            <p className="text-sm text-cream-100/60">
+                                Test your luck and find the hidden treasure!
+                            </p>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-4 items-center">
+                            {!currentTicket ? (
+                                <div className="relative group">
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+                                    <button
+                                        onClick={handlePurchaseTicket}
+                                        disabled={isPurchasing}
+                                        className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            {isPurchasing ? (
+                                                <>Purchasing...</>
+                                            ) : (
+                                                <>
+                                                    <span className="text-2xl">🎫</span>
+                                                    Buy Ticket ($1)
+                                                </>
+                                            )}
+                                        </span>
+                                    </button>
+                                </div>
+                            ) : (
+                                <button
+                                    onClick={handleNewTicket}
+                                    className="bg-gradient-to-r from-navy-500 to-navy-600 hover:from-navy-400 hover:to-navy-500 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl border border-navy-400"
+                                >
+                                    <span className="flex items-center gap-2">
+                                        <span className="text-xl">🔄</span>
+                                        New Ticket
+                                    </span>
+                                </button>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Game Area */}
-            <div className="min-h-[650px] flex items-center justify-center">
-                {currentTicket ? (
-                    <TicketComponent ticket={currentTicket} onComplete={handleTicketComplete} />
-                ) : (
-                    <div className="bg-gradient-treasure rounded-lg shadow-lg p-12 text-center text-white max-w-2xl">
-                        <div className="text-6xl mb-6">🏴‍☠️</div>
-                        <h3 className="text-3xl font-bold mb-4">Welcome to Pirate's Treasure!</h3>
-                        <p className="text-xl mb-8 opacity-90">
-                            Purchase a ticket to reveal hidden treasures and win up to $100!
-                        </p>
-                        <button
-                            onClick={handlePurchaseTicket}
-                            disabled={isPurchasing}
-                            className="bg-yellow-400 hover:bg-yellow-500 text-indigo-900 px-10 py-4 rounded-lg text-xl font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {isPurchasing ? "Purchasing..." : "Start Playing"}
-                        </button>
-                    </div>
+                {/* Game Area with Enhanced Visual */}
+                <div className="min-h-[650px] flex items-center justify-center relative">
+                    {currentTicket ? (
+                        <div className="relative w-full max-w-md">
+                            {/* Glow effect behind active ticket */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
+                            <div className="relative">
+                                <TicketComponent
+                                    ticket={currentTicket}
+                                    onComplete={handleTicketComplete}
+                                />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="relative group">
+                            {/* Animated border glow */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400/20 via-gold-600/30 to-gold-400/20 rounded-lg blur-xl opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
+
+                            <div className="relative bg-gradient-to-br from-navy-600/95 via-navy-700/95 to-navy-600/95 backdrop-blur-sm rounded-lg shadow-2xl p-12 text-center text-cream-100 max-w-2xl border-2 border-gold-600/30">
+                                {/* Corner decorations */}
+                                <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-gold-400/50 rounded-tl-lg" />
+                                <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-gold-400/50 rounded-tr-lg" />
+                                <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-gold-400/50 rounded-bl-lg" />
+                                <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold-400/50 rounded-br-lg" />
+
+                                <div className="relative">
+                                    <div
+                                        className="text-8xl mb-6 animate-bounce"
+                                        style={{ animationDuration: "2s" }}
+                                    >
+                                        🏴‍☠️
+                                    </div>
+                                    <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
+                                        Welcome to Pirate's Treasure!
+                                    </h3>
+                                    <p className="text-xl mb-2 opacity-90">
+                                        Purchase a ticket to reveal hidden treasures
+                                    </p>
+                                    <div className="flex justify-center gap-4 mb-8">
+                                        <span
+                                            className="text-3xl animate-pulse"
+                                            style={{ animationDelay: "0.2s" }}
+                                        >
+                                            💰
+                                        </span>
+                                        <span className="text-2xl font-bold text-gold-400">
+                                            Win up to $100!
+                                        </span>
+                                        <span
+                                            className="text-3xl animate-pulse"
+                                            style={{ animationDelay: "0.4s" }}
+                                        >
+                                            💎
+                                        </span>
+                                    </div>
+                                    <div className="relative inline-block group/button">
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover/button:opacity-100 transition duration-200"></div>
+                                        <button
+                                            onClick={handlePurchaseTicket}
+                                            disabled={isPurchasing}
+                                            className="relative bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-navy-900 px-12 py-5 rounded-lg text-xl font-black transform transition-all hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                            style={{
+                                                backgroundSize: "200% 100%",
+                                                backgroundPosition: "0% 50%",
+                                                transition: "all 0.3s ease",
+                                            }}
+                                            onMouseEnter={(e) =>
+                                                (e.currentTarget.style.backgroundPosition =
+                                                    "100% 50%")
+                                            }
+                                            onMouseLeave={(e) =>
+                                                (e.currentTarget.style.backgroundPosition =
+                                                    "0% 50%")
+                                            }
+                                        >
+                                            <span className="flex items-center gap-3">
+                                                <span className="text-2xl">🎰</span>
+                                                {isPurchasing ? "Purchasing..." : "Start Playing"}
+                                                <span className="text-2xl">🎲</span>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Game Status Panel */}
+                <GameStatusPanel
+                    gameBox={gameBox}
+                    currentWinnings={currentWinnings}
+                    isPlaying={!!currentTicket}
+                />
+
+                {/* Win Animation */}
+                {showWinAnimation && (
+                    <EnhancedWinAnimation
+                        amount={lastWinAmount}
+                        onComplete={() => setShowWinAnimation(false)}
+                    />
                 )}
             </div>
-
-            {/* Game Status Panel */}
-            <GameStatusPanel
-                gameBox={gameBox}
-                currentWinnings={currentWinnings}
-                isPlaying={!!currentTicket}
-            />
-
-            {/* Win Animation */}
-            {showWinAnimation && (
-                <EnhancedWinAnimation
-                    amount={lastWinAmount}
-                    onComplete={() => setShowWinAnimation(false)}
-                />
-            )}
         </div>
     );
 }
