@@ -11,6 +11,7 @@ interface TicketComponentProps {
     ticket: Ticket;
     onComplete?: (totalWinnings: number) => void;
     onFlip?: () => void;
+    onWinningsUpdate?: (amount: number) => void;
 }
 
 export function TicketComponent({ ticket, onComplete, onFlip }: TicketComponentProps) {
