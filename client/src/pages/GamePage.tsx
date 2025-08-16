@@ -173,7 +173,7 @@ export function GamePage() {
                             {/* Animated border glow */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-gold-400/20 via-gold-600/30 to-gold-400/20 rounded-lg blur-xl opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
 
-                            <div className="relative bg-gradient-to-br from-navy-600 via-navy-700 to-navy-600 rounded-lg shadow-2xl p-12 text-center text-cream-100 max-w-2xl border-2 border-gold-600/30">
+                            <div className="relative bg-gradient-to-br from-navy-600/95 via-navy-700/95 to-navy-600/95 backdrop-blur-sm rounded-lg shadow-2xl p-12 text-center text-cream-100 max-w-2xl border-2 border-gold-600/30">
                                 {/* Corner decorations */}
                                 <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-gold-400/50 rounded-tl-lg" />
                                 <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-gold-400/50 rounded-tr-lg" />
