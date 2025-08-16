@@ -77,6 +77,11 @@ export function GamePage() {
         setCurrentTicket(null);
         setCurrentWinnings(0);
         setShowWinAnimation(false); // Dismiss any active win animation
+        setIsTicketFlipped(false); // Reset flip state
+    };
+
+    const handleTicketFlip = () => {
+        setIsTicketFlipped(true);
     };
 
     if (loading) {
