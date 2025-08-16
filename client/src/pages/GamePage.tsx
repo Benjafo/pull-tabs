@@ -102,8 +102,9 @@ export function GamePage() {
 
     return (
         <div className="relative">
+            <OceanBackground showAnimatedElements={true} intensity="medium" />
 
-            <div className="relative space-y-6">
+            <div className="relative space-y-6 z-10">
                 {/* Game Header with Glow Effect */}
                 <div className="bg-gradient-to-br from-navy-600 to-navy-700 rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
                     {/* Shimmer effect */}
