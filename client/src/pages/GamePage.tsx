@@ -101,28 +101,6 @@ export function GamePage() {
 
     return (
         <div className="relative">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-32 left-10 text-6xl opacity-5 animate-pulse">💰</div>
-                <div
-                    className="absolute top-60 right-20 text-8xl opacity-5 animate-bounce"
-                    style={{ animationDelay: "0.5s", animationDuration: "3s" }}
-                >
-                    🏴‍☠️
-                </div>
-                <div
-                    className="absolute bottom-32 left-1/4 text-7xl opacity-5 animate-pulse"
-                    style={{ animationDelay: "1s" }}
-                >
-                    💎
-                </div>
-                <div
-                    className="absolute bottom-48 right-1/3 text-5xl opacity-5 animate-bounce"
-                    style={{ animationDelay: "1.5s", animationDuration: "3s" }}
-                >
-                    🪙
-                </div>
-            </div>
 
             <div className="relative space-y-6">
                 {/* Game Header with Glow Effect */}
