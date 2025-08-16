@@ -186,7 +186,7 @@ export function GamePage() {
                                         <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">
                                             Prize Reference
                                         </h3>
-                                        <PrizeTable currentWinAmount={currentWinnings} />
+                                        <PrizeTable currentWinAmount={currentWinnings} noBorder={true} />
                                     </div>
                                 )}
                             </div>
