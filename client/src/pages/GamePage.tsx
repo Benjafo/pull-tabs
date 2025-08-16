@@ -18,6 +18,7 @@ export function GamePage() {
     const [showWinAnimation, setShowWinAnimation] = useState(false);
     const [lastWinAmount, setLastWinAmount] = useState(0);
     const [currentWinnings, setCurrentWinnings] = useState(0);
+    const [isTicketFlipped, setIsTicketFlipped] = useState(false);
 
     useEffect(() => {
         loadGameData();
