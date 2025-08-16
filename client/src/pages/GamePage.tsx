@@ -41,6 +41,7 @@ export function GamePage() {
         try {
             setIsPurchasing(true);
             setError(null);
+            setShowWinAnimation(false); // Dismiss any active win animation
             const response = await ticketService.purchaseTicket();
 
             // Fetch the full ticket details after purchase
