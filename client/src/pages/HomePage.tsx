@@ -10,9 +10,6 @@ export function HomePage() {
                 <h1 className="text-5xl font-bold mb-4 text-gold-400 drop-shadow-lg">
                     Welcome to Pull Tabs Treasure!
                 </h1>
-                <p className="text-xl text-cream-100/90">
-                    Experience the thrill of digital pull tabs with a pirate treasure theme
-                </p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-12">
