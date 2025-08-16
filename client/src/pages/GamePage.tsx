@@ -102,6 +102,10 @@ export function GamePage() {
         setIsTicketFlipped(true);
     };
 
+    const handleLiveWinningsUpdate = (amount: number) => {
+        setLiveWinnings(amount);
+    };
+
     if (loading) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
