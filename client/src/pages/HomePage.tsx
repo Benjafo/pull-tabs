@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaSkull, FaGem, FaShip, FaAnchor, FaCompass, FaMap } from "react-icons/fa";
+import { FaSkull, FaGem, FaShip, FaAnchor, FaCompass, FaMap, FaDice, FaDiceD6 } from "react-icons/fa";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import { useAuth } from "../hooks/useAuth";
 
