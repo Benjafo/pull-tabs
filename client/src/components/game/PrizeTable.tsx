@@ -1,3 +1,4 @@
+import { FaStar } from "react-icons/fa";
 import { SYMBOLS, WINNING_COMBINATIONS } from "../../utils/symbols";
 
 interface PrizeTableProps {
@@ -60,7 +61,7 @@ export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
                                     ${combo.prize}
                                 </span>
                                 {isCurrentWin && (
-                                    <span className="text-2xl animate-bounce">🎉</span>
+                                    <FaStar className="text-2xl animate-bounce text-gold-400" />
                                 )}
                             </div>
                         </div>
