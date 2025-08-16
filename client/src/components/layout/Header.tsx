@@ -13,7 +13,7 @@ export function Header() {
     };
 
     return (
-        <header className="bg-primary-100 text-white shadow-lg sticky top-0 z-50">
+        <header className="bg-navy-700/95 backdrop-blur-sm text-white shadow-lg sticky top-0 z-50 border-b border-gold-600/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <Link
@@ -29,23 +29,23 @@ export function Header() {
                             <div className="flex items-center">
                                 <Link
                                     to="/blank"
-                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Blank
                                 </Link>
                                 <Link
                                     to="/game"
-                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
                                     My Stats
                                 </Link>
-                                <div className="flex items-center ml-8 pl-8 border-l border-primary-600">
+                                <div className="flex items-center ml-8 pl-8 border-l border-gold-600/30">
                                     <span className="text-sm">Ahoy, {user.email}!</span>
                                     <button
                                         onClick={handleLogout}
@@ -59,13 +59,13 @@ export function Header() {
                             <>
                                 <Link
                                     to="/blank"
-                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Blank
                                 </Link>
                                 <Link
                                     to="/login"
-                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
                                     Login
                                 </Link>
@@ -82,7 +82,7 @@ export function Header() {
                     {/* Mobile menu button */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="md:hidden p-2 rounded-lg hover:bg-primary-700"
+                        className="md:hidden p-2 rounded-lg hover:bg-navy-600"
                     >
                         <svg
                             className="h-6 w-6"
@@ -111,28 +111,28 @@ export function Header() {
 
                 {/* Mobile Navigation */}
                 {mobileMenuOpen && (
-                    <nav className="md:hidden py-4 border-t border-primary-700">
+                    <nav className="md:hidden py-4 border-t border-navy-600">
                         {user ? (
                             <div className="space-y-2">
                                 <Link
                                     to="/blank"
-                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Blank
                                 </Link>
                                 <Link
                                     to="/game"
-                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     My Stats
                                 </Link>
-                                <div className="pt-4 mt-4 border-t border-primary-700">
+                                <div className="pt-4 mt-4 border-t border-navy-600">
                                     <p className="px-4 py-2 text-sm">Ahoy, {user.email}!</p>
                                     <button
                                         onClick={handleLogout}
@@ -146,13 +146,13 @@ export function Header() {
                             <div className="space-y-2">
                                 <Link
                                     to="/blank"
-                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Blank
                                 </Link>
                                 <Link
                                     to="/login"
-                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
                                     Login
                                 </Link>
