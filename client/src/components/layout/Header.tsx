@@ -13,7 +13,7 @@ export function Header() {
     };
 
     return (
-        <header className="bg-navy-900/20 backdrop-blur-md text-white shadow-lg sticky top-0 z-50 border-b border-gold-600/20">
+        <header className="backdrop-blur-md text-white sticky top-2 py-2 mb-1 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <Link
