@@ -107,16 +107,13 @@ export function TabComponent({
         }, 300);
     };
 
-    // Calculate staged transform for drag interaction
+    // Calculate smooth transform for drag interaction
     const getDragTransform = () => {
         if (dragProgress > 0) {
-            // Create distinct stages for choppy animation
-            const stage = Math.floor(dragProgress / 20); // 5 stages (0-4)
-            const stageProgress = (stage * 20) / 100;
-            
-            const rotateY = 90 * stageProgress;
-            const translateX = 60 * stageProgress;
-            const scaleX = 1 - (0.2 * stageProgress);
+            // Smooth, continuous animation that follows drag progress
+            const rotateY = 90 * (dragProgress / 100);
+            const translateX = 60 * (dragProgress / 100);
+            const scaleX = 1 - (0.2 * (dragProgress / 100));
             return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
         }
         
