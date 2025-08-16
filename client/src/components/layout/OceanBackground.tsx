@@ -59,11 +59,17 @@ export function OceanBackground({
             />
             
             {/* Light rays from top */}
-            <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-gold-400/[0.02] via-transparent to-transparent" />
+            <div 
+                className="absolute inset-x-0 top-0 h-96"
+                style={{
+                    background: `linear-gradient(to bottom, rgba(251, 191, 36, ${config.lightRays}), transparent, transparent)`
+                }}
+            />
             
             {/* Geometric mesh pattern */}
             <svg 
-                className="absolute inset-0 w-full h-full opacity-[0.02]"
+                className="absolute inset-0 w-full h-full"
+                style={{ opacity: config.grid }}
                 preserveAspectRatio="xMidYMid slice"
             >
                 <defs>
@@ -84,9 +90,13 @@ export function OceanBackground({
             {variant === "waves" && (
                 <>
                     {/* Wave Layer 1 - Back */}
-                    <div className="absolute bottom-0 left-0 w-full h-96 opacity-[0.03]">
+                    <div 
+                        className="absolute bottom-0 left-0 w-full h-96"
+                        style={{ opacity: config.waveBack }}
+                    >
                         <svg 
-                            className="absolute bottom-0 w-[200%] h-full animate-wave-slow"
+                            className="absolute bottom-0 w-[200%] h-full"
+                            style={{ animation: `wave-slow ${waveSlow}s linear infinite` }}
                             preserveAspectRatio="none"
                             viewBox="0 0 1440 320"
                         >
@@ -99,9 +109,13 @@ export function OceanBackground({
                     </div>
 
                     {/* Wave Layer 2 - Middle */}
-                    <div className="absolute bottom-0 left-0 w-full h-80 opacity-[0.02]">
+                    <div 
+                        className="absolute bottom-0 left-0 w-full h-80"
+                        style={{ opacity: config.waveMiddle }}
+                    >
                         <svg 
-                            className="absolute bottom-0 w-[200%] h-full animate-wave-medium"
+                            className="absolute bottom-0 w-[200%] h-full"
+                            style={{ animation: `wave-medium ${waveMedium}s linear infinite` }}
                             preserveAspectRatio="none"
                             viewBox="0 0 1440 320"
                         >
@@ -114,9 +128,13 @@ export function OceanBackground({
                     </div>
 
                     {/* Wave Layer 3 - Front */}
-                    <div className="absolute bottom-0 left-0 w-full h-64 opacity-[0.015]">
+                    <div 
+                        className="absolute bottom-0 left-0 w-full h-64"
+                        style={{ opacity: config.waveFront }}
+                    >
                         <svg 
-                            className="absolute bottom-0 w-[200%] h-full animate-wave-fast"
+                            className="absolute bottom-0 w-[200%] h-full"
+                            style={{ animation: `wave-fast ${waveFast}s linear infinite` }}
                             preserveAspectRatio="none"
                             viewBox="0 0 1440 320"
                         >
@@ -134,7 +152,7 @@ export function OceanBackground({
             <div 
                 className="absolute inset-0" 
                 style={{
-                    background: `radial-gradient(ellipse at top center, transparent 0%, transparent 40%, rgba(15, 23, 42, 0.1) 100%)`
+                    background: `radial-gradient(ellipse at top center, transparent 0%, transparent 40%, rgba(15, 23, 42, ${config.radialOverlay}) 100%)`
                 }}
             />
         </div>
