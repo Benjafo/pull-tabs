@@ -161,7 +161,7 @@ export function GamePage() {
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
-                        <div className="relative">
+                        <div className="relative w-full max-w-md">
                             {/* Glow effect behind active ticket */}
                             <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
                             <div className="relative">
