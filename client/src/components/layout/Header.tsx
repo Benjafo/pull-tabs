@@ -145,6 +145,12 @@ export function Header() {
                         ) : (
                             <div className="space-y-2">
                                 <Link
+                                    to="/blank"
+                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Blank
+                                </Link>
+                                <Link
                                     to="/login"
                                     className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
                                 >
