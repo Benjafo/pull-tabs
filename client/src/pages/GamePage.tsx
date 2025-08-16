@@ -100,13 +100,30 @@ export function GamePage() {
     }
 
     return (
-        <div className="relative">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-                <div className="absolute top-32 left-10 text-6xl opacity-5 animate-pulse">💰</div>
-                <div className="absolute top-60 right-20 text-8xl opacity-5 animate-bounce" style={{animationDelay: '0.5s', animationDuration: '3s'}}>🏴‍☠️</div>
-                <div className="absolute bottom-32 left-1/4 text-7xl opacity-5 animate-pulse" style={{animationDelay: '1s'}}>💎</div>
-                <div className="absolute bottom-48 right-1/3 text-5xl opacity-5 animate-bounce" style={{animationDelay: '1.5s', animationDuration: '3s'}}>🪙</div>
+        <div className="relative min-h-screen">
+            {/* Gradient Background Pattern */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                {/* Radial gradient for treasure glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gold-600/5 via-gold-700/3 to-transparent rounded-full blur-3xl" />
+                
+                {/* Moving gradient orbs for depth */}
+                <div className="absolute top-20 -left-40 w-96 h-96 bg-gradient-to-br from-navy-500/20 to-purple-900/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '8s'}} />
+                <div className="absolute bottom-20 -right-40 w-96 h-96 bg-gradient-to-tl from-gold-700/10 to-navy-600/20 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s', animationDelay: '2s'}} />
+                
+                {/* Wave pattern at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-navy-800/30 via-navy-700/10 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gold-900/10 to-transparent" />
+                
+                {/* Subtle mesh overlay */}
+                <div className="absolute inset-0 opacity-[0.02]" 
+                     style={{
+                         backgroundImage: `linear-gradient(45deg, #000 25%, transparent 25%), 
+                                          linear-gradient(-45deg, #000 25%, transparent 25%), 
+                                          linear-gradient(45deg, transparent 75%, #000 75%), 
+                                          linear-gradient(-45deg, transparent 75%, #000 75%)`,
+                         backgroundSize: '20px 20px',
+                         backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
+                     }} />
             </div>
 
             <div className="relative space-y-6">
