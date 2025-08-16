@@ -7,6 +7,7 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { GamePage } from './pages/GamePage';
 import { StatsPage } from './pages/StatsPage';
+import { BlankPage } from './pages/BlankPage';
 
 function App() {
   return (
