@@ -68,7 +68,7 @@ export function StatsPage() {
             {stats && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {/* Won So Far */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div>
                             <div className="text-2xl mb-3 text-gold-400/80">💰</div>
                             <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
