@@ -37,14 +37,14 @@ export function TabComponent({
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!isDragging || isRevealed || disabled) return;
 
-        // Calculate horizontal drag distance (left to right)
-        const deltaX = e.clientX - startPosRef.current.x;
+        // Calculate horizontal drag distance (right to left - negative deltaX)
+        const deltaX = startPosRef.current.x - e.clientX;
         
-        // Only start peeling after minimum threshold
-        if (deltaX > 10) {
+        // Only start peeling after minimum threshold (increased for less sensitivity)
+        if (deltaX > 20) {
             hasDraggedRef.current = true;
             // Map drag distance to progress (0-100)
-            const progress = Math.min(100, (deltaX / 100) * 100);
+            const progress = Math.min(100, (deltaX / 80) * 100);
             setDragProgress(progress);
             
             // Auto-complete if dragged far enough
