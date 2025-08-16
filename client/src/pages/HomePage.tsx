@@ -68,7 +68,7 @@ export function HomePage() {
                 </div>
             </div>
 
-            <div className="text-center">
+            <div className="text-center relative z-10">
                 {user ? (
                     <Link
                         to="/game"
