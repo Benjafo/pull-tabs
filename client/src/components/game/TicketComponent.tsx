@@ -14,7 +14,7 @@ interface TicketComponentProps {
     onWinningsUpdate?: (amount: number) => void;
 }
 
-export function TicketComponent({ ticket, onComplete, onFlip }: TicketComponentProps) {
+export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
