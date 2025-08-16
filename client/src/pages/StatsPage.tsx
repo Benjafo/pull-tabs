@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { OceanBackground } from "../components/ui/OceanBackground";
 import { useAuth } from "../hooks/useAuth";
 import type { UserStats } from "../services/statsService";
 import statsService from "../services/statsService";
