@@ -250,7 +250,7 @@ export function TabComponent({
                         </svg>
                     </div>
 
-                    {/* Hover hint - right edge lift */}
+                    {/* Hover hint - right edge lift for left drag */}
                     {isHovering && !isDragging && !isPeeling && (
                         <div className="absolute top-0 right-0 bottom-0 w-8">
                             <div 
