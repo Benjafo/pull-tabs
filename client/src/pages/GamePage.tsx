@@ -22,7 +22,7 @@ export function GamePage() {
     const [isTicketFlipped, setIsTicketFlipped] = useState(false);
     const [sessionStats, setSessionStats] = useState({
         ticketsPlayed: 0,
-        totalWinnings: 0
+        totalWinnings: 0,
     });
 
     useEffect(() => {
@@ -59,11 +59,11 @@ export function GamePage() {
             setGameBox(boxStatus);
 
             setCurrentWinnings(0);
-            
+
             // Update session stats
-            setSessionStats(prev => ({
+            setSessionStats((prev) => ({
                 ...prev,
-                ticketsPlayed: prev.ticketsPlayed + 1
+                ticketsPlayed: prev.ticketsPlayed + 1,
             }));
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to purchase ticket");
@@ -77,11 +77,11 @@ export function GamePage() {
         if (totalWinnings > 0) {
             setLastWinAmount(totalWinnings);
             setShowWinAnimation(true);
-            
+
             // Update session winnings
-            setSessionStats(prev => ({
+            setSessionStats((prev) => ({
                 ...prev,
-                totalWinnings: prev.totalWinnings + totalWinnings
+                totalWinnings: prev.totalWinnings + totalWinnings,
             }));
         }
 
@@ -202,43 +202,46 @@ export function GamePage() {
                                         <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">
                                             Prize Reference
                                         </h3>
-                                        <PrizeTable currentWinAmount={currentWinnings} noBorder={true} noBackground={true} />
-                                        
+                                        <PrizeTable
+                                            currentWinAmount={currentWinnings}
+                                            noBorder={true}
+                                            noBackground={true}
+                                        />
+
                                         {/* Divider */}
                                         <div className="my-4 border-t border-gold-600/30"></div>
-                                        
+
                                         {/* Stats Section */}
                                         <div className="flex-1 flex flex-col justify-between">
                                             {/* Session Stats */}
                                             <div className="space-y-3">
-                                                <h4 className="text-lg font-bold text-gold-400/80 text-center">Current Session</h4>
+                                                <h4 className="text-lg font-bold text-gold-400/80 text-center">
+                                                    Current Session
+                                                </h4>
                                                 <div className="space-y-2 text-cream-100">
                                                     <div className="flex justify-between items-center px-2">
-                                                        <span className="text-sm">Tickets Played:</span>
-                                                        <span className="font-bold text-gold-400">1</span>
+                                                        <span className="text-sm">
+                                                            Tickets Played:
+                                                        </span>
+                                                        <span className="font-bold text-gold-400">
+                                                            {sessionStats.ticketsPlayed}
+                                                        </span>
                                                     </div>
                                                     <div className="flex justify-between items-center px-2">
-                                                        <span className="text-sm">Session Winnings:</span>
-                                                        <span className="font-bold text-gold-400">${currentWinnings}</span>
+                                                        <span className="text-sm">
+                                                            Session Winnings:
+                                                        </span>
+                                                        <span className="font-bold text-gold-400">
+                                                            ${sessionStats.totalWinnings}
+                                                        </span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            
-                                            {/* Tips Section */}
-                                            <div className="mt-4 space-y-2">
-                                                <h4 className="text-sm font-bold text-gold-400/60 text-center">Quick Tips</h4>
-                                                <div className="space-y-1 text-cream-100/70 text-xs">
-                                                    <div className="flex items-start gap-2">
-                                                        <span className="text-gold-400">💡</span>
-                                                        <span>Click or drag tabs to reveal symbols</span>
-                                                    </div>
-                                                    <div className="flex items-start gap-2">
-                                                        <span className="text-gold-400">💡</span>
-                                                        <span>Match 3 symbols in a row to win</span>
-                                                    </div>
-                                                    <div className="flex items-start gap-2">
-                                                        <span className="text-gold-400">💡</span>
-                                                        <span>Each tab hides 3 symbols</span>
+                                                    <div className="flex justify-between items-center px-2">
+                                                        <span className="text-sm">
+                                                            Current Ticket:
+                                                        </span>
+                                                        <span className="font-bold text-gold-400">
+                                                            ${currentWinnings || 0}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
