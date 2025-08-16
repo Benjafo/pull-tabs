@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SymbolDisplay } from "./SymbolDisplay";
 
 interface TabComponentProps {
@@ -19,17 +19,106 @@ export function TabComponent({
     disabled = false,
 }: TabComponentProps) {
     const [isPeeling, setIsPeeling] = useState(false);
+    const [isDragging, setIsDragging] = useState(false);
+    const [dragProgress, setDragProgress] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
+    const startPosRef = useRef({ x: 0, y: 0 });
+    const hasDraggedRef = useRef(false);
 
-    const handleClick = () => {
+    const handleMouseDown = (e: React.MouseEvent) => {
         if (isRevealed || disabled || isPeeling) return;
         
-        // Trigger peel animation on click
+        setIsDragging(true);
+        hasDraggedRef.current = false;
+        startPosRef.current = { x: e.clientX, y: e.clientY };
+        e.preventDefault();
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging || isRevealed || disabled) return;
+
+        // Calculate horizontal drag distance (left to right)
+        const deltaX = e.clientX - startPosRef.current.x;
+        
+        // Only start peeling after minimum threshold
+        if (deltaX > 10) {
+            hasDraggedRef.current = true;
+            // Map drag distance to progress (0-100)
+            const progress = Math.min(100, (deltaX / 100) * 100);
+            setDragProgress(progress);
+            
+            // Auto-complete if dragged far enough
+            if (progress >= 100) {
+                completePeel();
+            }
+        }
+    };
+
+    const handleMouseUp = () => {
+        if (!isDragging) return;
+        
+        if (dragProgress >= 60) {
+            // Complete the peel if dragged more than 60%
+            completePeel();
+        } else if (hasDraggedRef.current) {
+            // Spring back if not dragged enough
+            setDragProgress(0);
+        }
+        
+        setIsDragging(false);
+    };
+
+    const handleMouseLeave = () => {
+        if (isDragging && dragProgress < 60) {
+            setDragProgress(0);
+        }
+        setIsDragging(false);
+        setIsHovering(false);
+    };
+
+    const handleClick = () => {
+        // Only trigger click animation if not dragging
+        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
+        
+        // Trigger smooth peel animation on click
         setIsPeeling(true);
         setTimeout(() => {
             onReveal(tabNumber);
             setIsPeeling(false);
         }, 800);
+    };
+
+    const completePeel = () => {
+        setIsPeeling(true);
+        setDragProgress(100);
+        setTimeout(() => {
+            onReveal(tabNumber);
+            setIsPeeling(false);
+            setDragProgress(0);
+        }, 300);
+    };
+
+    // Calculate staged transform for drag interaction
+    const getDragTransform = () => {
+        if (dragProgress > 0) {
+            const rotateY = 90 * (dragProgress / 100);
+            const translateX = 60 * (dragProgress / 100);
+            const scaleX = 1 - (0.2 * (dragProgress / 100));
+            return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
+        }
+        
+        if (isHovering && !isDragging && !isPeeling) {
+            return "rotateY(5deg) translateX(2px)";
+        }
+        
+        return "";
+    };
+
+    const getOpacity = () => {
+        if (dragProgress > 0) {
+            return Math.max(0, 1 - (dragProgress / 100));
+        }
+        return 1;
     };
 
     return (
@@ -51,28 +140,34 @@ export function TabComponent({
             {!isRevealed && (
                 <div
                     className={`
-                        absolute inset-0 rounded-lg cursor-pointer
-                        ${isPeeling ? 'tab-peel-animation pointer-events-none' : ''}
-                        ${!isPeeling && isHovering ? 'hover-lift' : ''}
+                        absolute inset-0 rounded-lg
+                        ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}
+                        ${isPeeling && !isDragging ? 'smooth-peel-animation pointer-events-none' : ''}
                         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-                        select-none transition-transform duration-200
+                        select-none
                     `}
                     style={{
+                        transform: isDragging || (isHovering && !isPeeling) ? getDragTransform() : undefined,
+                        opacity: isDragging ? getOpacity() : undefined,
                         transformStyle: "preserve-3d",
                         transformOrigin: "left center",
+                        transition: isDragging ? 'none' : (isHovering ? 'transform 0.2s ease-out' : 'none'),
                     }}
-                    onClick={handleClick}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
                     onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
+                    onClick={handleClick}
                 >
-                    {/* Shadow layer */}
+                    {/* Dynamic shadow based on interaction */}
                     <div 
                         className="absolute inset-0 rounded-lg"
                         style={{
-                            boxShadow: isHovering && !isPeeling
-                                ? '4px 4px 12px rgba(0,0,0,0.2)'
-                                : '2px 2px 6px rgba(0,0,0,0.1)',
-                            transition: 'box-shadow 0.2s ease-out',
+                            boxShadow: isDragging || isPeeling
+                                ? `${4 + (dragProgress || 0) / 10}px ${4 + (dragProgress || 0) / 10}px ${12 + (dragProgress || 0) / 5}px rgba(0,0,0,${0.2 - (dragProgress || 0) / 500})`
+                                : (isHovering ? '4px 4px 12px rgba(0,0,0,0.2)' : '2px 2px 6px rgba(0,0,0,0.1)'),
+                            transition: isDragging ? 'none' : 'box-shadow 0.2s ease-out',
                         }}
                     />
 
@@ -124,7 +219,7 @@ export function TabComponent({
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">
-                            CLICK TO REVEAL
+                            {isDragging ? 'DRAG RIGHT →' : 'CLICK OR DRAG'}
                         </div>
                     </div>
 
@@ -149,7 +244,7 @@ export function TabComponent({
                     </div>
 
                     {/* Hover hint - right edge lift */}
-                    {isHovering && !isPeeling && (
+                    {isHovering && !isDragging && !isPeeling && (
                         <div className="absolute top-0 right-0 bottom-0 w-8">
                             <div 
                                 className="absolute inset-0 bg-gradient-to-l from-gold-500/30 to-transparent rounded-r-lg"
@@ -160,29 +255,14 @@ export function TabComponent({
             )}
 
             <style>{`
-                .hover-lift {
-                    transform: rotateY(5deg) translateX(2px);
+                .smooth-peel-animation {
+                    animation: smoothPeelRightToLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
                 }
 
-                .tab-peel-animation {
-                    animation: peelRightToLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-                }
-
-                @keyframes peelRightToLeft {
+                @keyframes smoothPeelRightToLeft {
                     0% {
                         transform: rotateY(0deg) translateX(0) scaleX(1);
                         opacity: 1;
-                    }
-                    20% {
-                        transform: rotateY(15deg) translateX(5px) scaleX(1.02);
-                    }
-                    50% {
-                        transform: rotateY(60deg) translateX(20px) scaleX(1.05);
-                        opacity: 0.8;
-                    }
-                    80% {
-                        transform: rotateY(85deg) translateX(40px) scaleX(0.95);
-                        opacity: 0.3;
                     }
                     100% {
                         transform: rotateY(90deg) translateX(60px) scaleX(0.8);
