@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaTrophy, FaCoins, FaStar, FaGem } from 'react-icons/fa';
 
 interface WinAnimationProps {
   amount: number;
@@ -49,10 +50,34 @@ export function WinAnimation({ amount, onComplete }: WinAnimationProps) {
               ${amount}
             </div>
             <div className="text-cream-100 text-2xl font-semibold">
-              {tier === 'jackpot' && '🎉 JACKPOT! 🎉'}
-              {tier === 'big' && '💰 BIG WIN! 💰'}
-              {tier === 'medium' && '🎊 Nice Win! 🎊'}
-              {tier === 'small' && '✨ Winner! ✨'}
+              {tier === 'jackpot' && (
+                <span className="flex items-center justify-center gap-2">
+                  <FaTrophy className="text-3xl" />
+                  JACKPOT!
+                  <FaTrophy className="text-3xl" />
+                </span>
+              )}
+              {tier === 'big' && (
+                <span className="flex items-center justify-center gap-2">
+                  <FaCoins className="text-3xl" />
+                  BIG WIN!
+                  <FaCoins className="text-3xl" />
+                </span>
+              )}
+              {tier === 'medium' && (
+                <span className="flex items-center justify-center gap-2">
+                  <FaGem className="text-2xl" />
+                  Nice Win!
+                  <FaGem className="text-2xl" />
+                </span>
+              )}
+              {tier === 'small' && (
+                <span className="flex items-center justify-center gap-2">
+                  <FaStar className="text-2xl" />
+                  Winner!
+                  <FaStar className="text-2xl" />
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -70,7 +95,7 @@ export function WinAnimation({ amount, onComplete }: WinAnimationProps) {
                   animationDuration: `${2 + Math.random() * 2}s`,
                 }}
               >
-                💰
+                <FaCoins className="text-gold-400" />
               </div>
             ))}
           </>
@@ -89,7 +114,7 @@ export function WinAnimation({ amount, onComplete }: WinAnimationProps) {
                   animationDelay: `${Math.random() * 1.5}s`,
                 }}
               >
-                ✨
+                <FaStar className="text-gold-400" />
               </div>
             ))}
           </>
