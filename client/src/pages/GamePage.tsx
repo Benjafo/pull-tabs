@@ -74,6 +74,7 @@ export function GamePage() {
     const handleNewTicket = () => {
         setCurrentTicket(null);
         setCurrentWinnings(0);
+        setShowWinAnimation(false); // Dismiss any active win animation
     };
 
     if (loading) {
