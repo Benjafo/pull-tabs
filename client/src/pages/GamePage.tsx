@@ -167,14 +167,38 @@ export function GamePage() {
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
-                        <div className="relative w-full max-w-md">
-                            {/* Glow effect behind active ticket */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
-                            <div className="relative">
-                                <TicketComponent
-                                    ticket={currentTicket}
-                                    onComplete={handleTicketComplete}
-                                />
+                        <div className={`relative w-full flex items-center justify-center gap-8 transition-all duration-700 ease-in-out ${
+                            isTicketFlipped ? 'max-w-6xl' : 'max-w-md'
+                        }`}>
+                            {/* Prize Table - slides in from left when flipped */}
+                            <div className={`transition-all duration-700 ease-in-out ${
+                                isTicketFlipped 
+                                    ? 'opacity-100 translate-x-0 w-full max-w-sm' 
+                                    : 'opacity-0 -translate-x-full w-0 overflow-hidden'
+                            }`}>
+                                {isTicketFlipped && (
+                                    <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30">
+                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">Prize Table</h3>
+                                        <PrizeTable currentWinAmount={currentWinnings} />
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Ticket - starts centered, slides right when flipped */}
+                            <div className={`relative transition-all duration-700 ease-in-out ${
+                                isTicketFlipped 
+                                    ? 'translate-x-0 w-full max-w-md' 
+                                    : 'translate-x-0 w-full max-w-md'
+                            }`}>
+                                {/* Glow effect behind active ticket */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
+                                <div className="relative">
+                                    <TicketComponent
+                                        ticket={currentTicket}
+                                        onComplete={handleTicketComplete}
+                                        onFlip={handleTicketFlip}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (
