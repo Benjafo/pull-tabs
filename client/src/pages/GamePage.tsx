@@ -249,7 +249,9 @@ export function GamePage() {
                             </div>
 
                             {/* Ticket - starts centered, slides right when flipped */}
-                            <div className="relative w-full max-w-md">
+                            <div className={`relative w-full max-w-md transition-transform duration-700 ease-in-out ${
+                                isTicketFlipped ? "translate-x-0" : ""
+                            }`}>
                                 {/* Glow effect behind active ticket */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
                                 <div className="relative">
