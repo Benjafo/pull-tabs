@@ -14,8 +14,8 @@ export function HomePage() {
                 </h1>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-navy-600 rounded-lg shadow-xl p-6 border border-gold-600/30">
+            <div className="grid md:grid-cols-2 gap-8 mb-12 relative z-10">
+                <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30">
                     <h3 className="text-2xl font-bold text-gold-400 mb-4">How to Play</h3>
                     <ul className="space-y-3 text-cream-100">
                         <li className="flex items-start">
