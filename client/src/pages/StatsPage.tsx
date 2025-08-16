@@ -207,6 +207,7 @@ export function StatsPage() {
                     </div>
                 </div>
             )}
+            </div>
         </div>
     );
 }
