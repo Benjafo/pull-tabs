@@ -191,7 +191,7 @@ export function GamePage() {
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
                         <div
-                            className={`relative w-full flex items-center justify-center gap-8 transition-all duration-700 ease-in-out ${
+                            className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1500 ease-in-out ${
                                 isTicketFlipped ? "max-w-7xl" : "max-w-md"
                             }`}
                         >
