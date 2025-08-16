@@ -45,6 +45,12 @@ export function TicketComponent({ ticket, onComplete, onFlip }: TicketComponentP
         console.log(revealedTabs);
         if (!isFlipped) {
             setIsFlipped(true);
+            // Notify parent after flip animation starts
+            setTimeout(() => {
+                if (onFlip) {
+                    onFlip();
+                }
+            }, 700); // Wait for flip animation to complete
         }
     };
 
