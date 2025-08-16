@@ -101,9 +101,13 @@ export function TabComponent({
     // Calculate staged transform for drag interaction
     const getDragTransform = () => {
         if (dragProgress > 0) {
-            const rotateY = 90 * (dragProgress / 100);
-            const translateX = 60 * (dragProgress / 100);
-            const scaleX = 1 - (0.2 * (dragProgress / 100));
+            // Create distinct stages for choppy animation
+            const stage = Math.floor(dragProgress / 20); // 5 stages (0-4)
+            const stageProgress = (stage * 20) / 100;
+            
+            const rotateY = 90 * stageProgress;
+            const translateX = 60 * stageProgress;
+            const scaleX = 1 - (0.2 * stageProgress);
             return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
         }
         
