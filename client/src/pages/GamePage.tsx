@@ -59,6 +59,12 @@ export function GamePage() {
             setGameBox(boxStatus);
 
             setCurrentWinnings(0);
+            
+            // Update session stats
+            setSessionStats(prev => ({
+                ...prev,
+                ticketsPlayed: prev.ticketsPlayed + 1
+            }));
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to purchase ticket");
         } finally {
