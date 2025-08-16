@@ -226,7 +226,7 @@ export function TabComponent({
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">
-                            {isDragging ? 'DRAG RIGHT →' : 'CLICK OR DRAG'}
+                            {isDragging ? '← DRAG LEFT' : 'CLICK OR DRAG'}
                         </div>
                     </div>
 

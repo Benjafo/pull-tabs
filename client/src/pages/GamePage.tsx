@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaTicketAlt, FaRedo, FaFlag, FaCoins, FaGem, FaDice, FaDiceD6 } from "react-icons/fa";
+import { FaCoins, FaDice, FaDiceD6, FaFlag, FaGem, FaRedo, FaTicketAlt } from "react-icons/fa";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
@@ -190,7 +190,7 @@ export function GamePage() {
                                         Welcome to Pirate's Treasure!
                                     </h3>
                                     <p className="text-xl mb-2 opacity-90">
-                                        Purchase a ticket to reveal hidden treasures
+                                        Purchase a ticket to reveal prizes
                                     </p>
                                     <div className="flex justify-center gap-4 mb-8">
                                         <FaCoins
