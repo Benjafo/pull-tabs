@@ -8,7 +8,7 @@ export function HomePage() {
     return (
         <div className="py-8 relative">
             <OceanBackground showAnimatedElements={true} intensity="subtle" />
-            <div className="text-center text-cream-100 mb-12">
+            <div className="text-center text-cream-100 mb-12 relative z-10">
                 <h1 className="text-5xl font-bold mb-4 text-gold-400 drop-shadow-lg">
                     Welcome to Pull Tabs Treasure!
                 </h1>
