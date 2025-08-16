@@ -174,8 +174,6 @@ export function TabComponent({
                         transition: isDragging ? 'none' : (isHovering ? 'transform 0.2s ease-out' : dragProgress > 0 ? 'all 0.3s ease-out' : 'none'),
                     }}
                     onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
                     onMouseLeave={handleMouseLeave}
                     onMouseEnter={() => setIsHovering(true)}
                     onClick={handleClick}
