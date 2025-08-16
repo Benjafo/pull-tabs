@@ -25,6 +25,61 @@ export function TabComponent({
     const startPosRef = useRef({ x: 0, y: 0 });
     const hasDraggedRef = useRef(false);
 
+    // Document-level mouse handlers for drag tracking
+    useEffect(() => {
+        if (!isDragging) return;
+
+        const handleDocumentMouseMove = (e: MouseEvent) => {
+            if (isRevealed || disabled) return;
+
+            // Calculate horizontal drag distance (allow both directions)
+            const deltaX = e.clientX - startPosRef.current.x;
+            
+            // Mark as dragged if moved more than 5px in any direction
+            if (Math.abs(deltaX) > 5) {
+                hasDraggedRef.current = true;
+            }
+            
+            // Allow dragging in both directions, but only peel when dragging left
+            // Negative deltaX means dragging left (right to left motion)
+            if (deltaX < -10) {
+                // Map drag distance to progress (0-100) for leftward drag
+                const progress = Math.min(100, Math.abs(deltaX) / 100 * 100);
+                setDragProgress(progress);
+                
+                // Auto-complete if dragged far enough
+                if (progress >= 100) {
+                    completePeel();
+                }
+            } else {
+                // Reset if dragging rightward or not far enough left
+                setDragProgress(0);
+            }
+        };
+
+        const handleDocumentMouseUp = () => {
+            if (dragProgress >= 60) {
+                // Complete the peel if dragged more than 60%
+                completePeel();
+            } else if (hasDraggedRef.current) {
+                // Spring back if not dragged enough
+                setDragProgress(0);
+            }
+            
+            setIsDragging(false);
+        };
+
+        // Add document-level listeners
+        document.addEventListener('mousemove', handleDocumentMouseMove);
+        document.addEventListener('mouseup', handleDocumentMouseUp);
+
+        // Cleanup function
+        return () => {
+            document.removeEventListener('mousemove', handleDocumentMouseMove);
+            document.removeEventListener('mouseup', handleDocumentMouseUp);
+        };
+    }, [isDragging, isRevealed, disabled, dragProgress]);
+
     const handleMouseDown = (e: React.MouseEvent) => {
         if (isRevealed || disabled || isPeeling) return;
         
@@ -35,53 +90,7 @@ export function TabComponent({
         e.preventDefault();
     };
 
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isDragging || isRevealed || disabled) return;
-
-        // Calculate horizontal drag distance (allow both directions)
-        const deltaX = e.clientX - startPosRef.current.x;
-        
-        // Mark as dragged if moved more than 5px in any direction
-        if (Math.abs(deltaX) > 5) {
-            hasDraggedRef.current = true;
-        }
-        
-        // Allow dragging in both directions, but only peel when dragging left
-        // Negative deltaX means dragging left (right to left motion)
-        if (deltaX < -10) {
-            // Map drag distance to progress (0-100) for leftward drag
-            const progress = Math.min(100, Math.abs(deltaX) / 100 * 100);
-            setDragProgress(progress);
-            
-            // Auto-complete if dragged far enough
-            if (progress >= 100) {
-                completePeel();
-            }
-        } else {
-            // Reset if dragging rightward or not far enough left
-            setDragProgress(0);
-        }
-    };
-
-    const handleMouseUp = () => {
-        if (!isDragging) return;
-        
-        if (dragProgress >= 60) {
-            // Complete the peel if dragged more than 60%
-            completePeel();
-        } else if (hasDraggedRef.current) {
-            // Spring back if not dragged enough
-            setDragProgress(0);
-        }
-        
-        setIsDragging(false);
-    };
-
     const handleMouseLeave = () => {
-        if (isDragging && dragProgress < 60) {
-            setDragProgress(0);
-        }
-        setIsDragging(false);
         setIsHovering(false);
     };
 
