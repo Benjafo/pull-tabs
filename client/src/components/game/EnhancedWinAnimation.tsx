@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FaCoins, FaStar } from 'react-icons/fa';
 
 interface EnhancedWinAnimationProps {
   amount: number;
@@ -99,10 +100,10 @@ export function EnhancedWinAnimation({ amount, onComplete }: EnhancedWinAnimatio
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute -top-4 -left-4 text-4xl animate-spin-slow">⭐</div>
-            <div className="absolute -top-4 -right-4 text-4xl animate-spin-slow" style={{ animationDelay: '0.5s' }}>⭐</div>
-            <div className="absolute -bottom-4 -left-4 text-4xl animate-spin-slow" style={{ animationDelay: '1s' }}>⭐</div>
-            <div className="absolute -bottom-4 -right-4 text-4xl animate-spin-slow" style={{ animationDelay: '1.5s' }}>⭐</div>
+            <FaStar className="absolute -top-4 -left-4 text-4xl animate-spin-slow text-gold-400" />
+            <FaStar className="absolute -top-4 -right-4 text-4xl animate-spin-slow text-gold-400" style={{ animationDelay: '0.5s' }} />
+            <FaStar className="absolute -bottom-4 -left-4 text-4xl animate-spin-slow text-gold-400" style={{ animationDelay: '1s' }} />
+            <FaStar className="absolute -bottom-4 -right-4 text-4xl animate-spin-slow text-gold-400" style={{ animationDelay: '1.5s' }} />
           </div>
         </div>
 
@@ -119,7 +120,7 @@ export function EnhancedWinAnimation({ amount, onComplete }: EnhancedWinAnimatio
                   animationDuration: `${3 + Math.random() * 2}s`,
                 }}
               >
-                💰
+                <FaCoins className="text-gold-400" />
               </div>
             ))}
           </div>
