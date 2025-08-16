@@ -28,12 +28,6 @@ export function Header() {
                         {user ? (
                             <div className="flex items-center">
                                 <Link
-                                    to="/blank"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
-                                <Link
                                     to="/game"
                                     className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
@@ -57,12 +51,6 @@ export function Header() {
                             </div>
                         ) : (
                             <>
-                                <Link
-                                    to="/blank"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
                                 <Link
                                     to="/login"
                                     className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
