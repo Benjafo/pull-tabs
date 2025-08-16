@@ -30,6 +30,7 @@ export function TabComponent({
         
         setIsDragging(true);
         hasDraggedRef.current = false;
+        setDragProgress(0); // Reset drag progress on new interaction
         startPosRef.current = { x: e.clientX, y: e.clientY };
         e.preventDefault();
     };
