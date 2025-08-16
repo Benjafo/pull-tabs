@@ -253,7 +253,7 @@ export function TabComponent({
 
                     {/* Hover hint - right edge lift for left drag */}
                     {isHovering && !isDragging && !isPeeling && (
-                        <div className="absolute top-0 right-0 bottom-0 w-8">
+                        <div className="absolute top-0 right-0 bottom-0 w-8 pointer-events-none">
                             <div 
                                 className="absolute inset-0 bg-gradient-to-l from-gold-500/30 to-transparent rounded-r-lg"
                             />
