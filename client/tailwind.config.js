@@ -54,6 +54,7 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-treasure': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        'radial-gradient': 'radial-gradient(ellipse at center, var(--tw-gradient-stops))',
       },
       animation: {
         'bounce-slow': 'bounce 2s infinite',
