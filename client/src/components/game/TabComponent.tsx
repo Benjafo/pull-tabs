@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { SymbolDisplay } from "./SymbolDisplay";
 
 interface TabComponentProps {
