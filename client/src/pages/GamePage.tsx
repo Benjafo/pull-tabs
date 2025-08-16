@@ -263,6 +263,7 @@ export function GamePage() {
                                         ticket={currentTicket}
                                         onComplete={handleTicketComplete}
                                         onFlip={handleTicketFlip}
+                                        onWinningsUpdate={handleLiveWinningsUpdate}
                                     />
                                 </div>
                             </div>
