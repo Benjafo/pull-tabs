@@ -13,7 +13,7 @@ interface TicketComponentProps {
     onFlip?: () => void;
 }
 
-export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
+export function TicketComponent({ ticket, onComplete, onFlip }: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
