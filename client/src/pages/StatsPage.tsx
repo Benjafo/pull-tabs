@@ -86,7 +86,7 @@ export function StatsPage() {
                     </div>
 
                     {/* Biggest Win */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div className="flex items-center justify-between">
                             <div>
                                 <div className="text-2xl mb-3 text-gold-400">🏆</div>
@@ -107,7 +107,7 @@ export function StatsPage() {
                     </div>
 
                     {/* Win Rate */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div>
                             <div className="text-2xl mb-3 text-gold-400/80">📊</div>
                             <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
@@ -123,7 +123,7 @@ export function StatsPage() {
                     </div>
 
                     {/* Pull Tabs Opened */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div>
                             <div className="text-2xl mb-3 text-gold-400/80">🎫</div>
                             <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
@@ -134,7 +134,7 @@ export function StatsPage() {
                     </div>
 
                     {/* Last Played */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div>
                             <div className="text-2xl mb-3 text-gold-400/80">📅</div>
                             <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
@@ -153,7 +153,7 @@ export function StatsPage() {
                     </div>
 
                     {/* Times Played */}
-                    <div className="bg-navy-500 rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
+                    <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                         <div>
                             <div className="text-2xl mb-3 text-gold-400/80">🎮</div>
                             <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
