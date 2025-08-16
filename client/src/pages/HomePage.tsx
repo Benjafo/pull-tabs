@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaSkull, FaGem, FaShip, FaAnchor, FaCompass, FaMap } from "react-icons/fa";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import { useAuth } from "../hooks/useAuth";
 
@@ -41,27 +42,57 @@ export function HomePage() {
                     <h3 className="text-2xl font-bold text-gold-400 mb-4">Prize Table</h3>
                     <ul className="space-y-2">
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
-                            <span className="text-cream-100">💀💀💀 Three Skulls</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <span className="ml-2">Three Skulls</span>
+                            </span>
                             <span className="font-bold text-gold-400">$100</span>
                         </li>
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
-                            <span className="text-cream-100">💀💀💎 Skull-Skull-Treasure</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaGem className="text-base" />
+                                <span className="ml-2">Skull-Skull-Treasure</span>
+                            </span>
                             <span className="font-bold text-gold-400">$50</span>
                         </li>
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
-                            <span className="text-cream-100">💀💀⛵ Skull-Skull-Ship</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaShip className="text-base" />
+                                <span className="ml-2">Skull-Skull-Ship</span>
+                            </span>
                             <span className="font-bold text-gold-400">$20</span>
                         </li>
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
-                            <span className="text-cream-100">💀💀⚓ Skull-Skull-Anchor</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaAnchor className="text-base" />
+                                <span className="ml-2">Skull-Skull-Anchor</span>
+                            </span>
                             <span className="font-bold text-gold-400">$10</span>
                         </li>
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
-                            <span className="text-cream-100">💀💀🧭 Skull-Skull-Compass</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaCompass className="text-base" />
+                                <span className="ml-2">Skull-Skull-Compass</span>
+                            </span>
                             <span className="font-bold text-gold-400">$5</span>
                         </li>
                         <li className="flex justify-between items-center py-2">
-                            <span className="text-cream-100">💀💀🗺️ Skull-Skull-Map</span>
+                            <span className="text-cream-100 flex items-center gap-1">
+                                <FaSkull className="text-base" />
+                                <FaSkull className="text-base" />
+                                <FaMap className="text-base" />
+                                <span className="ml-2">Skull-Skull-Map</span>
+                            </span>
                             <span className="font-bold text-gold-400">$2</span>
                         </li>
                     </ul>
