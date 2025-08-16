@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { SymbolDisplay } from "./SymbolDisplay";
 
 interface TabComponentProps {
@@ -19,114 +19,17 @@ export function TabComponent({
     disabled = false,
 }: TabComponentProps) {
     const [isPeeling, setIsPeeling] = useState(false);
-    const [isDragging, setIsDragging] = useState(false);
-    const [dragProgress, setDragProgress] = useState(0);
     const [isHovering, setIsHovering] = useState(false);
-    const tabRef = useRef<HTMLDivElement>(null);
-    const startPosRef = useRef({ x: 0, y: 0 });
-    const hasDraggedRef = useRef(false);
-
-    const handleMouseDown = (e: React.MouseEvent) => {
-        if (isRevealed || disabled || isPeeling) return;
-        
-        setIsDragging(true);
-        hasDraggedRef.current = false;
-        startPosRef.current = { x: e.clientX, y: e.clientY };
-        e.preventDefault();
-    };
-
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isDragging || isRevealed || disabled) return;
-
-        const deltaY = startPosRef.current.y - e.clientY;
-        const deltaX = e.clientX - startPosRef.current.x;
-        
-        // Calculate drag distance (primarily vertical, with some horizontal component)
-        const dragDistance = Math.sqrt(deltaY * deltaY + (deltaX * deltaX * 0.3));
-        
-        // Only start peeling after minimum threshold
-        if (dragDistance > 10) {
-            hasDraggedRef.current = true;
-            // Map drag distance to progress (0-100)
-            const progress = Math.min(100, (dragDistance / 80) * 100);
-            setDragProgress(progress);
-            
-            // Auto-complete if dragged far enough
-            if (progress >= 100) {
-                completePeel();
-            }
-        }
-    };
-
-    const handleMouseUp = () => {
-        if (!isDragging) return;
-        
-        if (dragProgress >= 60) {
-            // Complete the peel if dragged more than 60%
-            completePeel();
-        } else if (hasDraggedRef.current) {
-            // Spring back if not dragged enough
-            setDragProgress(0);
-        }
-        
-        setIsDragging(false);
-    };
-
-    const handleMouseLeave = () => {
-        if (isDragging && dragProgress < 60) {
-            setDragProgress(0);
-        }
-        setIsDragging(false);
-        setIsHovering(false);
-    };
 
     const handleClick = () => {
-        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
+        if (isRevealed || disabled || isPeeling) return;
         
-        // Trigger auto-peel animation on simple click
+        // Trigger peel animation on click
         setIsPeeling(true);
         setTimeout(() => {
             onReveal(tabNumber);
             setIsPeeling(false);
         }, 800);
-    };
-
-    const completePeel = () => {
-        setIsPeeling(true);
-        setDragProgress(100);
-        setTimeout(() => {
-            onReveal(tabNumber);
-            setIsPeeling(false);
-            setDragProgress(0);
-        }, 300);
-    };
-
-    // Calculate transform based on drag progress or auto-peel
-    const getTransform = () => {
-        if (isPeeling && !isDragging) {
-            return ""; // Use CSS animation for auto-peel
-        }
-        
-        if (dragProgress > 0) {
-            const rotateX = -90 * (dragProgress / 100);
-            const translateY = -50 * (dragProgress / 100);
-            const scale = 1 - (0.2 * (dragProgress / 100));
-            const opacity = 1 - (dragProgress / 100);
-            return `rotateX(${rotateX}deg) translateY(${translateY}px) scale(${scale})`;
-        }
-        
-        if (isHovering && !isDragging) {
-            return "rotateX(-5deg) translateY(-2px)";
-        }
-        
-        return "";
-    };
-
-    const getOpacity = () => {
-        if (dragProgress > 0) {
-            return 1 - (dragProgress / 100);
-        }
-        return 1;
     };
 
     return (
@@ -147,37 +50,29 @@ export function TabComponent({
             {/* Peelable tab overlay */}
             {!isRevealed && (
                 <div
-                    ref={tabRef}
                     className={`
-                        absolute inset-0 rounded-lg
-                        ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}
-                        ${isPeeling && !isDragging ? 'tab-peel-animation' : ''}
+                        absolute inset-0 rounded-lg cursor-pointer
+                        ${isPeeling ? 'tab-peel-animation pointer-events-none' : ''}
+                        ${!isPeeling && isHovering ? 'hover-lift' : ''}
                         ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
-                        select-none
+                        select-none transition-transform duration-200
                     `}
                     style={{
-                        transform: getTransform(),
-                        opacity: getOpacity(),
                         transformStyle: "preserve-3d",
-                        transformOrigin: "top center",
-                        transition: isDragging ? 'none' : 'all 0.3s ease-out',
-                        willChange: 'transform, opacity',
+                        transformOrigin: "left center",
                     }}
-                    onMouseDown={handleMouseDown}
-                    onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
-                    onMouseLeave={handleMouseLeave}
-                    onMouseEnter={() => setIsHovering(true)}
                     onClick={handleClick}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
                 >
-                    {/* Dynamic shadow based on peel progress */}
+                    {/* Shadow layer */}
                     <div 
                         className="absolute inset-0 rounded-lg"
                         style={{
-                            boxShadow: dragProgress > 0 
-                                ? `0 ${10 + dragProgress / 5}px ${20 + dragProgress / 2}px rgba(0,0,0,${0.3 - dragProgress / 500})`
-                                : '0 4px 6px rgba(0,0,0,0.1)',
-                            transition: isDragging ? 'none' : 'box-shadow 0.3s ease-out',
+                            boxShadow: isHovering && !isPeeling
+                                ? '4px 4px 12px rgba(0,0,0,0.2)'
+                                : '2px 2px 6px rgba(0,0,0,0.1)',
+                            transition: 'box-shadow 0.2s ease-out',
                         }}
                     />
 
@@ -229,7 +124,7 @@ export function TabComponent({
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">
-                            {isDragging ? 'PULL UP' : 'CLICK OR DRAG'}
+                            CLICK TO REVEAL
                         </div>
                     </div>
 
@@ -253,14 +148,11 @@ export function TabComponent({
                         </svg>
                     </div>
 
-                    {/* Hover hint - corner lift */}
-                    {isHovering && !isDragging && !isPeeling && (
-                        <div className="absolute bottom-0 right-0 w-8 h-8">
+                    {/* Hover hint - right edge lift */}
+                    {isHovering && !isPeeling && (
+                        <div className="absolute top-0 right-0 bottom-0 w-8">
                             <div 
-                                className="absolute inset-0 bg-gradient-to-tl from-gold-500 to-transparent opacity-60 rounded-br-lg"
-                                style={{
-                                    clipPath: 'polygon(100% 0, 100% 100%, 0 100%)',
-                                }}
+                                className="absolute inset-0 bg-gradient-to-l from-gold-500/30 to-transparent rounded-r-lg"
                             />
                         </div>
                     )}
@@ -268,28 +160,32 @@ export function TabComponent({
             )}
 
             <style>{`
-                .tab-peel-animation {
-                    animation: smoothPeel 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+                .hover-lift {
+                    transform: rotateY(5deg) translateX(2px);
                 }
 
-                @keyframes smoothPeel {
+                .tab-peel-animation {
+                    animation: peelRightToLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+                }
+
+                @keyframes peelRightToLeft {
                     0% {
-                        transform: rotateX(0deg) translateY(0) scale(1);
+                        transform: rotateY(0deg) translateX(0) scaleX(1);
                         opacity: 1;
                     }
                     20% {
-                        transform: rotateX(-10deg) translateY(-5px) scale(1.02);
+                        transform: rotateY(15deg) translateX(5px) scaleX(1.02);
                     }
                     50% {
-                        transform: rotateX(-45deg) translateY(-20px) scale(1.05);
+                        transform: rotateY(60deg) translateX(20px) scaleX(1.05);
                         opacity: 0.8;
                     }
                     80% {
-                        transform: rotateX(-80deg) translateY(-40px) scale(0.95);
+                        transform: rotateY(85deg) translateX(40px) scaleX(0.95);
                         opacity: 0.3;
                     }
                     100% {
-                        transform: rotateX(-90deg) translateY(-50px) scale(0.8);
+                        transform: rotateY(90deg) translateX(60px) scaleX(0.8);
                         opacity: 0;
                     }
                 }
