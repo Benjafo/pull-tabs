@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { FaTicketAlt, FaRedo, FaFlag, FaCoins, FaGem, FaDice, FaDiceD6 } from "react-icons/fa";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
@@ -133,7 +134,7 @@ export function GamePage() {
                                                 <>Purchasing...</>
                                             ) : (
                                                 <>
-                                                    <span className="text-2xl">🎫</span>
+                                                    <FaTicketAlt className="text-xl" />
                                                     Buy Ticket ($1)
                                                 </>
                                             )}
@@ -146,7 +147,7 @@ export function GamePage() {
                                     className="bg-gradient-to-r from-navy-500 to-navy-600 hover:from-navy-400 hover:to-navy-500 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl border border-navy-400"
                                 >
                                     <span className="flex items-center gap-2">
-                                        <span className="text-xl">🔄</span>
+                                        <FaRedo className="text-lg" />
                                         New Ticket
                                     </span>
                                 </button>
@@ -181,12 +182,10 @@ export function GamePage() {
                                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold-400/50 rounded-br-lg" />
 
                                 <div className="relative">
-                                    <div
-                                        className="text-8xl mb-6 animate-bounce"
+                                    <FaFlag
+                                        className="text-8xl mb-6 animate-bounce text-gold-400/80"
                                         style={{ animationDuration: "2s" }}
-                                    >
-                                        🏴‍☠️
-                                    </div>
+                                    />
                                     <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
                                         Welcome to Pirate's Treasure!
                                     </h3>
@@ -194,21 +193,17 @@ export function GamePage() {
                                         Purchase a ticket to reveal hidden treasures
                                     </p>
                                     <div className="flex justify-center gap-4 mb-8">
-                                        <span
-                                            className="text-3xl animate-pulse"
+                                        <FaCoins
+                                            className="text-3xl animate-pulse text-gold-400"
                                             style={{ animationDelay: "0.2s" }}
-                                        >
-                                            💰
-                                        </span>
+                                        />
                                         <span className="text-2xl font-bold text-gold-400">
                                             Win up to $100!
                                         </span>
-                                        <span
-                                            className="text-3xl animate-pulse"
+                                        <FaGem
+                                            className="text-3xl animate-pulse text-gold-400"
                                             style={{ animationDelay: "0.4s" }}
-                                        >
-                                            💎
-                                        </span>
+                                        />
                                     </div>
                                     <div className="relative inline-block group/button">
                                         <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover/button:opacity-100 transition duration-200"></div>
@@ -231,9 +226,9 @@ export function GamePage() {
                                             }
                                         >
                                             <span className="flex items-center gap-3">
-                                                <span className="text-2xl">🎰</span>
+                                                <FaDice className="text-xl" />
                                                 {isPurchasing ? "Purchasing..." : "Start Playing"}
-                                                <span className="text-2xl">🎲</span>
+                                                <FaDiceD6 className="text-xl" />
                                             </span>
                                         </button>
                                     </div>
