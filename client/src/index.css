@@ -11,3 +11,12 @@
     @apply bg-navy-700 min-h-screen;
   }
 }
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-200%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
