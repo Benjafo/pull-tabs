@@ -168,25 +168,25 @@ export function GamePage() {
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
-                        <div className={`relative w-full flex items-center justify-center gap-8 transition-all duration-700 ease-in-out ${
-                            isTicketFlipped ? 'max-w-6xl' : 'max-w-md'
+                        <div className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1000 ease-in-out ${
+                            isTicketFlipped ? 'max-w-7xl' : 'max-w-md'
                         }`}>
                             {/* Prize Table - slides in from left when flipped */}
-                            <div className={`transition-all duration-700 ease-in-out ${
+                            <div className={`transition-all ease-in-out ${
                                 isTicketFlipped 
-                                    ? 'opacity-100 translate-x-0 w-full max-w-sm' 
-                                    : 'opacity-0 -translate-x-full w-0 overflow-hidden'
+                                    ? 'opacity-100 translate-x-0 w-full max-w-md transition-opacity duration-500 delay-500' 
+                                    : 'opacity-0 -translate-x-full w-0 overflow-hidden transition-all duration-300'
                             }`}>
                                 {isTicketFlipped && (
-                                    <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30">
-                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">Prize Table</h3>
+                                    <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30 animate-fadeIn">
+                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">Prize Reference</h3>
                                         <PrizeTable currentWinAmount={currentWinnings} />
                                     </div>
                                 )}
                             </div>
 
                             {/* Ticket - starts centered, slides right when flipped */}
-                            <div className={`relative transition-all duration-700 ease-in-out ${
+                            <div className={`relative transition-all duration-1000 ease-in-out ${
                                 isTicketFlipped 
                                     ? 'translate-x-0 w-full max-w-md' 
                                     : 'translate-x-0 w-full max-w-md'
