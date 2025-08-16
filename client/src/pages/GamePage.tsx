@@ -3,6 +3,7 @@ import { FaCoins, FaDice, FaDiceD6, FaFlag, FaGem, FaRedo, FaTicketAlt } from "r
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
+import { PrizeTable } from "../components/game/PrizeTable";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
