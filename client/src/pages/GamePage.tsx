@@ -207,33 +207,6 @@ export function GamePage() {
                                             style={{ animationDelay: "0.4s" }}
                                         />
                                     </div>
-                                    <div className="relative inline-block group/button">
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover/button:opacity-100 transition duration-200"></div>
-                                        <button
-                                            onClick={handlePurchaseTicket}
-                                            disabled={isPurchasing}
-                                            className="relative bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-navy-900 px-12 py-5 rounded-lg text-xl font-black transform transition-all hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
-                                            style={{
-                                                backgroundSize: "200% 100%",
-                                                backgroundPosition: "0% 50%",
-                                                transition: "all 0.3s ease",
-                                            }}
-                                            onMouseEnter={(e) =>
-                                                (e.currentTarget.style.backgroundPosition =
-                                                    "100% 50%")
-                                            }
-                                            onMouseLeave={(e) =>
-                                                (e.currentTarget.style.backgroundPosition =
-                                                    "0% 50%")
-                                            }
-                                        >
-                                            <span className="flex items-center gap-3">
-                                                <FaDice className="text-xl" />
-                                                {isPurchasing ? "Purchasing..." : "Start Playing"}
-                                                <FaDiceD6 className="text-xl" />
-                                            </span>
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
