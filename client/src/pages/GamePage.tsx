@@ -177,16 +177,56 @@ export function GamePage() {
                             <div
                                 className={`transition-all ease-in-out ${
                                     isTicketFlipped
-                                        ? "opacity-100 translate-x-0 w-full max-w-md transition-opacity duration-500 delay-500"
+                                        ? "opacity-100 translate-x-0 w-full max-w-md h-[700px] transition-opacity duration-500 delay-500"
                                         : "opacity-0 -translate-x-full w-0 overflow-hidden transition-all duration-300"
                                 }`}
                             >
                                 {isTicketFlipped && (
-                                    <div className="bg-navy-600 rounded-lg shadow-xl p-6 border border-gold-600/30 animate-fadeIn">
+                                    <div className="bg-navy-600 rounded-lg shadow-xl p-6 border border-gold-600/30 animate-fadeIn h-full flex flex-col">
                                         <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">
                                             Prize Reference
                                         </h3>
                                         <PrizeTable currentWinAmount={currentWinnings} noBorder={true} noBackground={true} />
+                                        
+                                        {/* Divider */}
+                                        <div className="my-4 border-t border-gold-600/30"></div>
+                                        
+                                        {/* Stats Section */}
+                                        <div className="flex-1 flex flex-col justify-between">
+                                            {/* Session Stats */}
+                                            <div className="space-y-3">
+                                                <h4 className="text-lg font-bold text-gold-400/80 text-center">Current Session</h4>
+                                                <div className="space-y-2 text-cream-100">
+                                                    <div className="flex justify-between items-center px-2">
+                                                        <span className="text-sm">Tickets Played:</span>
+                                                        <span className="font-bold text-gold-400">1</span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center px-2">
+                                                        <span className="text-sm">Session Winnings:</span>
+                                                        <span className="font-bold text-gold-400">${currentWinnings}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Tips Section */}
+                                            <div className="mt-4 space-y-2">
+                                                <h4 className="text-sm font-bold text-gold-400/60 text-center">Quick Tips</h4>
+                                                <div className="space-y-1 text-cream-100/70 text-xs">
+                                                    <div className="flex items-start gap-2">
+                                                        <span className="text-gold-400">💡</span>
+                                                        <span>Click or drag tabs to reveal symbols</span>
+                                                    </div>
+                                                    <div className="flex items-start gap-2">
+                                                        <span className="text-gold-400">💡</span>
+                                                        <span>Match 3 symbols in a row to win</span>
+                                                    </div>
+                                                    <div className="flex items-start gap-2">
+                                                        <span className="text-gold-400">💡</span>
+                                                        <span>Each tab hides 3 symbols</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             </div>
