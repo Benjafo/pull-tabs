@@ -120,7 +120,10 @@ export function TabComponent({
 
     const getOpacity = () => {
         if (dragProgress > 0) {
-            return Math.max(0, 1 - (dragProgress / 100));
+            // Match opacity to staged animation
+            const stage = Math.floor(dragProgress / 20);
+            const stageProgress = (stage * 20) / 100;
+            return Math.max(0, 1 - stageProgress);
         }
         return 1;
     };
