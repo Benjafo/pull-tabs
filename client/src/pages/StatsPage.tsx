@@ -55,7 +55,7 @@ export function StatsPage() {
 
     return (
         <div className="relative">
-            <OceanBackground showAnimatedElements={false} intensity="subtle" />
+            <OceanBackground variant="mesh" intensity="subtle" />
             
             <div className="space-y-6 relative z-10">
                 {/* Header */}
