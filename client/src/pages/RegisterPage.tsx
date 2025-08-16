@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaDice } from 'react-icons/fa';
 import { useAuth } from '../hooks/useAuth';
 
 export function RegisterPage() {
@@ -74,7 +75,7 @@ export function RegisterPage() {
         <div className="bg-white rounded-lg shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="text-center mb-6">
-              <span className="text-6xl">🎰</span>
+              <FaDice className="text-6xl text-gold-400" />
               <h2 className="text-2xl font-bold text-primary-800 mt-4">Create Account</h2>
             </div>
             
