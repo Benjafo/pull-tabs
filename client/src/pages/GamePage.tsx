@@ -216,7 +216,7 @@ export function GamePage() {
                                             {/* Session Stats */}
                                             <div className="space-y-3">
                                                 <h4 className="text-lg font-bold text-gold-400/80 text-center">
-                                                    Current Session
+                                                    Current Run
                                                 </h4>
                                                 <div className="space-y-2 text-cream-100">
                                                     <div className="flex justify-between items-center px-2">
@@ -233,14 +233,6 @@ export function GamePage() {
                                                         </span>
                                                         <span className="font-bold text-gold-400">
                                                             ${sessionStats.totalWinnings}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex justify-between items-center px-2">
-                                                        <span className="text-sm">
-                                                            Current Ticket:
-                                                        </span>
-                                                        <span className="font-bold text-gold-400">
-                                                            ${currentWinnings || 0}
                                                         </span>
                                                     </div>
                                                 </div>
