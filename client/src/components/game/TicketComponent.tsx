@@ -85,11 +85,19 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }
             // Update current winnings if win detected
             if (response.tab.winDetected && response.totalPayout) {
                 setCurrentWinnings(response.totalPayout);
+                // Notify parent immediately of winnings update
+                if (onWinningsUpdate) {
+                    onWinningsUpdate(response.totalPayout);
+                }
             }
 
             // Also check if ticket is fully revealed and has a payout
             if (response.ticket.isFullyRevealed && response.ticket.totalPayout) {
                 setCurrentWinnings(response.ticket.totalPayout);
+                // Notify parent immediately of winnings update
+                if (onWinningsUpdate) {
+                    onWinningsUpdate(response.ticket.totalPayout);
+                }
             }
         } catch (error) {
             console.error("Failed to reveal tab:", error);
