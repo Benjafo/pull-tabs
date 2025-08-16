@@ -44,7 +44,8 @@ export function TabComponent({
             // Negative deltaX means dragging left (right to left motion)
             if (deltaX < -10) {
                 // Map drag distance to progress (0-100) for leftward drag
-                const progress = Math.min(100, Math.abs(deltaX) / 100 * 100);
+                // Require 180px of drag for full peel
+                const progress = Math.min(100, (Math.abs(deltaX) / 180) * 100);
                 setDragProgress(progress);
                 
                 // Auto-complete if dragged far enough
