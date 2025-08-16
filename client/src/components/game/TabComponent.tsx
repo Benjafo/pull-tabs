@@ -162,7 +162,7 @@ export function TabComponent({
                         opacity: isDragging ? getOpacity() : undefined,
                         transformStyle: "preserve-3d",
                         transformOrigin: "left center",
-                        transition: isDragging ? 'none' : (isHovering ? 'transform 0.2s ease-out' : 'none'),
+                        transition: isDragging ? 'none' : (isHovering ? 'transform 0.2s ease-out' : dragProgress > 0 ? 'all 0.3s ease-out' : 'none'),
                     }}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
