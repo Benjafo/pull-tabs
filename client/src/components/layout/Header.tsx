@@ -115,6 +115,12 @@ export function Header() {
                         {user ? (
                             <div className="space-y-2">
                                 <Link
+                                    to="/blank"
+                                    className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Blank
+                                </Link>
+                                <Link
                                     to="/game"
                                     className="block hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
                                 >
