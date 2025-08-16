@@ -209,7 +209,7 @@ export function GamePage() {
                                             Prize Reference
                                         </h3>
                                         <PrizeTable
-                                            currentWinAmount={currentWinnings}
+                                            currentWinAmount={liveWinnings}
                                             noBorder={true}
                                             noBackground={true}
                                         />
