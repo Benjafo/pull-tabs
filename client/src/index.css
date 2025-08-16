@@ -8,7 +8,15 @@
   }
   
   body {
-    @apply bg-navy-700 min-h-screen;
+    @apply min-h-screen;
+    background: linear-gradient(135deg, 
+      theme('colors.navy.900') 0%, 
+      theme('colors.navy.800') 25%,
+      theme('colors.blue.900/50') 50%,
+      theme('colors.navy.800') 75%,
+      theme('colors.indigo.900/40') 100%
+    );
+    background-attachment: fixed;
   }
 }
 

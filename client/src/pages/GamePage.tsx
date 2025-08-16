@@ -100,30 +100,28 @@ export function GamePage() {
     }
 
     return (
-        <div className="relative min-h-screen">
-            {/* Gradient Background Pattern */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Radial gradient for treasure glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-radial from-gold-600/5 via-gold-700/3 to-transparent rounded-full blur-3xl" />
-                
-                {/* Moving gradient orbs for depth */}
-                <div className="absolute top-20 -left-40 w-96 h-96 bg-gradient-to-br from-navy-500/20 to-purple-900/10 rounded-full blur-3xl animate-pulse" style={{animationDuration: '8s'}} />
-                <div className="absolute bottom-20 -right-40 w-96 h-96 bg-gradient-to-tl from-gold-700/10 to-navy-600/20 rounded-full blur-3xl animate-pulse" style={{animationDuration: '10s', animationDelay: '2s'}} />
-                
-                {/* Wave pattern at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-navy-800/30 via-navy-700/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gold-900/10 to-transparent" />
-                
-                {/* Subtle mesh overlay */}
-                <div className="absolute inset-0 opacity-[0.02]" 
-                     style={{
-                         backgroundImage: `linear-gradient(45deg, #000 25%, transparent 25%), 
-                                          linear-gradient(-45deg, #000 25%, transparent 25%), 
-                                          linear-gradient(45deg, transparent 75%, #000 75%), 
-                                          linear-gradient(-45deg, transparent 75%, #000 75%)`,
-                         backgroundSize: '20px 20px',
-                         backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
-                     }} />
+        <div className="relative">
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+                <div className="absolute top-32 left-10 text-6xl opacity-5 animate-pulse">💰</div>
+                <div
+                    className="absolute top-60 right-20 text-8xl opacity-5 animate-bounce"
+                    style={{ animationDelay: "0.5s", animationDuration: "3s" }}
+                >
+                    🏴‍☠️
+                </div>
+                <div
+                    className="absolute bottom-32 left-1/4 text-7xl opacity-5 animate-pulse"
+                    style={{ animationDelay: "1s" }}
+                >
+                    💎
+                </div>
+                <div
+                    className="absolute bottom-48 right-1/3 text-5xl opacity-5 animate-bounce"
+                    style={{ animationDelay: "1.5s", animationDuration: "3s" }}
+                >
+                    🪙
+                </div>
             </div>
 
             <div className="relative space-y-6">
@@ -131,13 +129,15 @@ export function GamePage() {
                 <div className="bg-gradient-to-br from-navy-600 to-navy-700 rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
                     {/* Shimmer effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-400/10 to-transparent -skew-x-12 translate-x-[-200%] animate-[shimmer_3s_infinite]" />
-                    
+
                     <div className="relative flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                         <div>
                             <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 mb-1">
                                 Pull Tabs Treasure Game
                             </h2>
-                            <p className="text-sm text-cream-100/60">Test your luck and find the hidden treasure!</p>
+                            <p className="text-sm text-cream-100/60">
+                                Test your luck and find the hidden treasure!
+                            </p>
                         </div>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             {!currentTicket ? (
@@ -182,23 +182,31 @@ export function GamePage() {
                             {/* Glow effect behind active ticket */}
                             <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
                             <div className="relative">
-                                <TicketComponent ticket={currentTicket} onComplete={handleTicketComplete} />
+                                <TicketComponent
+                                    ticket={currentTicket}
+                                    onComplete={handleTicketComplete}
+                                />
                             </div>
                         </div>
                     ) : (
                         <div className="relative group">
                             {/* Animated border glow */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-gold-400/20 via-gold-600/30 to-gold-400/20 rounded-lg blur-xl opacity-75 group-hover:opacity-100 transition duration-500 animate-pulse" />
-                            
+
                             <div className="relative bg-gradient-to-br from-navy-600 via-navy-700 to-navy-600 rounded-lg shadow-2xl p-12 text-center text-cream-100 max-w-2xl border-2 border-gold-600/30">
                                 {/* Corner decorations */}
                                 <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-gold-400/50 rounded-tl-lg" />
                                 <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-gold-400/50 rounded-tr-lg" />
                                 <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-gold-400/50 rounded-bl-lg" />
                                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold-400/50 rounded-br-lg" />
-                                
+
                                 <div className="relative">
-                                    <div className="text-8xl mb-6 animate-bounce" style={{animationDuration: '2s'}}>🏴‍☠️</div>
+                                    <div
+                                        className="text-8xl mb-6 animate-bounce"
+                                        style={{ animationDuration: "2s" }}
+                                    >
+                                        🏴‍☠️
+                                    </div>
                                     <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
                                         Welcome to Pirate's Treasure!
                                     </h3>
@@ -206,9 +214,21 @@ export function GamePage() {
                                         Purchase a ticket to reveal hidden treasures
                                     </p>
                                     <div className="flex justify-center gap-4 mb-8">
-                                        <span className="text-3xl animate-pulse" style={{animationDelay: '0.2s'}}>💰</span>
-                                        <span className="text-2xl font-bold text-gold-400">Win up to $100!</span>
-                                        <span className="text-3xl animate-pulse" style={{animationDelay: '0.4s'}}>💎</span>
+                                        <span
+                                            className="text-3xl animate-pulse"
+                                            style={{ animationDelay: "0.2s" }}
+                                        >
+                                            💰
+                                        </span>
+                                        <span className="text-2xl font-bold text-gold-400">
+                                            Win up to $100!
+                                        </span>
+                                        <span
+                                            className="text-3xl animate-pulse"
+                                            style={{ animationDelay: "0.4s" }}
+                                        >
+                                            💎
+                                        </span>
                                     </div>
                                     <div className="relative inline-block group/button">
                                         <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover/button:opacity-100 transition duration-200"></div>
@@ -217,12 +237,18 @@ export function GamePage() {
                                             disabled={isPurchasing}
                                             className="relative bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-navy-900 px-12 py-5 rounded-lg text-xl font-black transform transition-all hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
                                             style={{
-                                                backgroundSize: '200% 100%',
-                                                backgroundPosition: '0% 50%',
-                                                transition: 'all 0.3s ease'
+                                                backgroundSize: "200% 100%",
+                                                backgroundPosition: "0% 50%",
+                                                transition: "all 0.3s ease",
                                             }}
-                                            onMouseEnter={(e) => e.currentTarget.style.backgroundPosition = '100% 50%'}
-                                            onMouseLeave={(e) => e.currentTarget.style.backgroundPosition = '0% 50%'}
+                                            onMouseEnter={(e) =>
+                                                (e.currentTarget.style.backgroundPosition =
+                                                    "100% 50%")
+                                            }
+                                            onMouseLeave={(e) =>
+                                                (e.currentTarget.style.backgroundPosition =
+                                                    "0% 50%")
+                                            }
                                         >
                                             <span className="flex items-center gap-3">
                                                 <span className="text-2xl">🎰</span>
