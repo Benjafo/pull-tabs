@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaAnchor, FaStar } from "react-icons/fa";
 import type { Ticket } from "../../services/ticketService";
 import ticketService from "../../services/ticketService";
 import { checkWinningLine } from "../../utils/symbols";
@@ -135,8 +136,8 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     <h2 className="text-3xl font-bold text-gold-400 drop-shadow-lg mb-2 font-serif italic">
                                         Pirate's Treasure
                                     </h2>
-                                    <div className="absolute -top-2 -left-10 text-2xl">⚓</div>
-                                    <div className="absolute -top-2 -right-10 text-2xl">⚓</div>
+                                    <FaAnchor className="absolute -top-2 -left-10 text-2xl text-gold-400/60" />
+                                    <FaAnchor className="absolute -top-2 -right-10 text-2xl text-gold-400/60" />
                                 </div>
                                 <div className="w-48 h-0.5 bg-gold-400/50 mx-auto mt-2" />
                             </div>
@@ -255,7 +256,11 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                 <div className="text-cream-100 text-xl font-bold">
                                     {currentWinnings > 0 ? (
                                         <span className="text-gold-400 text-2xl animate-bounce">
-                                            🎉 You won ${currentWinnings}! 🎉
+                                            <span className="flex items-center justify-center gap-2">
+                                                <FaStar className="text-gold-400" />
+                                                You won ${currentWinnings}!
+                                                <FaStar className="text-gold-400" />
+                                            </span>
                                         </span>
                                     ) : (
                                         <span>Better luck next time!</span>
