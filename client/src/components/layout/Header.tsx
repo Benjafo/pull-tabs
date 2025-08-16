@@ -28,8 +28,14 @@ export function Header() {
                         {user ? (
                             <div className="flex items-center">
                                 <Link
-                                    to="/game"
+                                    to="/blank"
                                     className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Blank
+                                </Link>
+                                <Link
+                                    to="/game"
+                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
                                     Play Game
                                 </Link>
