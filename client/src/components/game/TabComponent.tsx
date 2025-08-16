@@ -122,8 +122,9 @@ export function TabComponent({
         if (dragProgress > 0) {
             // Smooth, continuous animation that follows drag progress
             const rotateY = 90 * (dragProgress / 100);
-            const translateX = 60 * (dragProgress / 100);
-            const scaleX = 1 - (0.2 * (dragProgress / 100));
+            // Reduced translateX to better match pointer movement
+            const translateX = 20 * (dragProgress / 100);
+            const scaleX = 1 - (0.15 * (dragProgress / 100));
             return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
         }
         
