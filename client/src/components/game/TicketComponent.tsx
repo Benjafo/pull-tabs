@@ -10,6 +10,7 @@ import { TreasureMapBackground } from "./TreasureMapBackground";
 interface TicketComponentProps {
     ticket: Ticket;
     onComplete?: (totalWinnings: number) => void;
+    onFlip?: () => void;
 }
 
 export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
