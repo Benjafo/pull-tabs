@@ -101,12 +101,28 @@ export function HomePage() {
 
             <div className="text-center relative z-10">
                 {user ? (
-                    <Link
-                        to="/game"
-                        className="inline-block bg-gold-600 hover:bg-gold-700 text-cream-100 px-8 py-4 rounded-lg text-xl font-bold transform transition-all hover:scale-105 hover:shadow-xl"
-                    >
-                        Play Now
-                    </Link>
+                    <div className="relative inline-block group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                        <Link
+                            to="/game"
+                            className="relative inline-flex items-center gap-3 bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 text-navy-900 px-12 py-5 rounded-lg text-xl font-black transform transition-all hover:scale-105 hover:shadow-2xl"
+                            style={{
+                                backgroundSize: "200% 100%",
+                                backgroundPosition: "0% 50%",
+                                transition: "all 0.3s ease",
+                            }}
+                            onMouseEnter={(e) =>
+                                (e.currentTarget.style.backgroundPosition = "100% 50%")
+                            }
+                            onMouseLeave={(e) =>
+                                (e.currentTarget.style.backgroundPosition = "0% 50%")
+                            }
+                        >
+                            <FaDice className="text-xl" />
+                            Start Playing
+                            <FaDiceD6 className="text-xl" />
+                        </Link>
+                    </div>
                 ) : (
                     <div className="flex flex-col sm:flex-row justify-center gap-4">
                         <Link
