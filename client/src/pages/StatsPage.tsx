@@ -167,7 +167,7 @@ export function StatsPage() {
 
             {/* Performance Summary */}
             {stats && stats.ticketsPlayed > 0 && (
-                <div className="bg-navy-600 rounded-lg shadow-lg p-6 border border-gold-600/30">
+                <div className="bg-navy-600/95 backdrop-blur-sm rounded-lg shadow-lg p-6 border border-gold-600/30">
                     <h3 className="text-lg font-semibold text-gold-400 mb-4">Net Performance</h3>
                     <div className="flex items-center justify-between text-base">
                         <div className="space-y-2">
