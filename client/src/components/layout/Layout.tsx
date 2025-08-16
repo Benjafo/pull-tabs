@@ -12,7 +12,7 @@ export function Layout({ children }: LayoutProps) {
             <main className="flex-1 w-full">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">{children}</div>
             </main>
-            <footer className="bg-primary-800 text-white py-4 mt-auto">
+            <footer className="bg-navy-900/20 backdrop-blur-md text-cream-100 py-4 mt-auto border-t border-gold-600/20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <p>&copy; 2024 Pull Tabs Treasure - Digital Gaming Experience</p>
                 </div>
