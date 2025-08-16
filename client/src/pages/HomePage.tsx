@@ -37,7 +37,7 @@ export function HomePage() {
                     </ul>
                 </div>
 
-                <div className="bg-navy-600 rounded-lg shadow-xl p-6 border border-gold-600/30">
+                <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30">
                     <h3 className="text-2xl font-bold text-gold-400 mb-4">Prize Table</h3>
                     <ul className="space-y-2">
                         <li className="flex justify-between items-center py-2 border-b border-navy-500">
