@@ -54,9 +54,12 @@ export function StatsPage() {
     }
 
     return (
-        <div className="space-y-6">
-            {/* Header */}
-            <div className="bg-navy-600 rounded-lg shadow-lg p-6 border border-gold-600/30">
+        <div className="relative">
+            <OceanBackground showAnimatedElements={false} intensity="subtle" />
+            
+            <div className="space-y-6 relative z-10">
+                {/* Header */}
+                <div className="bg-navy-600/95 backdrop-blur-sm rounded-lg shadow-lg p-6 border border-gold-600/30">
                 <h1 className="text-3xl font-bold text-gold-400 mb-1">Your Pull Tab History</h1>
                 <h2 className="text-sm font-normal text-cream-100/70">{user?.email}</h2>
             </div>
