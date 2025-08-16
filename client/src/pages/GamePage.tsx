@@ -20,6 +20,10 @@ export function GamePage() {
     const [lastWinAmount, setLastWinAmount] = useState(0);
     const [currentWinnings, setCurrentWinnings] = useState(0);
     const [isTicketFlipped, setIsTicketFlipped] = useState(false);
+    const [sessionStats, setSessionStats] = useState({
+        ticketsPlayed: 0,
+        totalWinnings: 0
+    });
 
     useEffect(() => {
         loadGameData();
