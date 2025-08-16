@@ -58,8 +58,14 @@ export function Header() {
                         ) : (
                             <>
                                 <Link
-                                    to="/login"
+                                    to="/blank"
                                     className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors"
+                                >
+                                    Blank
+                                </Link>
+                                <Link
+                                    to="/login"
+                                    className="hover:bg-primary-700 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
                                     Login
                                 </Link>
