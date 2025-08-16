@@ -45,14 +45,14 @@ All winning combinations require consecutive Skull-Skull-X patterns on specific 
 **Winner Distribution:**
 
 - 1× $100 winner
-- 3× $50 winners
-- 8× $20 winners
-- 20× $10 winners
-- 35× $5 winners
-- 75× $2 winners
-- 358× losing tickets
+- 2× $20 winners
+- 5× $10 winners
+- 5× $5 winners
+- 48× $2 winners
+- 65× $1 winners
+- 375× losing tickets
 
-**Total Winners:** 142 tickets (28.4% win rate)
+**Total Winners:** 125 tickets (25% win rate)
 
 ## 3. User Experience Flow
 
