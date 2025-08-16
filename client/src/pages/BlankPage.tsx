@@ -1,4 +1,4 @@
-import { OceanBackground } from "../components/ui/OceanBackground";
+import { OceanBackground } from "../components/layout/OceanBackground";
 
 export function BlankPage() {
     return (

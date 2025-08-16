@@ -3,14 +3,60 @@ interface OceanBackgroundProps {
     intensity?: "subtle" | "medium" | "strong";
 }
 
+// Intensity configuration for opacity and animation values
+const intensityConfig = {
+    subtle: {
+        vignette: 0.5,
+        lightRays: 0.02,
+        grid: 0.02,
+        waveBack: 0.03,
+        waveMiddle: 0.02,
+        waveFront: 0.015,
+        radialOverlay: 0.1,
+        animationMultiplier: 1
+    },
+    medium: {
+        vignette: 0.6,
+        lightRays: 0.04,
+        grid: 0.04,
+        waveBack: 0.06,
+        waveMiddle: 0.04,
+        waveFront: 0.03,
+        radialOverlay: 0.15,
+        animationMultiplier: 0.8
+    },
+    strong: {
+        vignette: 0.7,
+        lightRays: 0.06,
+        grid: 0.06,
+        waveBack: 0.09,
+        waveMiddle: 0.06,
+        waveFront: 0.045,
+        radialOverlay: 0.2,
+        animationMultiplier: 0.6
+    }
+};
+
 export function OceanBackground({ 
     variant = "waves", 
     intensity = "subtle" 
 }: OceanBackgroundProps) {
+    const config = intensityConfig[intensity];
+    
+    // Calculate animation durations based on intensity
+    const waveSlow = 60 * config.animationMultiplier;
+    const waveMedium = 45 * config.animationMultiplier;
+    const waveFast = 30 * config.animationMultiplier;
+    
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
             {/* Vignette effect */}
-            <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-navy-900/50" />
+            <div 
+                className="absolute inset-0 bg-radial-gradient from-transparent via-transparent"
+                style={{ 
+                    background: `radial-gradient(circle, transparent 0%, transparent 50%, rgba(15, 23, 42, ${config.vignette}) 100%)` 
+                }}
+            />
             
             {/* Light rays from top */}
             <div className="absolute inset-x-0 top-0 h-96 bg-gradient-to-b from-gold-400/[0.02] via-transparent to-transparent" />

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { TicketComponent } from "../components/game/TicketComponent";
-import { OceanBackground } from "../components/ui/OceanBackground";
+import { OceanBackground } from "../components/layout/OceanBackground";
 import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
 import type { Ticket } from "../services/ticketService";

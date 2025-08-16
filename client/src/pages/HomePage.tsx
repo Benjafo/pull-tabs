@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { OceanBackground } from "../components/ui/OceanBackground";
+import { OceanBackground } from "../components/layout/OceanBackground";
 import { useAuth } from "../hooks/useAuth";
 
 export function HomePage() {
