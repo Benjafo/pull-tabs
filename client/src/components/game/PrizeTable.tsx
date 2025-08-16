@@ -3,11 +3,12 @@ import { SYMBOLS, WINNING_COMBINATIONS } from "../../utils/symbols";
 
 interface PrizeTableProps {
     currentWinAmount?: number;
+    noBorder?: boolean;
 }
 
-export function PrizeTable({ currentWinAmount }: PrizeTableProps) {
+export function PrizeTable({ currentWinAmount, noBorder = false }: PrizeTableProps) {
     return (
-        <div className="bg-navy-600 rounded-lg p-6 shadow-xl border border-navy-500">
+        <div className={`bg-navy-600 rounded-lg p-6 shadow-xl ${noBorder ? '' : 'border border-navy-500'}`}>
             {/* <h3 className="text-2xl font-bold text-yellow-400 mb-4 text-center drop-shadow-lg">
                 Prize Table
             </h3> */}

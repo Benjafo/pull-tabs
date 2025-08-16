@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaCoins, FaDice, FaDiceD6, FaFlag, FaGem, FaRedo, FaTicketAlt } from "react-icons/fa";
+import { FaCoins, FaFlag, FaGem, FaRedo, FaTicketAlt } from "react-icons/fa";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
-import { TicketComponent } from "../components/game/TicketComponent";
 import { PrizeTable } from "../components/game/PrizeTable";
+import { TicketComponent } from "../components/game/TicketComponent";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import type { GameBoxStatus } from "../services/statsService";
 import statsService from "../services/statsService";
@@ -168,29 +168,37 @@ export function GamePage() {
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
-                        <div className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1000 ease-in-out ${
-                            isTicketFlipped ? 'max-w-7xl' : 'max-w-md'
-                        }`}>
+                        <div
+                            className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1000 ease-in-out ${
+                                isTicketFlipped ? "max-w-7xl" : "max-w-md"
+                            }`}
+                        >
                             {/* Prize Table - slides in from left when flipped */}
-                            <div className={`transition-all ease-in-out ${
-                                isTicketFlipped 
-                                    ? 'opacity-100 translate-x-0 w-full max-w-md transition-opacity duration-500 delay-500' 
-                                    : 'opacity-0 -translate-x-full w-0 overflow-hidden transition-all duration-300'
-                            }`}>
+                            <div
+                                className={`transition-all ease-in-out ${
+                                    isTicketFlipped
+                                        ? "opacity-100 translate-x-0 w-full max-w-md transition-opacity duration-500 delay-500"
+                                        : "opacity-0 -translate-x-full w-0 overflow-hidden transition-all duration-300"
+                                }`}
+                            >
                                 {isTicketFlipped && (
                                     <div className="bg-navy-600/90 backdrop-blur-sm rounded-lg shadow-xl p-6 border border-gold-600/30 animate-fadeIn">
-                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">Prize Reference</h3>
+                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">
+                                            Prize Reference
+                                        </h3>
                                         <PrizeTable currentWinAmount={currentWinnings} />
                                     </div>
                                 )}
                             </div>
 
                             {/* Ticket - starts centered, slides right when flipped */}
-                            <div className={`relative transition-all duration-1000 ease-in-out ${
-                                isTicketFlipped 
-                                    ? 'translate-x-0 w-full max-w-md' 
-                                    : 'translate-x-0 w-full max-w-md'
-                            }`}>
+                            <div
+                                className={`relative transition-all duration-1000 ease-in-out ${
+                                    isTicketFlipped
+                                        ? "translate-x-0 w-full max-w-md"
+                                        : "translate-x-0 w-full max-w-md"
+                                }`}
+                            >
                                 {/* Glow effect behind active ticket */}
                                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
                                 <div className="relative">
