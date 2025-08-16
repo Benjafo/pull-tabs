@@ -77,6 +77,12 @@ export function GamePage() {
         if (totalWinnings > 0) {
             setLastWinAmount(totalWinnings);
             setShowWinAnimation(true);
+            
+            // Update session winnings
+            setSessionStats(prev => ({
+                ...prev,
+                totalWinnings: prev.totalWinnings + totalWinnings
+            }));
         }
 
         // Reload game box to show updated values
