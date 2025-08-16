@@ -102,7 +102,7 @@ export function GamePage() {
 
     return (
         <div className="relative">
-            <OceanBackground showAnimatedElements={true} intensity="medium" />
+            <OceanBackground variant="waves" intensity="medium" />
 
             <div className="relative space-y-6 z-10">
                 {/* Game Header with Glow Effect */}
