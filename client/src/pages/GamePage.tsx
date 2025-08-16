@@ -94,6 +94,7 @@ export function GamePage() {
     const handleNewTicket = () => {
         setCurrentTicket(null);
         setCurrentWinnings(0);
+        setLiveWinnings(0); // Reset live winnings
         setShowWinAnimation(false); // Dismiss any active win animation
         setIsTicketFlipped(false); // Reset flip state
     };
