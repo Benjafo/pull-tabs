@@ -106,7 +106,7 @@ export function GamePage() {
 
             <div className="relative space-y-6 z-10">
                 {/* Game Header with Glow Effect */}
-                <div className="bg-gradient-to-br from-navy-600 to-navy-700 rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
+                <div className="bg-gradient-to-br from-navy-600/95 to-navy-700/95 backdrop-blur-sm rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
                     {/* Shimmer effect */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-400/10 to-transparent -skew-x-12 translate-x-[-200%] animate-[shimmer_3s_infinite]" />
 
