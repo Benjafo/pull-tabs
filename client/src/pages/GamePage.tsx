@@ -76,6 +76,7 @@ export function GamePage() {
 
     const handleTicketComplete = useCallback(async (totalWinnings: number) => {
         setCurrentWinnings(totalWinnings);
+        setAllTabsRevealed(true); // Mark that all tabs have been revealed
         if (totalWinnings > 0) {
             setLastWinAmount(totalWinnings);
             setShowWinAnimation(true);
