@@ -297,10 +297,10 @@ export function GamePage() {
                                     <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
                                         Welcome to Pirate's Treasure!
                                     </h3>
-                                    <p className="text-xl mb-2 opacity-90">
+                                    <p className="text-xl mb-4 opacity-90">
                                         Purchase a ticket to reveal prizes
                                     </p>
-                                    <div className="flex justify-center gap-4 mb-8">
+                                    <div className="flex justify-center gap-4 mt-6 mb-8">
                                         <FaCoins
                                             className="text-3xl animate-pulse text-gold-400"
                                             style={{ animationDelay: "0.2s" }}
