@@ -145,17 +145,21 @@ export function TabComponent({
         return 1;
     };
 
+    const symbolSize = size === 'small' ? 'small' : 'medium';
+    const containerPadding = size === 'small' ? 'p-2' : 'p-3';
+    const gap = size === 'small' ? 'gap-2' : 'gap-3';
+
     return (
         <div className="relative">
             {/* Symbols underneath */}
-            <div className="flex gap-3 p-3 bg-navy-800/30 rounded-lg border border-navy-600/30">
+            <div className={`flex ${gap} ${containerPadding} bg-navy-800/30 rounded-lg border border-navy-600/30`}>
                 {symbols.map((symbolId, index) => (
                     <SymbolDisplay
                         key={`${tabNumber}-${index}`}
                         symbolId={symbolId}
                         isRevealed={isRevealed}
                         isWinning={isWinning}
-                        size="medium"
+                        size={symbolSize}
                     />
                 ))}
             </div>
