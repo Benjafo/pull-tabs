@@ -143,7 +143,7 @@ export function GamePage() {
 
             <div className="relative space-y-6 z-10">
                 {/* Action Buttons - Top Right */}
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end mb-4 min-h-[72px]">
                     {!currentTicket ? (
                         <div className="relative group">
                             <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
@@ -165,29 +165,31 @@ export function GamePage() {
                             </button>
                         </div>
                     ) : (
-                        allTabsRevealed && (
-                            <button
-                                onClick={handleNewTicket}
-                                disabled={isPurchasing}
-                                className="bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                <span className="flex items-center gap-2">
-                                    {isPurchasing ? (
-                                        <>Purchasing...</>
-                                    ) : (
-                                        <>
-                                            <FaTicketAlt className="text-lg" />
-                                            Buy Another Ticket ($1)
-                                        </>
-                                    )}
-                                </span>
-                            </button>
-                        )
+                        <button
+                            onClick={handleNewTicket}
+                            disabled={isPurchasing || !allTabsRevealed}
+                            className={`bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform hover:scale-105 hover:shadow-xl disabled:cursor-not-allowed transition-all duration-300 ${
+                                allTabsRevealed 
+                                    ? "opacity-100 pointer-events-auto" 
+                                    : "opacity-0 pointer-events-none"
+                            }`}
+                        >
+                            <span className="flex items-center gap-2">
+                                {isPurchasing ? (
+                                    <>Purchasing...</>
+                                ) : (
+                                    <>
+                                        <FaTicketAlt className="text-lg" />
+                                        Buy Another Ticket ($1)
+                                    </>
+                                )}
+                            </span>
+                        </button>
                     )}
                 </div>
 
                 {/* Game Area with Enhanced Visual */}
-                <div className="min-h-[650px] flex items-center justify-center relative">
+                <div className="min-h-[600px] flex items-center justify-center relative">
                     {currentTicket ? (
                         <div
                             className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1500 ease-in-out ${
