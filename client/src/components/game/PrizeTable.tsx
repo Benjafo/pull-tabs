@@ -23,7 +23,7 @@ export function PrizeTable({
                 Prize Table
             </h3> */}
 
-            <div className="space-y-2">
+            <div className="flex flex-col justify-between" style={{ minHeight: '432px' }}>
                 {WINNING_COMBINATIONS.map((combo, index) => {
                     const isCurrentWin = currentWinAmount === combo.prize;
 
