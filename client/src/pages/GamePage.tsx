@@ -91,8 +91,10 @@ export function GamePage() {
         setGameBox(boxStatus);
     }, []);
 
-    const handleNewTicket = () => {
-        setCurrentTicket(null);
+    const handleNewTicket = async () => {
+        // Directly purchase a new ticket instead of returning to main screen
+        await handlePurchaseTicket();
+        // Reset states for new ticket
         setCurrentWinnings(0);
         setLiveWinnings(0); // Reset live winnings
         setShowWinAnimation(false); // Dismiss any active win animation
