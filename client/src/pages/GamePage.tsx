@@ -289,9 +289,9 @@ export function GamePage() {
                                 <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-gold-400/50 rounded-bl-lg" />
                                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold-400/50 rounded-br-lg" />
 
-                                <div className="relative">
+                                <div className="relative flex flex-col items-center">
                                     <FaFlag
-                                        className="text-8xl mb-6 animate-bounce text-gold-400/80"
+                                        className="text-8xl mb-6 animate-bounce text-gold-400/80 mx-auto"
                                         style={{ animationDuration: "2s" }}
                                     />
                                     <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
