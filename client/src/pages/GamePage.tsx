@@ -165,11 +165,13 @@ export function GamePage() {
                             </button>
                         </div>
                     ) : (
-                        <div className={`relative group transition-all duration-300 ${
-                            allTabsRevealed 
-                                ? "opacity-100 pointer-events-auto" 
-                                : "opacity-0 pointer-events-none"
-                        }`}>
+                        <div
+                            className={`relative group transition-all duration-300 ${
+                                allTabsRevealed
+                                    ? "opacity-100 pointer-events-auto"
+                                    : "opacity-0 pointer-events-none"
+                            }`}
+                        >
                             <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
                             <button
                                 onClick={handleNewTicket}
@@ -219,10 +221,10 @@ export function GamePage() {
                                         />
 
                                         {/* Divider */}
-                                        <div className="my-4 border-t border-gold-600/30"></div>
+                                        {/* <div className="my-4 border-t border-gold-600/30"></div> */}
 
                                         {/* Stats Section */}
-                                        <div className="flex-1 flex flex-col justify-between">
+                                        <div className="flex-1 flex flex-col mt-6 justify-between">
                                             {/* Session Stats */}
                                             <div className="space-y-3">
                                                 <h4 className="text-lg font-bold text-gold-400/80 text-center">
