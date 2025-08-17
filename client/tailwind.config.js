@@ -61,11 +61,16 @@ export default {
         'pulse-slow': 'pulse 3s infinite',
         'spin-slow': 'spin 3s linear infinite',
         'float': 'float 3s ease-in-out infinite',
+        'shimmer': 'shimmer 3s linear infinite',
       },
       keyframes: {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' }
+        },
+        shimmer: {
+          '0%': { transform: 'translateX(-200%) skewX(-12deg)' },
+          '100%': { transform: 'translateX(400%) skewX(-12deg)' }
         }
       }
     },
