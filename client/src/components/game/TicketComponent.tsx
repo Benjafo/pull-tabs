@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaAnchor, FaStar } from "react-icons/fa";
 import type { Ticket } from "../../services/ticketService";
 import ticketService from "../../services/ticketService";
 import { checkWinningLine } from "../../utils/symbols";
@@ -9,9 +10,11 @@ import { TreasureMapBackground } from "./TreasureMapBackground";
 interface TicketComponentProps {
     ticket: Ticket;
     onComplete?: (totalWinnings: number) => void;
+    onFlip?: () => void;
+    onWinningsUpdate?: (amount: number) => void;
 }
 
-export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
+export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
@@ -43,6 +46,10 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
         console.log(revealedTabs);
         if (!isFlipped) {
             setIsFlipped(true);
+            // Notify parent immediately so layout can start shifting during flip
+            if (onFlip) {
+                onFlip();
+            }
         }
     };
 
@@ -78,11 +85,19 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
             // Update current winnings if win detected
             if (response.tab.winDetected && response.totalPayout) {
                 setCurrentWinnings(response.totalPayout);
+                // Notify parent immediately of winnings update
+                if (onWinningsUpdate) {
+                    onWinningsUpdate(response.totalPayout);
+                }
             }
 
             // Also check if ticket is fully revealed and has a payout
             if (response.ticket.isFullyRevealed && response.ticket.totalPayout) {
                 setCurrentWinnings(response.ticket.totalPayout);
+                // Notify parent immediately of winnings update
+                if (onWinningsUpdate) {
+                    onWinningsUpdate(response.ticket.totalPayout);
+                }
             }
         } catch (error) {
             console.error("Failed to reveal tab:", error);
@@ -135,8 +150,8 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                     <h2 className="text-3xl font-bold text-gold-400 drop-shadow-lg mb-2 font-serif italic">
                                         Pirate's Treasure
                                     </h2>
-                                    <div className="absolute -top-2 -left-10 text-2xl">⚓</div>
-                                    <div className="absolute -top-2 -right-10 text-2xl">⚓</div>
+                                    <FaAnchor className="absolute -top-2 -left-10 text-2xl text-gold-400/60" />
+                                    <FaAnchor className="absolute -top-2 -right-10 text-2xl text-gold-400/60" />
                                 </div>
                                 <div className="w-48 h-0.5 bg-gold-400/50 mx-auto mt-2" />
                             </div>
@@ -255,7 +270,11 @@ export function TicketComponent({ ticket, onComplete }: TicketComponentProps) {
                                 <div className="text-cream-100 text-xl font-bold">
                                     {currentWinnings > 0 ? (
                                         <span className="text-gold-400 text-2xl animate-bounce">
-                                            🎉 You won ${currentWinnings}! 🎉
+                                            <span className="flex items-center justify-center gap-2">
+                                                <FaStar className="text-gold-400" />
+                                                You won ${currentWinnings}!
+                                                <FaStar className="text-gold-400" />
+                                            </span>
                                         </span>
                                     ) : (
                                         <span>Better luck next time!</span>

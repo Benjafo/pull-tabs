@@ -3,6 +3,9 @@
 echo "🚀 Starting development environment..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
+echo "🚀 Starting services..."
+docker-compose up -d
+
 echo "📊 Ensuring database is ready..."
 docker-compose exec server npm run typecheck
 
@@ -26,6 +29,5 @@ if docker-compose ps | grep -q "Up"; then
 else
     echo "❌ Error: Services failed to start"
     docker-compose ps
-    docker-compose logs
     exit 1
 fi

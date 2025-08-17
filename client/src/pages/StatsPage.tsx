@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FaCoins, FaTrophy, FaChartBar, FaTicketAlt, FaCalendar, FaGamepad } from "react-icons/fa";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import { useAuth } from "../hooks/useAuth";
 import type { UserStats } from "../services/statsService";
@@ -70,7 +71,7 @@ export function StatsPage() {
                         {/* Won So Far */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
-                                <div className="text-2xl mb-3 text-gold-400/80">💰</div>
+                                <FaCoins className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                     Won So Far
                                 </h3>
@@ -89,7 +90,7 @@ export function StatsPage() {
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <div className="text-2xl mb-3 text-gold-400">🏆</div>
+                                    <FaTrophy className="text-2xl mb-3 text-gold-400" />
                                     <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                         Biggest Win
                                     </h3>
@@ -102,14 +103,14 @@ export function StatsPage() {
                                             : "0"}
                                     </p>
                                 </div>
-                                <div className="text-6xl opacity-10">🏆</div>
+                                <FaTrophy className="text-6xl opacity-10" />
                             </div>
                         </div>
 
                         {/* Win Rate */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
-                                <div className="text-2xl mb-3 text-gold-400/80">📊</div>
+                                <FaChartBar className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                     Win Rate
                                 </h3>
@@ -125,7 +126,7 @@ export function StatsPage() {
                         {/* Pull Tabs Opened */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
-                                <div className="text-2xl mb-3 text-gold-400/80">🎫</div>
+                                <FaTicketAlt className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                     Pull Tabs Opened
                                 </h3>
@@ -136,7 +137,7 @@ export function StatsPage() {
                         {/* Last Played */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
-                                <div className="text-2xl mb-3 text-gold-400/80">📅</div>
+                                <FaCalendar className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                     Last Played
                                 </h3>
@@ -155,7 +156,7 @@ export function StatsPage() {
                         {/* Times Played */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
-                                <div className="text-2xl mb-3 text-gold-400/80">🎮</div>
+                                <FaGamepad className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
                                     Times Played
                                 </h3>

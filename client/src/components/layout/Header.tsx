@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaAnchor } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -18,9 +19,12 @@ export function Header() {
                 <div className="flex justify-between items-center h-16">
                     <Link
                         to="/"
-                        className="flex items-center space-x-2 hover:opacity-90 transition-opacity"
+                        className="flex items-center space-x-3 hover:opacity-90 transition-opacity group"
                     >
-                        <h1 className="text-xl font-bold">Pull Tabs Treasure</h1>
+                        <FaAnchor className="text-3xl text-gold-400 group-hover:rotate-12 transition-transform" />
+                        <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
+                            Pull Tabs Treasure
+                        </h1>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -28,28 +32,24 @@ export function Header() {
                         {user ? (
                             <div className="flex items-center">
                                 <Link
-                                    to="/blank"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
-                                <Link
                                     to="/game"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2 font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2 font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     My Stats
                                 </Link>
                                 <div className="flex items-center ml-8 pl-8 border-l border-gold-600/30">
-                                    <span className="text-sm">Ahoy, {user.email}!</span>
+                                    <span className="text-sm text-gold-400 font-bold">
+                                        Ahoy, {user.email}!
+                                    </span>
                                     <button
                                         onClick={handleLogout}
-                                        className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors ml-4"
+                                        className="hover:bg-navy-600 px-4 py-2 rounded-lg text-sm font-bold text-cream-100 hover:text-red-400 transition-colors ml-4"
                                     >
                                         Logout
                                     </button>
@@ -58,12 +58,6 @@ export function Header() {
                         ) : (
                             <>
                                 <Link
-                                    to="/blank"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
-                                <Link
                                     to="/login"
                                     className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
                                 >
@@ -71,7 +65,7 @@ export function Header() {
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-accent-500 hover:bg-accent-600 px-4 py-2 rounded-lg text-white font-medium transition-colors"
+                                    className="bg-gold-600 hover:bg-gold-700 px-4 py-2 rounded-lg text-white font-medium transition-colors"
                                 >
                                     Register
                                 </Link>
@@ -115,28 +109,24 @@ export function Header() {
                         {user ? (
                             <div className="space-y-2">
                                 <Link
-                                    to="/blank"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
-                                <Link
                                     to="/game"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     My Stats
                                 </Link>
                                 <div className="pt-4 mt-4 border-t border-navy-600">
-                                    <p className="px-4 py-2 text-sm">Ahoy, {user.email}!</p>
+                                    <p className="px-4 py-2 text-sm text-gold-400 font-bold">
+                                        Ahoy, {user.email}!
+                                    </p>
                                     <button
                                         onClick={handleLogout}
-                                        className="w-full text-left bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                        className="w-full text-left hover:bg-navy-600 px-4 py-2 rounded-lg text-sm font-bold text-cream-100 hover:text-red-400 transition-colors"
                                     >
                                         Logout
                                     </button>
@@ -145,12 +135,6 @@ export function Header() {
                         ) : (
                             <div className="space-y-2">
                                 <Link
-                                    to="/blank"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
-                                >
-                                    Blank
-                                </Link>
-                                <Link
                                     to="/login"
                                     className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
                                 >
@@ -158,7 +142,7 @@ export function Header() {
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="block bg-accent-500 hover:bg-accent-600 px-4 py-2 rounded-lg text-white font-medium transition-colors"
+                                    className="block bg-gold-600 hover:bg-gold-700 px-4 py-2 rounded-lg text-white font-medium transition-colors"
                                 >
                                     Register
                                 </Link>

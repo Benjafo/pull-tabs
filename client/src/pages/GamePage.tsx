@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import { FaCoins, FaFlag, FaGem, FaTicketAlt } from "react-icons/fa";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
+import { PrizeTable } from "../components/game/PrizeTable";
 import { TicketComponent } from "../components/game/TicketComponent";
 import { OceanBackground } from "../components/layout/OceanBackground";
 import type { GameBoxStatus } from "../services/statsService";
@@ -17,6 +19,13 @@ export function GamePage() {
     const [showWinAnimation, setShowWinAnimation] = useState(false);
     const [lastWinAmount, setLastWinAmount] = useState(0);
     const [currentWinnings, setCurrentWinnings] = useState(0);
+    const [isTicketFlipped, setIsTicketFlipped] = useState(false);
+    const [allTabsRevealed, setAllTabsRevealed] = useState(false);
+    const [liveWinnings, setLiveWinnings] = useState(0);
+    const [sessionStats, setSessionStats] = useState({
+        ticketsPlayed: 0,
+        totalWinnings: 0,
+    });
 
     useEffect(() => {
         loadGameData();
@@ -40,6 +49,7 @@ export function GamePage() {
         try {
             setIsPurchasing(true);
             setError(null);
+            setShowWinAnimation(false); // Dismiss any active win animation
             const response = await ticketService.purchaseTicket();
 
             // Fetch the full ticket details after purchase
@@ -51,6 +61,12 @@ export function GamePage() {
             setGameBox(boxStatus);
 
             setCurrentWinnings(0);
+
+            // Update session stats
+            setSessionStats((prev) => ({
+                ...prev,
+                ticketsPlayed: prev.ticketsPlayed + 1,
+            }));
         } catch (err) {
             setError(err instanceof Error ? err.message : "Failed to purchase ticket");
         } finally {
@@ -60,9 +76,16 @@ export function GamePage() {
 
     const handleTicketComplete = useCallback(async (totalWinnings: number) => {
         setCurrentWinnings(totalWinnings);
+        setAllTabsRevealed(true); // Mark that all tabs have been revealed
         if (totalWinnings > 0) {
             setLastWinAmount(totalWinnings);
             setShowWinAnimation(true);
+
+            // Update session winnings
+            setSessionStats((prev) => ({
+                ...prev,
+                totalWinnings: prev.totalWinnings + totalWinnings,
+            }));
         }
 
         // Reload game box to show updated values
@@ -70,9 +93,23 @@ export function GamePage() {
         setGameBox(boxStatus);
     }, []);
 
-    const handleNewTicket = () => {
-        setCurrentTicket(null);
+    const handleNewTicket = async () => {
+        // Directly purchase a new ticket instead of returning to main screen
+        await handlePurchaseTicket();
+        // Reset states for new ticket
         setCurrentWinnings(0);
+        setLiveWinnings(0); // Reset live winnings
+        setShowWinAnimation(false); // Dismiss any active win animation
+        setIsTicketFlipped(false); // Reset flip state
+        setAllTabsRevealed(false); // Reset tabs revealed state
+    };
+
+    const handleTicketFlip = () => {
+        setIsTicketFlipped(true);
+    };
+
+    const handleLiveWinningsUpdate = (amount: number) => {
+        setLiveWinnings(amount);
     };
 
     if (loading) {
@@ -113,7 +150,7 @@ export function GamePage() {
                     <div className="relative flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                         <div>
                             <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 mb-1">
-                                Pull Tabs Treasure Game
+                                Pirate's Treasure Game
                             </h2>
                             <p className="text-sm text-cream-100/60">
                                 Test your luck and find the hidden treasure!
@@ -133,7 +170,7 @@ export function GamePage() {
                                                 <>Purchasing...</>
                                             ) : (
                                                 <>
-                                                    <span className="text-2xl">🎫</span>
+                                                    <FaTicketAlt className="text-xl" />
                                                     Buy Ticket ($1)
                                                 </>
                                             )}
@@ -141,15 +178,24 @@ export function GamePage() {
                                     </button>
                                 </div>
                             ) : (
-                                <button
-                                    onClick={handleNewTicket}
-                                    className="bg-gradient-to-r from-navy-500 to-navy-600 hover:from-navy-400 hover:to-navy-500 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl border border-navy-400"
-                                >
-                                    <span className="flex items-center gap-2">
-                                        <span className="text-xl">🔄</span>
-                                        New Ticket
-                                    </span>
-                                </button>
+                                allTabsRevealed && (
+                                    <button
+                                        onClick={handleNewTicket}
+                                        disabled={isPurchasing}
+                                        className="bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            {isPurchasing ? (
+                                                <>Purchasing...</>
+                                            ) : (
+                                                <>
+                                                    <FaTicketAlt className="text-lg" />
+                                                    Buy Another Ticket ($1)
+                                                </>
+                                            )}
+                                        </span>
+                                    </button>
+                                )
                             )}
                         </div>
                     </div>
@@ -158,14 +204,77 @@ export function GamePage() {
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[650px] flex items-center justify-center relative">
                     {currentTicket ? (
-                        <div className="relative w-full max-w-md">
-                            {/* Glow effect behind active ticket */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
-                            <div className="relative">
-                                <TicketComponent
-                                    ticket={currentTicket}
-                                    onComplete={handleTicketComplete}
-                                />
+                        <div
+                            className={`relative w-full flex items-center justify-center gap-8 transition-all duration-1500 ease-in-out ${
+                                isTicketFlipped ? "max-w-7xl" : "max-w-md"
+                            }`}
+                        >
+                            {/* Prize Table - slides in from left when flipped */}
+                            <div
+                                className={`transition-all ease-in-out ${
+                                    isTicketFlipped
+                                        ? "opacity-100 translate-x-0 w-full max-w-md h-[700px] transition-opacity duration-500 delay-500"
+                                        : "opacity-0 -translate-x-full w-0 overflow-hidden transition-all duration-300"
+                                }`}
+                            >
+                                {isTicketFlipped && (
+                                    <div className="bg-navy-600 rounded-lg shadow-xl p-6 border border-gold-600/30 animate-fadeIn h-full flex flex-col">
+                                        <h3 className="text-2xl font-bold text-gold-400 mb-4 text-center">
+                                            Prize Reference
+                                        </h3>
+                                        <PrizeTable
+                                            currentWinAmount={liveWinnings}
+                                            noBorder={true}
+                                            noBackground={true}
+                                        />
+
+                                        {/* Divider */}
+                                        <div className="my-4 border-t border-gold-600/30"></div>
+
+                                        {/* Stats Section */}
+                                        <div className="flex-1 flex flex-col justify-between">
+                                            {/* Session Stats */}
+                                            <div className="space-y-3">
+                                                <h4 className="text-lg font-bold text-gold-400/80 text-center">
+                                                    Current Run
+                                                </h4>
+                                                <div className="space-y-2 text-cream-100">
+                                                    <div className="flex justify-between items-center px-2">
+                                                        <span className="text-sm">
+                                                            Tickets Played:
+                                                        </span>
+                                                        <span className="font-bold text-gold-400">
+                                                            {sessionStats.ticketsPlayed}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center px-2">
+                                                        <span className="text-sm">
+                                                            Session Winnings:
+                                                        </span>
+                                                        <span className="font-bold text-gold-400">
+                                                            ${sessionStats.totalWinnings}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Ticket - starts centered, slides right when flipped */}
+                            <div className="relative w-full max-w-md">
+                                {/* Glow effect behind active ticket */}
+                                <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
+                                <div className="relative">
+                                    <TicketComponent
+                                        key={currentTicket.id}
+                                        ticket={currentTicket}
+                                        onComplete={handleTicketComplete}
+                                        onFlip={handleTicketFlip}
+                                        onWinningsUpdate={handleLiveWinningsUpdate}
+                                    />
+                                </div>
                             </div>
                         </div>
                     ) : (
@@ -181,61 +290,28 @@ export function GamePage() {
                                 <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-gold-400/50 rounded-br-lg" />
 
                                 <div className="relative">
-                                    <div
-                                        className="text-8xl mb-6 animate-bounce"
+                                    <FaFlag
+                                        className="text-8xl mb-6 animate-bounce text-gold-400/80"
                                         style={{ animationDuration: "2s" }}
-                                    >
-                                        🏴‍☠️
-                                    </div>
+                                    />
                                     <h3 className="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
                                         Welcome to Pirate's Treasure!
                                     </h3>
-                                    <p className="text-xl mb-2 opacity-90">
-                                        Purchase a ticket to reveal hidden treasures
+                                    <p className="text-xl mb-4 opacity-90">
+                                        Purchase a ticket to reveal prizes
                                     </p>
-                                    <div className="flex justify-center gap-4 mb-8">
-                                        <span
-                                            className="text-3xl animate-pulse"
+                                    <div className="flex justify-center gap-4 mt-6 mb-8">
+                                        <FaCoins
+                                            className="text-3xl animate-pulse text-gold-400"
                                             style={{ animationDelay: "0.2s" }}
-                                        >
-                                            💰
-                                        </span>
+                                        />
                                         <span className="text-2xl font-bold text-gold-400">
                                             Win up to $100!
                                         </span>
-                                        <span
-                                            className="text-3xl animate-pulse"
+                                        <FaGem
+                                            className="text-3xl animate-pulse text-gold-400"
                                             style={{ animationDelay: "0.4s" }}
-                                        >
-                                            💎
-                                        </span>
-                                    </div>
-                                    <div className="relative inline-block group/button">
-                                        <div className="absolute -inset-1 bg-gradient-to-r from-yellow-400 to-gold-400 rounded-lg blur opacity-75 group-hover/button:opacity-100 transition duration-200"></div>
-                                        <button
-                                            onClick={handlePurchaseTicket}
-                                            disabled={isPurchasing}
-                                            className="relative bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 bg-size-200 bg-pos-0 hover:bg-pos-100 text-navy-900 px-12 py-5 rounded-lg text-xl font-black transform transition-all hover:scale-105 hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
-                                            style={{
-                                                backgroundSize: "200% 100%",
-                                                backgroundPosition: "0% 50%",
-                                                transition: "all 0.3s ease",
-                                            }}
-                                            onMouseEnter={(e) =>
-                                                (e.currentTarget.style.backgroundPosition =
-                                                    "100% 50%")
-                                            }
-                                            onMouseLeave={(e) =>
-                                                (e.currentTarget.style.backgroundPosition =
-                                                    "0% 50%")
-                                            }
-                                        >
-                                            <span className="flex items-center gap-3">
-                                                <span className="text-2xl">🎰</span>
-                                                {isPurchasing ? "Purchasing..." : "Start Playing"}
-                                                <span className="text-2xl">🎲</span>
-                                            </span>
-                                        </button>
+                                        />
                                     </div>
                                 </div>
                             </div>
