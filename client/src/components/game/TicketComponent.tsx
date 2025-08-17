@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaAnchor, FaStar } from "react-icons/fa";
+import { FaAnchor, FaStar, FaTicketAlt } from "react-icons/fa";
 import type { Ticket } from "../../services/ticketService";
 import ticketService from "../../services/ticketService";
 import { checkWinningLine } from "../../utils/symbols";
@@ -12,9 +12,11 @@ interface TicketComponentProps {
     onComplete?: (totalWinnings: number) => void;
     onFlip?: () => void;
     onWinningsUpdate?: (amount: number) => void;
+    onNewTicket?: () => void;
+    isPurchasing?: boolean;
 }
 
-export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }: TicketComponentProps) {
+export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, onNewTicket, isPurchasing }: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
