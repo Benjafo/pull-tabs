@@ -249,8 +249,8 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }
                             )} */}
                         </div>
 
-                        {/* Tabs - aligned with prize table rows */}
-                        <div className="flex flex-col justify-between" style={{ minHeight: '432px' }}>
+                        {/* Tabs */}
+                        <div className="space-y-3">
                             {[1, 2, 3, 4, 5].map((tabNumber) => (
                                 <TabComponent
                                     key={tabNumber}
