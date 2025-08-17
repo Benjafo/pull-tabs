@@ -142,63 +142,48 @@ export function GamePage() {
             <OceanBackground variant="waves" intensity="medium" />
 
             <div className="relative space-y-6 z-10">
-                {/* Game Header with Glow Effect */}
-                <div className="bg-gradient-to-br from-navy-600/95 to-navy-700/95 backdrop-blur-sm rounded-lg shadow-2xl p-6 border-2 border-gold-600/40 relative overflow-hidden">
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gold-400/10 to-transparent -skew-x-12 translate-x-[-200%] animate-[shimmer_3s_infinite]" />
-
-                    <div className="relative flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-                        <div>
-                            <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 mb-1">
-                                Pirate's Treasure Game
-                            </h2>
-                            <p className="text-sm text-cream-100/60">
-                                Test your luck and find the hidden treasure!
-                            </p>
+                {/* Action Buttons - Top Right */}
+                <div className="flex justify-end mb-4">
+                    {!currentTicket ? (
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+                            <button
+                                onClick={handlePurchaseTicket}
+                                disabled={isPurchasing}
+                                className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                            >
+                                <span className="flex items-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-xl" />
+                                            Buy Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
                         </div>
-                        <div className="flex flex-col sm:flex-row gap-4 items-center">
-                            {!currentTicket ? (
-                                <div className="relative group">
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-                                    <button
-                                        onClick={handlePurchaseTicket}
-                                        disabled={isPurchasing}
-                                        className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-                                    >
-                                        <span className="flex items-center gap-2">
-                                            {isPurchasing ? (
-                                                <>Purchasing...</>
-                                            ) : (
-                                                <>
-                                                    <FaTicketAlt className="text-xl" />
-                                                    Buy Ticket ($1)
-                                                </>
-                                            )}
-                                        </span>
-                                    </button>
-                                </div>
-                            ) : (
-                                allTabsRevealed && (
-                                    <button
-                                        onClick={handleNewTicket}
-                                        disabled={isPurchasing}
-                                        className="bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        <span className="flex items-center gap-2">
-                                            {isPurchasing ? (
-                                                <>Purchasing...</>
-                                            ) : (
-                                                <>
-                                                    <FaTicketAlt className="text-lg" />
-                                                    Play Again ($1)
-                                                </>
-                                            )}
-                                        </span>
-                                    </button>
-                                )
-                            )}
-                        </div>
-                    </div>
+                    ) : (
+                        allTabsRevealed && (
+                            <button
+                                onClick={handleNewTicket}
+                                disabled={isPurchasing}
+                                className="bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span className="flex items-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-lg" />
+                                            Buy Another Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
+                        )
+                    )}
                 </div>
 
                 {/* Game Area with Enhanced Visual */}
