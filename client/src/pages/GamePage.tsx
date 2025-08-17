@@ -215,6 +215,8 @@ export function GamePage() {
                                         onComplete={handleTicketComplete}
                                         onFlip={handleTicketFlip}
                                         onWinningsUpdate={handleLiveWinningsUpdate}
+                                        onNewTicket={allTabsRevealed ? handleNewTicket : undefined}
+                                        isPurchasing={isPurchasing}
                                     />
                                 </div>
                             </div>
