@@ -8,6 +8,7 @@ interface TabComponentProps {
     isWinning: boolean;
     onReveal: (tabNumber: number) => void;
     disabled?: boolean;
+    size?: 'small' | 'medium';
 }
 
 export function TabComponent({
@@ -17,6 +18,7 @@ export function TabComponent({
     isWinning,
     onReveal,
     disabled = false,
+    size = 'medium',
 }: TabComponentProps) {
     const [isPeeling, setIsPeeling] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
