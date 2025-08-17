@@ -277,6 +277,29 @@ export function GamePage() {
                                             style={{ animationDelay: "0.4s" }}
                                         />
                                     </div>
+                                    
+                                    {/* Buy Ticket Button */}
+                                    <div className="mt-8">
+                                        <div className="relative group inline-block">
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+                                            <button
+                                                onClick={handlePurchaseTicket}
+                                                disabled={isPurchasing}
+                                                className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                                            >
+                                                <span className="flex items-center gap-2">
+                                                    {isPurchasing ? (
+                                                        <>Purchasing...</>
+                                                    ) : (
+                                                        <>
+                                                            <FaTicketAlt className="text-xl" />
+                                                            Buy Ticket ($1)
+                                                        </>
+                                                    )}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
