@@ -190,7 +190,7 @@ export function GamePage() {
                                             ) : (
                                                 <>
                                                     <FaTicketAlt className="text-lg" />
-                                                    Buy Another Ticket ($1)
+                                                    Play Again ($1)
                                                 </>
                                             )}
                                         </span>
