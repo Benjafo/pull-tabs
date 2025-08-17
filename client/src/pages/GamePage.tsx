@@ -101,6 +101,7 @@ export function GamePage() {
         setLiveWinnings(0); // Reset live winnings
         setShowWinAnimation(false); // Dismiss any active win animation
         setIsTicketFlipped(false); // Reset flip state
+        setAllTabsRevealed(false); // Reset tabs revealed state
     };
 
     const handleTicketFlip = () => {
