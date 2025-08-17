@@ -268,6 +268,7 @@ export function GamePage() {
                                 <div className="absolute inset-0 bg-gradient-to-r from-gold-400/20 to-gold-600/20 blur-3xl" />
                                 <div className="relative">
                                     <TicketComponent
+                                        key={currentTicket.id}
                                         ticket={currentTicket}
                                         onComplete={handleTicketComplete}
                                         onFlip={handleTicketFlip}
