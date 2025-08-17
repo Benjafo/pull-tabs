@@ -238,21 +238,16 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                         transform: "rotateY(180deg)",
                     }}
                 >
-                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-6 border-2 border-gold-600/30">
+                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-4 border-2 border-gold-600/30 flex flex-col">
                         {/* Header */}
-                        <div className="text-center mb-8">
-                            <h3 className="text-2xl font-bold text-cream-100 drop-shadow-lg">
+                        <div className="text-center mb-4">
+                            <h3 className="text-xl font-bold text-cream-100 drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
-                            {/* {currentWinnings > 0 && (
-                                <div className="mt-2 text-3xl font-bold text-gold-400 animate-pulse">
-                                    Won: ${currentWinnings}
-                                </div>
-                            )} */}
                         </div>
 
                         {/* Tabs */}
-                        <div className="space-y-3">
+                        <div className="space-y-2 flex-1">
                             {[1, 2, 3, 4, 5].map((tabNumber) => (
                                 <TabComponent
                                     key={tabNumber}
@@ -262,16 +257,17 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                                     isWinning={isTabWinning(tabNumber)}
                                     onReveal={handleRevealTab}
                                     disabled={isRevealing}
+                                    size="small"
                                 />
                             ))}
                         </div>
 
                         {/* Status */}
                         {(currentWinnings > 0 || revealedTabs.length === 5) && (
-                            <div className="mt-6 text-center">
-                                <div className="text-cream-100 text-xl font-bold">
+                            <div className="mt-4 text-center">
+                                <div className="text-cream-100 text-lg font-bold">
                                     {currentWinnings > 0 ? (
-                                        <span className="text-gold-400 text-2xl animate-bounce">
+                                        <span className="text-gold-400 text-xl animate-bounce">
                                             <span className="flex items-center justify-center gap-2">
                                                 <FaStar className="text-gold-400" />
                                                 You won ${currentWinnings}!
@@ -282,6 +278,28 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                                         <span>Better luck next time!</span>
                                     )}
                                 </div>
+                            </div>
+                        )}
+
+                        {/* Buy Another Ticket Button */}
+                        {onNewTicket && (
+                            <div className="mt-4">
+                                <button
+                                    onClick={onNewTicket}
+                                    disabled={isPurchasing}
+                                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-3 px-6 rounded-lg text-lg font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <span className="flex items-center justify-center gap-2">
+                                        {isPurchasing ? (
+                                            <>Purchasing...</>
+                                        ) : (
+                                            <>
+                                                <FaTicketAlt className="text-xl" />
+                                                Buy Another Ticket ($1)
+                                            </>
+                                        )}
+                                    </span>
+                                </button>
                             </div>
                         )}
                     </div>
