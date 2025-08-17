@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaCoins, FaFlag, FaGem, FaRedo, FaTicketAlt } from "react-icons/fa";
+import { FaCoins, FaFlag, FaGem, FaTicketAlt } from "react-icons/fa";
 import { EnhancedWinAnimation } from "../components/game/EnhancedWinAnimation";
 import { GameStatusPanel } from "../components/game/GameStatusPanel";
 import { PrizeTable } from "../components/game/PrizeTable";
@@ -150,7 +150,7 @@ export function GamePage() {
                     <div className="relative flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                         <div>
                             <h2 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 mb-1">
-                                Pull Tabs Treasure Game
+                                Pirate's Treasure Game
                             </h2>
                             <p className="text-sm text-cream-100/60">
                                 Test your luck and find the hidden treasure!

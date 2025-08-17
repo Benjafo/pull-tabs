@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { FaAnchor } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export function Header() {
@@ -23,7 +23,7 @@ export function Header() {
                     >
                         <FaAnchor className="text-3xl text-gold-400 group-hover:rotate-12 transition-transform" />
                         <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500">
-                            Pirate's Treasure
+                            Pull Tabs Treasure
                         </h1>
                     </Link>
 
@@ -33,18 +33,20 @@ export function Header() {
                             <div className="flex items-center">
                                 <Link
                                     to="/game"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2 font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2 font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     My Stats
                                 </Link>
                                 <div className="flex items-center ml-8 pl-8 border-l border-gold-600/30">
-                                    <span className="text-sm text-gold-400">Ahoy, {user.email}!</span>
+                                    <span className="text-sm text-gold-400">
+                                        Ahoy, {user.email}!
+                                    </span>
                                     <button
                                         onClick={handleLogout}
                                         className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors ml-4"
@@ -108,18 +110,20 @@ export function Header() {
                             <div className="space-y-2">
                                 <Link
                                     to="/game"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     Play Game
                                 </Link>
                                 <Link
                                     to="/stats"
-                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors"
+                                    className="block hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors font-bold text-cream-100 hover:text-gold-400"
                                 >
                                     My Stats
                                 </Link>
                                 <div className="pt-4 mt-4 border-t border-navy-600">
-                                    <p className="px-4 py-2 text-sm text-gold-400">Ahoy, {user.email}!</p>
+                                    <p className="px-4 py-2 text-sm text-gold-400">
+                                        Ahoy, {user.email}!
+                                    </p>
                                     <button
                                         onClick={handleLogout}
                                         className="w-full text-left bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
