@@ -37,16 +37,14 @@ export function LoginPage() {
     return (
         <div className="py-8 relative">
             <OceanBackground variant="waves" intensity="subtle" />
-            
+
             <div className="max-w-md mx-auto relative z-10">
                 {/* Header */}
                 <div className="text-center text-cream-100 mb-8">
                     <h1 className="text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-gold-300 to-gold-500 drop-shadow-lg">
                         Ahoy, Matey!
                     </h1>
-                    <p className="text-xl text-cream-100/80">
-                        Welcome back to the treasure hunt
-                    </p>
+                    <p className="text-xl text-cream-100/80">Welcome back to the treasure hunt</p>
                 </div>
 
                 {/* Login Form */}
@@ -119,7 +117,7 @@ export function LoginPage() {
                             disabled={isSubmitting}
                             className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-3 px-6 rounded-lg text-lg font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                            {isSubmitting ? "Setting Sail..." : "Set Sail"}
+                            {isSubmitting ? "Logging In..." : "Login"}
                         </button>
 
                         <div className="text-center text-cream-100/70">

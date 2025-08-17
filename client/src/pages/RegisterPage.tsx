@@ -62,7 +62,7 @@ export function RegisterPage() {
     return (
         <div className="py-8 relative">
             <OceanBackground variant="waves" intensity="subtle" />
-            
+
             <div className="max-w-md mx-auto relative z-10">
                 {/* Header */}
                 <div className="text-center text-cream-100 mb-8">
@@ -165,7 +165,7 @@ export function RegisterPage() {
                             disabled={isSubmitting}
                             className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-3 px-6 rounded-lg text-lg font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                         >
-                            {isSubmitting ? "Joining Crew..." : "Join the Crew"}
+                            {isSubmitting ? "Creating Account..." : "Create Account"}
                         </button>
 
                         <div className="text-center text-cream-100/70">
