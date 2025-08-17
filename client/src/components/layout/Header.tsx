@@ -44,12 +44,12 @@ export function Header() {
                                     My Stats
                                 </Link>
                                 <div className="flex items-center ml-8 pl-8 border-l border-gold-600/30">
-                                    <span className="text-sm text-gold-400">
+                                    <span className="text-sm text-gold-400 font-bold">
                                         Ahoy, {user.email}!
                                     </span>
                                     <button
                                         onClick={handleLogout}
-                                        className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors ml-4"
+                                        className="hover:bg-navy-600 px-4 py-2 rounded-lg text-sm font-bold text-cream-100 hover:text-red-400 transition-colors ml-4"
                                     >
                                         Logout
                                     </button>
@@ -121,12 +121,12 @@ export function Header() {
                                     My Stats
                                 </Link>
                                 <div className="pt-4 mt-4 border-t border-navy-600">
-                                    <p className="px-4 py-2 text-sm text-gold-400">
+                                    <p className="px-4 py-2 text-sm text-gold-400 font-bold">
                                         Ahoy, {user.email}!
                                     </p>
                                     <button
                                         onClick={handleLogout}
-                                        className="w-full text-left bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                        className="w-full text-left hover:bg-navy-600 px-4 py-2 rounded-lg text-sm font-bold text-cream-100 hover:text-red-400 transition-colors"
                                     >
                                         Logout
                                     </button>
