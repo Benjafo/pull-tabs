@@ -1,5 +1,6 @@
 import { FaStar } from "react-icons/fa";
-import { SYMBOLS, WINNING_COMBINATIONS } from "../../utils/symbols";
+import { WINNING_COMBINATIONS } from "../../utils/symbols";
+import { SymbolDisplay } from "./SymbolDisplay";
 
 interface PrizeTableProps {
     currentWinAmount?: number;
