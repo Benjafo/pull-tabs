@@ -199,6 +199,28 @@ export function GamePage() {
                                                     </div>
                                                 </div>
                                             </div>
+                                            
+                                            {/* Buy Another Ticket Button */}
+                                            {allTabsRevealed && (
+                                                <div className="mt-6">
+                                                    <button
+                                                        onClick={handleNewTicket}
+                                                        disabled={isPurchasing}
+                                                        className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-3 px-6 rounded-lg text-lg font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    >
+                                                        <span className="flex items-center justify-center gap-2">
+                                                            {isPurchasing ? (
+                                                                <>Purchasing...</>
+                                                            ) : (
+                                                                <>
+                                                                    <FaTicketAlt className="text-xl" />
+                                                                    Buy Another Ticket ($1)
+                                                                </>
+                                                            )}
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 )}
