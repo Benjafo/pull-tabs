@@ -141,58 +141,57 @@ export function GamePage() {
         <div className="relative">
             <OceanBackground variant="waves" intensity="medium" />
 
-            {/* Action Buttons - Absolutely positioned top right */}
-            <div className="absolute top-4 right-4 z-20">
-                {!currentTicket ? (
-                    <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-                        <button
-                            onClick={handlePurchaseTicket}
-                            disabled={isPurchasing}
-                            className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            <div className="relative z-10">
+                {/* Action Buttons - Top Right */}
+                <div className="flex justify-end h-20 items-center">
+                    {!currentTicket ? (
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+                            <button
+                                onClick={handlePurchaseTicket}
+                                disabled={isPurchasing}
+                                className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                            >
+                                <span className="flex items-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-xl" />
+                                            Buy Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
+                        </div>
+                    ) : (
+                        <div
+                            className={`relative group transition-all duration-300 ${
+                                allTabsRevealed
+                                    ? "opacity-100 pointer-events-auto"
+                                    : "opacity-0 pointer-events-none"
+                            }`}
                         >
-                            <span className="flex items-center gap-2">
-                                {isPurchasing ? (
-                                    <>Purchasing...</>
-                                ) : (
-                                    <>
-                                        <FaTicketAlt className="text-xl" />
-                                        Buy Ticket ($1)
-                                    </>
-                                )}
-                            </span>
-                        </button>
-                    </div>
-                ) : (
-                    <div
-                        className={`relative group transition-all duration-300 ${
-                            allTabsRevealed
-                                ? "opacity-100 pointer-events-auto"
-                                : "opacity-0 pointer-events-none"
-                        }`}
-                    >
-                        <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
-                        <button
-                            onClick={handleNewTicket}
-                            disabled={isPurchasing || !allTabsRevealed}
-                            className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-                        >
-                            <span className="flex items-center gap-2">
-                                {isPurchasing ? (
-                                    <>Purchasing...</>
-                                ) : (
-                                    <>
-                                        <FaTicketAlt className="text-xl" />
-                                        Buy Another Ticket ($1)
-                                    </>
-                                )}
-                            </span>
-                        </button>
-                    </div>
-                )}
-            </div>
-
-            <div className="relative space-y-6 z-10">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-gold-400 to-yellow-400 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
+                            <button
+                                onClick={handleNewTicket}
+                                disabled={isPurchasing || !allTabsRevealed}
+                                className="relative bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-10 py-4 rounded-lg text-lg font-black transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                            >
+                                <span className="flex items-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-xl" />
+                                            Buy Another Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </div>
 
                 {/* Game Area with Enhanced Visual */}
                 <div className="min-h-[600px] flex items-center justify-center relative">
