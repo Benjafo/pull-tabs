@@ -178,7 +178,7 @@ export function GamePage() {
                                     </button>
                                 </div>
                             ) : (
-                                isTicketFlipped && (
+                                allTabsRevealed && (
                                     <button
                                         onClick={handleNewTicket}
                                         disabled={isPurchasing}
