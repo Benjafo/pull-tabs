@@ -175,15 +175,24 @@ export function GamePage() {
                                     </button>
                                 </div>
                             ) : (
-                                <button
-                                    onClick={handleNewTicket}
-                                    className="bg-gradient-to-r from-navy-500 to-navy-600 hover:from-navy-400 hover:to-navy-500 text-cream-100 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl border border-navy-400"
-                                >
-                                    <span className="flex items-center gap-2">
-                                        <FaRedo className="text-lg" />
-                                        New Ticket
-                                    </span>
-                                </button>
+                                isTicketFlipped && (
+                                    <button
+                                        onClick={handleNewTicket}
+                                        disabled={isPurchasing}
+                                        className="bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 px-8 py-3 rounded-lg text-lg font-bold transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <span className="flex items-center gap-2">
+                                            {isPurchasing ? (
+                                                <>Purchasing...</>
+                                            ) : (
+                                                <>
+                                                    <FaTicketAlt className="text-lg" />
+                                                    Buy Another Ticket ($1)
+                                                </>
+                                            )}
+                                        </span>
+                                    </button>
+                                )
                             )}
                         </div>
                     </div>
