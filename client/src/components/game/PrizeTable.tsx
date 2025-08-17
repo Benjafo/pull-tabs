@@ -33,25 +33,15 @@ export function PrizeTable({ currentWinAmount, noBorder = false, noBackground = 
               `}
                         >
                             <div className="flex items-center gap-2">
-                                {combo.symbols.map((symbolId, idx) => {
-                                    const symbol = SYMBOLS[symbolId];
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className={`
-                        w-10 h-10 flex items-center justify-center
-                        bg-gradient-to-br ${symbol.bgGradient}
-                        rounded shadow-md
-                        ${isCurrentWin ? "animate-bounce" : ""}
-                      `}
-                                            style={{ animationDelay: `${idx * 100}ms` }}
-                                        >
-                                            <span className="text-cream-100 text-xl">
-                                                {symbol.emoji}
-                                            </span>
-                                        </div>
-                                    );
-                                })}
+                                {combo.symbols.map((symbolId, idx) => (
+                                    <SymbolDisplay
+                                        key={idx}
+                                        symbolId={symbolId}
+                                        isRevealed={true}
+                                        isWinning={isCurrentWin}
+                                        size="small"
+                                    />
+                                ))}
                             </div>
 
                             <div className="flex items-center gap-2">
