@@ -1,9 +1,9 @@
-import { Ticket, GameSymbol, WinningLine } from "../models/Ticket";
+import { Op } from "sequelize";
+import sequelize from "../config/database";
+import { GameBox } from "../models/GameBox";
+import { GameSymbol, Ticket, WinningLine } from "../models/Ticket";
 import { UserStatistics } from "../models/UserStatistics";
 import { GameBoxService } from "./gameBox.service";
-import { GameBox } from "../models/GameBox";
-import sequelize from "../config/database";
-import { Op } from "sequelize";
 
 /**
  * Service for generating and managing tickets
@@ -46,19 +46,19 @@ export class TicketService {
                 thirdSymbol = GameSymbol.SKULL;
                 break;
             case 20:
-                thirdSymbol = GameSymbol.SHIP;
+                thirdSymbol = GameSymbol.TREASURE;
                 break;
             case 10:
-                thirdSymbol = GameSymbol.ANCHOR;
+                thirdSymbol = GameSymbol.SHIP;
                 break;
             case 5:
-                thirdSymbol = GameSymbol.COMPASS;
+                thirdSymbol = GameSymbol.ANCHOR;
                 break;
             case 2:
-                thirdSymbol = GameSymbol.MAP;
+                thirdSymbol = GameSymbol.COMPASS;
                 break;
             case 1:
-                thirdSymbol = GameSymbol.TREASURE;
+                thirdSymbol = GameSymbol.MAP;
                 break;
             default:
                 throw new Error(`Invalid prize amount: ${prizeAmount}`);
