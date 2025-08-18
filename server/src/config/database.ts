@@ -17,14 +17,17 @@ const getDatabaseConfig = () => {
                 idle: 10000,
             },
             dialectOptions: {
-                ssl: process.env.NODE_ENV === "production" ? {
-                    require: true,
-                    rejectUnauthorized: false
-                } : false
-            }
+                ssl:
+                    process.env.NODE_ENV === "production"
+                        ? {
+                              require: true,
+                              rejectUnauthorized: false,
+                          }
+                        : false,
+            },
         };
     }
-    
+
     // Local development configuration
     return {
         dialect: "postgres" as const,
