@@ -116,7 +116,7 @@ describe("GameBox Endpoints", () => {
                 remaining_tickets: 10,
                 winners_remaining: {
                     100: 0,
-                    20: 0,
+                    20: 1,
                     10: 0,
                     5: 0,
                     2: 0,
