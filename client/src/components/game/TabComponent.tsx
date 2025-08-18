@@ -250,12 +250,12 @@ export function TabComponent({
                                     "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)",
                             }}
                         />
-                        {/* Right perforation */}
+                        {/* Right perforation - thicker and more prominent */}
                         <div
-                            className="absolute top-0 bottom-0 right-0 w-1"
+                            className="absolute top-0 bottom-0 right-0 w-2"
                             style={{
                                 backgroundImage:
-                                    "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)",
+                                    "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.3) 3px, rgba(0,0,0,0.3) 6px)",
                             }}
                         />
                     </div>
