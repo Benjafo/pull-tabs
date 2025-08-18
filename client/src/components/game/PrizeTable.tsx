@@ -42,7 +42,7 @@ export function PrizeTable({
                                         key={idx}
                                         symbolId={symbolId}
                                         isRevealed={true}
-                                        isWinning={isCurrentWin}
+                                        isWinning={false}
                                         size="small"
                                     />
                                 ))}
