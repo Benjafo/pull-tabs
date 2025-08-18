@@ -168,6 +168,7 @@ export function GamePage() {
                                             currentWinAmount={liveWinnings}
                                             noBorder={true}
                                             noBackground={true}
+                                            disableAnimations={true}
                                         />
 
                                         {/* Divider */}
