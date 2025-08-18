@@ -138,19 +138,19 @@ describe("GameBox Endpoints", () => {
                 user_id: testUser!.id,
                 game_box_id: gameBox.id,
                 symbols: new Array(15).fill(GameSymbol.MAP),
-                winning_lines: [{ line: 1, symbols: [0, 0, 1], prize: 50 }],
-                total_payout: 50,
+                winning_lines: [{ line: 1, symbols: [0, 0, 1], prize: 20 }],
+                total_payout: 20,
                 is_winner: true,
             });
 
             // Update game box manually
-            await gameBox.useWinner(50);
+            await gameBox.useWinner(20);
             await gameBox.useTicket();
 
             // Check game box status
             const response = await request(app).get("/api/gamebox/current");
 
-            expect(response.body.gameBox.winnersRemaining[50]).toBe(0);
+            expect(response.body.gameBox.winnersRemaining[20]).toBe(0);
             expect(response.body.gameBox.totalWinnersRemaining).toBe(0);
         });
     });
