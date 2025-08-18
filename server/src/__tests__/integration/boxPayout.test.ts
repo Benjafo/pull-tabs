@@ -140,11 +140,11 @@ describe("Box Payout Verification Tests", () => {
             // ASSERTIONS
             // Verify exact match of winner distribution
             expect(actualWins[100]).toBe(expectedDistribution[100]);
-            expect(actualWins[50]).toBe(expectedDistribution[50]);
             expect(actualWins[20]).toBe(expectedDistribution[20]);
             expect(actualWins[10]).toBe(expectedDistribution[10]);
             expect(actualWins[5]).toBe(expectedDistribution[5]);
             expect(actualWins[2]).toBe(expectedDistribution[2]);
+            expect(actualWins[1]).toBe(expectedDistribution[1]);
 
             // Verify total winners
             expect(totalActualWinners).toBe(totalExpectedWinners);
