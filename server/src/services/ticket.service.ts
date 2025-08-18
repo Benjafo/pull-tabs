@@ -45,9 +45,6 @@ export class TicketService {
             case 100:
                 thirdSymbol = GameSymbol.SKULL;
                 break;
-            case 50:
-                thirdSymbol = GameSymbol.TREASURE;
-                break;
             case 20:
                 thirdSymbol = GameSymbol.SHIP;
                 break;
@@ -59,6 +56,9 @@ export class TicketService {
                 break;
             case 2:
                 thirdSymbol = GameSymbol.MAP;
+                break;
+            case 1:
+                thirdSymbol = GameSymbol.TREASURE;
                 break;
             default:
                 throw new Error(`Invalid prize amount: ${prizeAmount}`);
