@@ -6,12 +6,14 @@ interface PrizeTableProps {
     currentWinAmount?: number;
     noBorder?: boolean;
     noBackground?: boolean;
+    disableAnimations?: boolean;
 }
 
 export function PrizeTable({
     currentWinAmount,
     noBorder = false,
     noBackground = false,
+    disableAnimations = false,
 }: PrizeTableProps) {
     return (
         <div
