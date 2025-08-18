@@ -178,11 +178,11 @@ describe("Box Payout Verification Tests", () => {
             // Track when each prize tier is won
             const winDistribution: { [key: number]: number[] } = {
                 100: [],
-                50: [],
                 20: [],
                 10: [],
                 5: [],
                 2: [],
+                1: [],
             };
 
             // Play through entire box
