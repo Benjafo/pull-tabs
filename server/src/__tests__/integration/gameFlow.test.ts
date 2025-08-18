@@ -237,11 +237,11 @@ describe("Game Flow Integration Tests", () => {
                 remaining_tickets: 2,
                 winners_remaining: {
                     100: 1,
-                    50: 0,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
