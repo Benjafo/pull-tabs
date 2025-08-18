@@ -52,7 +52,7 @@ describe("TicketService", () => {
                 10: 0,
                 5: 0,
                 2: 0,
-                1: 0
+                1: 0,
             };
             await testGameBox.save();
 
@@ -105,7 +105,7 @@ describe("TicketService", () => {
                 10: 0,
                 5: 0,
                 2: 0,
-                1: 0
+                1: 0,
             };
             await testGameBox.save();
 
