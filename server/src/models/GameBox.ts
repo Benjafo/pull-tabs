@@ -3,11 +3,11 @@ import sequelize from "../config/database";
 
 interface WinnersRemaining {
     100: number;
-    50: number;
     20: number;
     10: number;
     5: number;
     2: number;
+    1: number;
 }
 
 export interface GameBoxAttributes {
@@ -44,11 +44,11 @@ export class GameBox
             remaining_tickets: 500,
             winners_remaining: {
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 5,
+                5: 5,
+                2: 48,
+                1: 65,
             },
         };
     }
@@ -118,11 +118,11 @@ GameBox.init(
             allowNull: false,
             defaultValue: {
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 5,
+                5: 5,
+                2: 48,
+                1: 65,
             },
         },
         created_at: {
