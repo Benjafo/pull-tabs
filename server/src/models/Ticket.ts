@@ -73,19 +73,19 @@ export class Ticket
                         prize = 100;
                         break;
                     case GameSymbol.TREASURE:
-                        prize = 50;
-                        break;
-                    case GameSymbol.SHIP:
                         prize = 20;
                         break;
-                    case GameSymbol.ANCHOR:
+                    case GameSymbol.SHIP:
                         prize = 10;
                         break;
-                    case GameSymbol.COMPASS:
+                    case GameSymbol.ANCHOR:
                         prize = 5;
                         break;
-                    case GameSymbol.MAP:
+                    case GameSymbol.COMPASS:
                         prize = 2;
+                        break;
+                    case GameSymbol.MAP:
+                        prize = 1;
                         break;
                 }
 

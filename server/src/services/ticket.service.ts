@@ -1,9 +1,9 @@
-import { Ticket, GameSymbol, WinningLine } from "../models/Ticket";
+import { Op } from "sequelize";
+import sequelize from "../config/database";
+import { GameBox } from "../models/GameBox";
+import { GameSymbol, Ticket, WinningLine } from "../models/Ticket";
 import { UserStatistics } from "../models/UserStatistics";
 import { GameBoxService } from "./gameBox.service";
-import { GameBox } from "../models/GameBox";
-import sequelize from "../config/database";
-import { Op } from "sequelize";
 
 /**
  * Service for generating and managing tickets
@@ -45,19 +45,19 @@ export class TicketService {
             case 100:
                 thirdSymbol = GameSymbol.SKULL;
                 break;
-            case 50:
+            case 20:
                 thirdSymbol = GameSymbol.TREASURE;
                 break;
-            case 20:
+            case 10:
                 thirdSymbol = GameSymbol.SHIP;
                 break;
-            case 10:
+            case 5:
                 thirdSymbol = GameSymbol.ANCHOR;
                 break;
-            case 5:
+            case 2:
                 thirdSymbol = GameSymbol.COMPASS;
                 break;
-            case 2:
+            case 1:
                 thirdSymbol = GameSymbol.MAP;
                 break;
             default:

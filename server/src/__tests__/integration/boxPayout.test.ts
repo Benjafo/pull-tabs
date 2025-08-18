@@ -25,21 +25,21 @@ describe("Box Payout Verification Tests", () => {
             // Expected distribution from GameBox.createNewBox()
             const expectedDistribution = {
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 5,
+                5: 5,
+                2: 48,
+                1: 64,
             };
 
             // Track actual wins
             const actualWins: { [key: number]: number } = {
                 100: 0,
-                50: 0,
                 20: 0,
                 10: 0,
                 5: 0,
                 2: 0,
+                1: 0,
             };
 
             const ticketResults: Array<{
@@ -140,11 +140,11 @@ describe("Box Payout Verification Tests", () => {
             // ASSERTIONS
             // Verify exact match of winner distribution
             expect(actualWins[100]).toBe(expectedDistribution[100]);
-            expect(actualWins[50]).toBe(expectedDistribution[50]);
             expect(actualWins[20]).toBe(expectedDistribution[20]);
             expect(actualWins[10]).toBe(expectedDistribution[10]);
             expect(actualWins[5]).toBe(expectedDistribution[5]);
             expect(actualWins[2]).toBe(expectedDistribution[2]);
+            expect(actualWins[1]).toBe(expectedDistribution[1]);
 
             // Verify total winners
             expect(totalActualWinners).toBe(totalExpectedWinners);
@@ -178,11 +178,11 @@ describe("Box Payout Verification Tests", () => {
             // Track when each prize tier is won
             const winDistribution: { [key: number]: number[] } = {
                 100: [],
-                50: [],
                 20: [],
                 10: [],
                 5: [],
                 2: [],
+                1: [],
             };
 
             // Play through entire box

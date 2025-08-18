@@ -1,5 +1,5 @@
 import sequelize from "../../config/database";
-import { User, UserStatistics, GameBox, Ticket } from "../../models";
+import { GameBox, Ticket, User, UserStatistics } from "../../models";
 import { GameSymbol } from "../../models/Ticket";
 import "../../models/associations";
 
@@ -167,11 +167,11 @@ describe("Model Relationships", () => {
             expect(boxData.remaining_tickets).toBe(500);
             expect(boxData.winners_remaining).toEqual({
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 5,
+                5: 5,
+                2: 48,
+                1: 64,
             });
         });
 
@@ -201,10 +201,9 @@ describe("Model Relationships", () => {
             await gameBox.useWinner(100);
             expect(gameBox.winners_remaining[100]).toBe(0);
 
-            await gameBox.useWinner(50);
-            await gameBox.useWinner(50);
-            await gameBox.useWinner(50);
-            expect(gameBox.winners_remaining[50]).toBe(0);
+            await gameBox.useWinner(20);
+            await gameBox.useWinner(20);
+            expect(gameBox.winners_remaining[20]).toBe(0);
 
             // Should not go negative
             await gameBox.useWinner(100);

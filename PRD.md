@@ -49,7 +49,7 @@ All winning combinations require consecutive Skull-Skull-X patterns on specific 
 - 5× $10 winners
 - 5× $5 winners
 - 48× $2 winners
-- 65× $1 winners
+- 64× $1 winners
 - 375× losing tickets
 
 **Total Winners:** 125 tickets (25% win rate)

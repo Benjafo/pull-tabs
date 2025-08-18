@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../../app";
 import sequelize from "../../config/database";
-import { GameBox, User, Ticket, UserStatistics } from "../../models";
+import { GameBox, Ticket, User, UserStatistics } from "../../models";
 import { GameSymbol } from "../../models/Ticket";
 
 describe("GameBox Endpoints", () => {
@@ -34,7 +34,7 @@ describe("GameBox Endpoints", () => {
                 remainingTickets: 450,
                 soldTickets: 50,
                 percentSold: 10,
-                totalWinnersRemaining: 142,
+                totalWinnersRemaining: 125,
                 isComplete: false,
             });
         });
@@ -52,11 +52,11 @@ describe("GameBox Endpoints", () => {
             const response = await request(app).get("/api/gamebox/current");
 
             expect(response.body.gameBox.winnersRemaining).toEqual({
-                2: 75,
-                5: 35,
-                10: 20,
-                20: 8,
-                50: 3,
+                1: 64,
+                2: 48,
+                5: 5,
+                10: 5,
+                20: 2,
                 100: 1,
             });
         });
@@ -116,11 +116,11 @@ describe("GameBox Endpoints", () => {
                 remaining_tickets: 10,
                 winners_remaining: {
                     100: 0,
-                    50: 1,
-                    20: 0,
+                    20: 1,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -138,19 +138,19 @@ describe("GameBox Endpoints", () => {
                 user_id: testUser!.id,
                 game_box_id: gameBox.id,
                 symbols: new Array(15).fill(GameSymbol.MAP),
-                winning_lines: [{ line: 1, symbols: [0, 0, 1], prize: 50 }],
-                total_payout: 50,
+                winning_lines: [{ line: 1, symbols: [0, 0, 1], prize: 20 }],
+                total_payout: 20,
                 is_winner: true,
             });
 
             // Update game box manually
-            await gameBox.useWinner(50);
+            await gameBox.useWinner(20);
             await gameBox.useTicket();
 
             // Check game box status
             const response = await request(app).get("/api/gamebox/current");
 
-            expect(response.body.gameBox.winnersRemaining[50]).toBe(0);
+            expect(response.body.gameBox.winnersRemaining[20]).toBe(0);
             expect(response.body.gameBox.totalWinnersRemaining).toBe(0);
         });
     });

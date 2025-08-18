@@ -1,6 +1,6 @@
-import { GameBoxService } from "../../services/gameBox.service";
-import { GameBox } from "../../models/GameBox";
 import sequelize from "../../config/database";
+import { GameBox } from "../../models/GameBox";
+import { GameBoxService } from "../../services/gameBox.service";
 
 describe("GameBoxService", () => {
     beforeAll(async () => {
@@ -48,11 +48,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 0,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -66,11 +66,11 @@ describe("GameBoxService", () => {
                 remaining_tickets: 5,
                 winners_remaining: {
                     100: 1,
-                    50: 1,
                     20: 1,
                     10: 1,
                     5: 1,
-                    2: 0,
+                    2: 1,
+                    1: 0,
                 },
             });
 
@@ -84,11 +84,11 @@ describe("GameBoxService", () => {
                 remaining_tickets: 100,
                 winners_remaining: {
                     100: 1,
-                    50: 1,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -100,10 +100,10 @@ describe("GameBoxService", () => {
                 }
             }
 
-            // Should be around 2% (2 winners out of 100 tickets)
+            // Should be around 1% (1 winner out of 100 tickets)
             const winRate = winnerCount / 1000;
-            expect(winRate).toBeGreaterThan(0.01);
-            expect(winRate).toBeLessThan(0.03);
+            expect(winRate).toBeGreaterThan(0.005);
+            expect(winRate).toBeLessThan(0.015);
         });
     });
 
@@ -113,11 +113,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 0,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -130,11 +130,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 1,
                     20: 1,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -146,10 +146,9 @@ describe("GameBoxService", () => {
                 }
             }
 
-            // Should only select 50 and 20
-            expect(selectedPrizes.has(50)).toBe(true);
+            // Should only select 20
             expect(selectedPrizes.has(20)).toBe(true);
-            expect(selectedPrizes.size).toBe(2);
+            expect(selectedPrizes.size).toBe(1);
         });
     });
 
@@ -167,7 +166,7 @@ describe("GameBoxService", () => {
             expect(stats.remainingTickets).toBe(350);
             expect(stats.soldTickets).toBe(150);
             expect(stats.percentSold).toBe(30);
-            expect(stats.totalWinnersRemaining).toBe(142); // Sum of all winners
+            expect(stats.totalWinnersRemaining).toBe(125); // Sum of all winners
             expect(stats.isComplete).toBe(false);
         });
     });
