@@ -16,7 +16,14 @@ interface TicketComponentProps {
     isPurchasing?: boolean;
 }
 
-export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, onNewTicket, isPurchasing }: TicketComponentProps) {
+export function TicketComponent({
+    ticket,
+    onComplete,
+    onFlip,
+    onWinningsUpdate,
+    onNewTicket,
+    isPurchasing,
+}: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
@@ -247,7 +254,7 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                         </div>
 
                         {/* Tabs */}
-                        <div className="space-y-3 flex-1 flex flex-col justify-center">
+                        <div className="space-y-4 flex-1 flex flex-col justify-center">
                             {[1, 2, 3, 4, 5].map((tabNumber) => (
                                 <TabComponent
                                     key={tabNumber}
@@ -257,51 +264,53 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                                     isWinning={isTabWinning(tabNumber)}
                                     onReveal={handleRevealTab}
                                     disabled={isRevealing}
-                                    size="small"
+                                    size="medium"
                                 />
                             ))}
                         </div>
 
-                        {/* Status */}
-                        {(currentWinnings > 0 || revealedTabs.length === 5) && (
-                            <div className="mt-3 text-center">
-                                <div className="text-cream-100 font-bold">
-                                    {currentWinnings > 0 ? (
-                                        <span className="text-gold-400 text-xl animate-bounce">
-                                            <span className="flex items-center justify-center gap-2">
-                                                <FaStar className="text-gold-400" />
-                                                You won ${currentWinnings}!
-                                                <FaStar className="text-gold-400" />
-                                            </span>
+                        {/* Status - Always rendered but visibility controlled */}
+                        <div className={`mt-3 text-center h-8 transition-opacity duration-300 ${
+                            (currentWinnings > 0 || revealedTabs.length === 5) ? 'opacity-100' : 'opacity-0'
+                        }`}>
+                            <div className="text-cream-100 font-bold">
+                                {currentWinnings > 0 ? (
+                                    <span className="text-gold-400 text-xl animate-bounce">
+                                        <span className="flex items-center justify-center gap-2">
+                                            <FaStar className="text-gold-400" />
+                                            You won ${currentWinnings}!
+                                            <FaStar className="text-gold-400" />
                                         </span>
-                                    ) : (
-                                        <span className="text-base">Better luck next time!</span>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Buy Another Ticket Button */}
-                        {onNewTicket && (
-                            <div className="mt-4">
-                                <button
-                                    onClick={onNewTicket}
-                                    disabled={isPurchasing}
-                                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-2.5 px-5 rounded-lg text-base font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    <span className="flex items-center justify-center gap-2">
-                                        {isPurchasing ? (
-                                            <>Purchasing...</>
-                                        ) : (
-                                            <>
-                                                <FaTicketAlt className="text-lg" />
-                                                Buy Another Ticket ($1)
-                                            </>
-                                        )}
                                     </span>
-                                </button>
+                                ) : (
+                                    revealedTabs.length === 5 && (
+                                        <span className="text-base">Better luck next time!</span>
+                                    )
+                                )}
                             </div>
-                        )}
+                        </div>
+
+                        {/* Buy Another Ticket Button - Always rendered but visibility controlled */}
+                        <div className="mt-4 h-12">
+                            <button
+                                onClick={onNewTicket}
+                                disabled={isPurchasing || !onNewTicket}
+                                className={`w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-2.5 px-5 rounded-lg text-base font-black transform hover:scale-105 hover:shadow-xl disabled:cursor-not-allowed transition-all duration-300 ${
+                                    onNewTicket ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                                }`}
+                            >
+                                <span className="flex items-center justify-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-lg" />
+                                            Buy Another Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

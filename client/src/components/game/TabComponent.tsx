@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SymbolDisplay } from "./SymbolDisplay";
 
 interface TabComponentProps {
@@ -8,7 +8,7 @@ interface TabComponentProps {
     isWinning: boolean;
     onReveal: (tabNumber: number) => void;
     disabled?: boolean;
-    size?: 'small' | 'medium';
+    size?: "small" | "medium";
 }
 
 export function TabComponent({
@@ -18,7 +18,7 @@ export function TabComponent({
     isWinning,
     onReveal,
     disabled = false,
-    size = 'medium',
+    size = "medium",
 }: TabComponentProps) {
     const [isPeeling, setIsPeeling] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
@@ -36,12 +36,12 @@ export function TabComponent({
 
             // Calculate horizontal drag distance (allow both directions)
             const deltaX = e.clientX - startPosRef.current.x;
-            
+
             // Mark as dragged if moved more than 5px in any direction
             if (Math.abs(deltaX) > 5) {
                 hasDraggedRef.current = true;
             }
-            
+
             // Allow dragging in both directions, but only peel when dragging left
             // Negative deltaX means dragging left (right to left motion)
             if (deltaX < -10) {
@@ -49,7 +49,7 @@ export function TabComponent({
                 // Require 250px of drag for full peel
                 const progress = Math.min(100, (Math.abs(deltaX) / 250) * 100);
                 setDragProgress(progress);
-                
+
                 // Auto-complete if dragged far enough
                 if (progress >= 100) {
                     completePeel();
@@ -68,24 +68,24 @@ export function TabComponent({
                 // Spring back if not dragged enough
                 setDragProgress(0);
             }
-            
+
             setIsDragging(false);
         };
 
         // Add document-level listeners
-        document.addEventListener('mousemove', handleDocumentMouseMove);
-        document.addEventListener('mouseup', handleDocumentMouseUp);
+        document.addEventListener("mousemove", handleDocumentMouseMove);
+        document.addEventListener("mouseup", handleDocumentMouseUp);
 
         // Cleanup function
         return () => {
-            document.removeEventListener('mousemove', handleDocumentMouseMove);
-            document.removeEventListener('mouseup', handleDocumentMouseUp);
+            document.removeEventListener("mousemove", handleDocumentMouseMove);
+            document.removeEventListener("mouseup", handleDocumentMouseUp);
         };
     }, [isDragging, isRevealed, disabled, dragProgress]);
 
     const handleMouseDown = (e: React.MouseEvent) => {
         if (isRevealed || disabled || isPeeling) return;
-        
+
         setIsDragging(true);
         hasDraggedRef.current = false;
         setDragProgress(0); // Reset drag progress on new interaction
@@ -100,7 +100,7 @@ export function TabComponent({
     const handleClick = () => {
         // Only trigger click animation if not dragging
         if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
-        
+
         // Trigger smooth peel animation on click
         setIsPeeling(true);
         setTimeout(() => {
@@ -126,33 +126,37 @@ export function TabComponent({
             const rotateY = 90 * (dragProgress / 100);
             // Reduced translateX to better match pointer movement
             const translateX = 20 * (dragProgress / 100);
-            const scaleX = 1 - (0.15 * (dragProgress / 100));
+            const scaleX = 1 - 0.15 * (dragProgress / 100);
             return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
         }
-        
+
         if (isHovering && !isDragging && !isPeeling) {
             return "rotateY(5deg) translateX(2px)";
         }
-        
+
         return "";
     };
 
     const getOpacity = () => {
         if (dragProgress > 0) {
             // Smooth opacity transition
-            return Math.max(0, 1 - (dragProgress / 100));
+            return Math.max(0, 1 - dragProgress / 100);
         }
         return 1;
     };
 
-    const symbolSize = size === 'small' ? 'small' : 'medium';
-    const containerPadding = size === 'small' ? 'p-2' : 'p-3';
-    const gap = size === 'small' ? 'gap-2' : 'gap-3';
+    const symbolSize = size === "small" ? "small" : "medium";
+    // const containerPadding = size === "small" ? "p-2" : "p-3";
+    // const gap = size === 'small' ? 'gap-2' : 'gap-3';
+    const gap = "gap-2";
+    const containerPadding = "p-2";
 
     return (
         <div className="relative">
             {/* Symbols underneath */}
-            <div className={`flex ${gap} ${containerPadding} bg-navy-800/30 rounded-lg border border-navy-600/30`}>
+            <div
+                className={`flex ${gap} ${containerPadding} bg-navy-800/30 rounded-lg border border-navy-600/30`}
+            >
                 {symbols.map((symbolId, index) => (
                     <SymbolDisplay
                         key={`${tabNumber}-${index}`}
@@ -169,17 +173,30 @@ export function TabComponent({
                 <div
                     className={`
                         absolute inset-0 rounded-lg
-                        ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}
-                        ${isPeeling && !isDragging ? 'smooth-peel-animation pointer-events-none' : ''}
-                        ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+                        ${isDragging ? "cursor-grabbing" : "cursor-grab"}
+                        ${
+                            isPeeling && !isDragging
+                                ? "smooth-peel-animation pointer-events-none"
+                                : ""
+                        }
+                        ${disabled ? "opacity-50 cursor-not-allowed" : ""}
                         select-none
                     `}
                     style={{
-                        transform: isDragging || (isHovering && !isPeeling) ? getDragTransform() : undefined,
+                        transform:
+                            isDragging || (isHovering && !isPeeling)
+                                ? getDragTransform()
+                                : undefined,
                         opacity: isDragging ? getOpacity() : undefined,
                         transformStyle: "preserve-3d",
                         transformOrigin: "left center",
-                        transition: isDragging ? 'none' : (isHovering ? 'transform 0.2s ease-out' : dragProgress > 0 ? 'all 0.3s ease-out' : 'none'),
+                        transition: isDragging
+                            ? "none"
+                            : isHovering
+                            ? "transform 0.2s ease-out"
+                            : dragProgress > 0
+                            ? "all 0.3s ease-out"
+                            : "none",
                     }}
                     onMouseDown={handleMouseDown}
                     onMouseLeave={handleMouseLeave}
@@ -187,13 +204,20 @@ export function TabComponent({
                     onClick={handleClick}
                 >
                     {/* Dynamic shadow based on interaction */}
-                    <div 
+                    <div
                         className="absolute inset-0 rounded-lg"
                         style={{
-                            boxShadow: isDragging || isPeeling
-                                ? `${4 + (dragProgress || 0) / 10}px ${4 + (dragProgress || 0) / 10}px ${12 + (dragProgress || 0) / 5}px rgba(0,0,0,${0.2 - (dragProgress || 0) / 500})`
-                                : (isHovering ? '4px 4px 12px rgba(0,0,0,0.2)' : '2px 2px 6px rgba(0,0,0,0.1)'),
-                            transition: isDragging ? 'none' : 'box-shadow 0.2s ease-out',
+                            boxShadow:
+                                isDragging || isPeeling
+                                    ? `${4 + (dragProgress || 0) / 10}px ${
+                                          4 + (dragProgress || 0) / 10
+                                      }px ${12 + (dragProgress || 0) / 5}px rgba(0,0,0,${
+                                          0.2 - (dragProgress || 0) / 500
+                                      })`
+                                    : isHovering
+                                    ? "4px 4px 12px rgba(0,0,0,0.2)"
+                                    : "2px 2px 6px rgba(0,0,0,0.1)",
+                            transition: isDragging ? "none" : "box-shadow 0.2s ease-out",
                         }}
                     />
 
@@ -245,7 +269,7 @@ export function TabComponent({
                             TAB {tabNumber}
                         </div>
                         <div className="text-amber-100/90 text-xs mt-1 font-semibold">
-                            {isDragging ? '← DRAG LEFT' : 'CLICK OR DRAG'}
+                            {isDragging ? "← DRAG LEFT" : "CLICK OR DRAG"}
                         </div>
                     </div>
 
@@ -265,16 +289,18 @@ export function TabComponent({
                                     values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"
                                 />
                             </filter>
-                            <rect width="100%" height="100%" filter={`url(#texture-${tabNumber})`} />
+                            <rect
+                                width="100%"
+                                height="100%"
+                                filter={`url(#texture-${tabNumber})`}
+                            />
                         </svg>
                     </div>
 
                     {/* Hover hint - right edge lift for left drag */}
                     {isHovering && !isDragging && !isPeeling && (
                         <div className="absolute top-0 right-0 bottom-0 w-8 pointer-events-none">
-                            <div 
-                                className="absolute inset-0 bg-gradient-to-l from-gold-500/30 to-transparent rounded-r-lg"
-                            />
+                            <div className="absolute inset-0 bg-gradient-to-l from-gold-500/30 to-transparent rounded-r-lg" />
                         </div>
                     )}
                 </div>
