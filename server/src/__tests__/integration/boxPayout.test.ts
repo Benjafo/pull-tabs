@@ -25,11 +25,11 @@ describe("Box Payout Verification Tests", () => {
             // Expected distribution from GameBox.createNewBox()
             const expectedDistribution = {
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 5,
+                5: 5,
+                2: 48,
+                1: 65,
             };
 
             // Track actual wins
