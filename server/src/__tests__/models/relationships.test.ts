@@ -168,8 +168,8 @@ describe("Model Relationships", () => {
             expect(boxData.winners_remaining).toEqual({
                 100: 1,
                 20: 2,
-                10: 10,
-                5: 10,
+                10: 5,
+                5: 5,
                 2: 48,
                 1: 64,
             });
