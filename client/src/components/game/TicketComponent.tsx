@@ -238,9 +238,9 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                         transform: "rotateY(180deg)",
                     }}
                 >
-                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-4 border-2 border-gold-600/30 flex flex-col">
+                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-5 border-2 border-gold-600/30 flex flex-col">
                         {/* Header */}
-                        <div className="text-center mb-4">
+                        <div className="text-center mb-5">
                             <h3 className="text-xl font-bold text-cream-100 drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
@@ -264,8 +264,8 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
 
                         {/* Status */}
                         {(currentWinnings > 0 || revealedTabs.length === 5) && (
-                            <div className="mt-4 text-center">
-                                <div className="text-cream-100 text-lg font-bold">
+                            <div className="mt-3 text-center">
+                                <div className="text-cream-100 font-bold">
                                     {currentWinnings > 0 ? (
                                         <span className="text-gold-400 text-xl animate-bounce">
                                             <span className="flex items-center justify-center gap-2">
@@ -275,7 +275,7 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                                             </span>
                                         </span>
                                     ) : (
-                                        <span>Better luck next time!</span>
+                                        <span className="text-base">Better luck next time!</span>
                                     )}
                                 </div>
                             </div>
@@ -287,14 +287,14 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                                 <button
                                     onClick={onNewTicket}
                                     disabled={isPurchasing}
-                                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-3 px-6 rounded-lg text-lg font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-2.5 px-5 rounded-lg text-base font-black transform transition-all hover:scale-105 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     <span className="flex items-center justify-center gap-2">
                                         {isPurchasing ? (
                                             <>Purchasing...</>
                                         ) : (
                                             <>
-                                                <FaTicketAlt className="text-xl" />
+                                                <FaTicketAlt className="text-lg" />
                                                 Buy Another Ticket ($1)
                                             </>
                                         )}
