@@ -42,8 +42,9 @@ export function PrizeTable({
                                         key={idx}
                                         symbolId={symbolId}
                                         isRevealed={true}
-                                        isWinning={false}
+                                        isWinning={isCurrentWin}
                                         size="small"
+                                        disableAnimation={true}
                                     />
                                 ))}
                             </div>
