@@ -29,7 +29,7 @@ describe("Box Payout Verification Tests", () => {
                 10: 5,
                 5: 5,
                 2: 48,
-                1: 65,
+                1: 64,
             };
 
             // Track actual wins
