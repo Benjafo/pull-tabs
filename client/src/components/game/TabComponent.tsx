@@ -273,6 +273,28 @@ export function TabComponent({
                         </div>
                     </div>
 
+                    {/* Pull indicator on the right edge */}
+                    {!isDragging && (
+                        <div className="absolute right-0 top-0 bottom-0 w-8 flex items-center justify-center pointer-events-none">
+                            <div className="relative">
+                                {/* Pulsing glow effect */}
+                                <div className="absolute inset-0 bg-gradient-to-l from-cream-100/30 to-transparent rounded-l-lg animate-pulse" />
+                                {/* Arrow indicators */}
+                                <div className="flex flex-col gap-1">
+                                    <div className="text-cream-100/80 animate-pulse" style={{ animationDelay: '0ms' }}>
+                                        ◀
+                                    </div>
+                                    <div className="text-cream-100/60 animate-pulse" style={{ animationDelay: '100ms' }}>
+                                        ◀
+                                    </div>
+                                    <div className="text-cream-100/40 animate-pulse" style={{ animationDelay: '200ms' }}>
+                                        ◀
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     {/* Paper texture overlay */}
                     <div className="absolute inset-0 rounded-lg opacity-10 pointer-events-none">
                         <svg width="100%" height="100%">
