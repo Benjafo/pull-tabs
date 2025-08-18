@@ -34,7 +34,7 @@ describe("GameBox Endpoints", () => {
                 remainingTickets: 450,
                 soldTickets: 50,
                 percentSold: 10,
-                totalWinnersRemaining: 142,
+                totalWinnersRemaining: 125,
                 isComplete: false,
             });
         });
@@ -54,8 +54,8 @@ describe("GameBox Endpoints", () => {
             expect(response.body.gameBox.winnersRemaining).toEqual({
                 1: 64,
                 2: 48,
-                5: 10,
-                10: 10,
+                5: 5,
+                10: 5,
                 20: 2,
                 100: 1,
             });
