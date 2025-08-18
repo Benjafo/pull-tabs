@@ -100,10 +100,10 @@ describe("GameBoxService", () => {
                 }
             }
 
-            // Should be around 2% (2 winners out of 100 tickets)
+            // Should be around 1% (1 winner out of 100 tickets)
             const winRate = winnerCount / 1000;
-            expect(winRate).toBeGreaterThan(0.01);
-            expect(winRate).toBeLessThan(0.03);
+            expect(winRate).toBeGreaterThan(0.005);
+            expect(winRate).toBeLessThan(0.015);
         });
     });
 
