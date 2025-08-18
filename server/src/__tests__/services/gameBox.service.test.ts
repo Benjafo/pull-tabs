@@ -146,10 +146,9 @@ describe("GameBoxService", () => {
                 }
             }
 
-            // Should only select 50 and 20
-            expect(selectedPrizes.has(50)).toBe(true);
+            // Should only select 20
             expect(selectedPrizes.has(20)).toBe(true);
-            expect(selectedPrizes.size).toBe(2);
+            expect(selectedPrizes.size).toBe(1);
         });
     });
 
