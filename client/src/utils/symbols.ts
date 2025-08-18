@@ -64,11 +64,11 @@ export const SYMBOLS: Record<SymbolType, SymbolData> = {
 
 export const WINNING_COMBINATIONS = [
   { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.SKULL], prize: 100, name: 'Triple Skull' },
-  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.TREASURE], prize: 50, name: 'Skull Treasure' },
-  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.SHIP], prize: 20, name: 'Skull Ship' },
-  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.ANCHOR], prize: 10, name: 'Skull Anchor' },
-  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.COMPASS], prize: 5, name: 'Skull Compass' },
-  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.MAP], prize: 2, name: 'Skull Map' },
+  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.TREASURE], prize: 20, name: 'Skull Treasure' },
+  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.SHIP], prize: 10, name: 'Skull Ship' },
+  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.ANCHOR], prize: 5, name: 'Skull Anchor' },
+  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.COMPASS], prize: 2, name: 'Skull Compass' },
+  { symbols: [SymbolType.SKULL, SymbolType.SKULL, SymbolType.MAP], prize: 1, name: 'Skull Map' },
 ];
 
 export function getSymbolById(id: number): SymbolData | undefined {
