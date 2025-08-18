@@ -25,11 +25,19 @@ async function resetGameBoxes() {
         await sequelize.authenticate();
         console.log('Connected successfully.');
 
-        // Delete all existing game boxes
-        const result = await sequelize.query(
+        // First delete all tickets (they reference game boxes)
+        await sequelize.query(
+            'DELETE FROM tickets',
+            { type: Sequelize.QueryTypes.DELETE }
+        );
+        console.log('  - Cleared existing tickets');
+        
+        // Then delete all game boxes
+        await sequelize.query(
             'DELETE FROM game_boxes',
             { type: Sequelize.QueryTypes.DELETE }
         );
+        console.log('  - Cleared existing game boxes');
         
         console.log('✅ All existing game boxes have been deleted.');
         console.log('📦 New game boxes will be created with the correct distribution:');
