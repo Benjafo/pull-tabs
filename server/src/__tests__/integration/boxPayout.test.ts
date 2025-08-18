@@ -35,11 +35,11 @@ describe("Box Payout Verification Tests", () => {
             // Track actual wins
             const actualWins: { [key: number]: number } = {
                 100: 0,
-                50: 0,
                 20: 0,
                 10: 0,
                 5: 0,
                 2: 0,
+                1: 0,
             };
 
             const ticketResults: Array<{
