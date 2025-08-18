@@ -247,7 +247,7 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate, 
                         </div>
 
                         {/* Tabs */}
-                        <div className="space-y-2 flex-1">
+                        <div className="space-y-3 flex-1 flex flex-col justify-center">
                             {[1, 2, 3, 4, 5].map((tabNumber) => (
                                 <TabComponent
                                     key={tabNumber}
