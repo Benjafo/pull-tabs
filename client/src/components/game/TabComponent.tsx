@@ -46,8 +46,8 @@ export function TabComponent({
             // Negative deltaX means dragging left (right to left motion)
             if (deltaX < -10) {
                 // Map drag distance to progress (0-100) for leftward drag
-                // Require 250px of drag for full peel
-                const progress = Math.min(100, (Math.abs(deltaX) / 250) * 100);
+                // Require 350px of drag for full peel (increased from 250px)
+                const progress = Math.min(100, (Math.abs(deltaX) / 350) * 100);
                 setDragProgress(progress);
 
                 // Auto-complete if dragged far enough
@@ -61,8 +61,8 @@ export function TabComponent({
         };
 
         const handleDocumentMouseUp = () => {
-            if (dragProgress >= 60) {
-                // Complete the peel if dragged more than 60%
+            if (dragProgress >= 75) {
+                // Complete the peel if dragged more than 75% (increased from 60%)
                 completePeel();
             } else if (hasDraggedRef.current) {
                 // Spring back if not dragged enough
