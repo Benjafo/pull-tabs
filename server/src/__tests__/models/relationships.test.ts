@@ -1,5 +1,5 @@
 import sequelize from "../../config/database";
-import { User, UserStatistics, GameBox, Ticket } from "../../models";
+import { GameBox, Ticket, User, UserStatistics } from "../../models";
 import { GameSymbol } from "../../models/Ticket";
 import "../../models/associations";
 
@@ -167,11 +167,11 @@ describe("Model Relationships", () => {
             expect(boxData.remaining_tickets).toBe(500);
             expect(boxData.winners_remaining).toEqual({
                 100: 1,
-                50: 3,
-                20: 8,
-                10: 20,
-                5: 35,
-                2: 75,
+                20: 2,
+                10: 10,
+                5: 10,
+                2: 48,
+                1: 64,
             });
         });
 

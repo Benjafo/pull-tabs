@@ -48,11 +48,11 @@ describe("TicketService", () => {
             // Force a losing ticket by setting no winners remaining
             testGameBox.winners_remaining = {
                 100: 0,
-                50: 0,
                 20: 0,
                 10: 0,
                 5: 0,
                 2: 0,
+                1: 0
             };
             await testGameBox.save();
 
@@ -101,11 +101,11 @@ describe("TicketService", () => {
             testGameBox.remaining_tickets = 1;
             testGameBox.winners_remaining = {
                 100: 1,
-                50: 0,
                 20: 0,
                 10: 0,
                 5: 0,
                 2: 0,
+                1: 0
             };
             await testGameBox.save();
 
@@ -136,21 +136,21 @@ describe("TicketService", () => {
             const winningSymbols = new Array(15).fill(GameSymbol.MAP);
             winningSymbols[0] = GameSymbol.SKULL;
             winningSymbols[1] = GameSymbol.SKULL;
-            winningSymbols[2] = GameSymbol.TREASURE; // $50 win
+            winningSymbols[2] = GameSymbol.TREASURE; // $20 win
 
             const winningTicket = await Ticket.create({
                 user_id: testUser.id,
                 game_box_id: testGameBox.id,
                 symbols: winningSymbols,
                 winning_lines: Ticket.checkWinningLines(winningSymbols),
-                total_payout: 50,
+                total_payout: 20,
                 is_winner: true,
             });
 
             const result = await TicketService.revealTab(winningTicket.id, testUser.id, 0);
 
             expect(result.winDetected).toBe(true);
-            expect(result.totalPayout).toBe(50);
+            expect(result.totalPayout).toBe(20);
         });
 
         it("should reject invalid tab index", async () => {
@@ -188,11 +188,11 @@ describe("TicketService", () => {
 
         it("should detect multiple winning lines", () => {
             const symbols = new Array(15).fill(GameSymbol.MAP);
-            // First line: $50 win
+            // First line: $20 win
             symbols[0] = GameSymbol.SKULL;
             symbols[1] = GameSymbol.SKULL;
             symbols[2] = GameSymbol.TREASURE;
-            // Third line: $20 win
+            // Third line: $10 win
             symbols[6] = GameSymbol.SKULL;
             symbols[7] = GameSymbol.SKULL;
             symbols[8] = GameSymbol.SHIP;
@@ -201,7 +201,7 @@ describe("TicketService", () => {
             const payout = Ticket.calculatePayout(winningLines);
 
             expect(winningLines.length).toBe(2);
-            expect(payout).toBe(70); // $50 + $20
+            expect(payout).toBe(30); // $20 + $10
         });
 
         it("should not detect win without Skull-Skull pattern", () => {

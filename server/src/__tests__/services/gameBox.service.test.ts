@@ -1,6 +1,6 @@
-import { GameBoxService } from "../../services/gameBox.service";
-import { GameBox } from "../../models/GameBox";
 import sequelize from "../../config/database";
+import { GameBox } from "../../models/GameBox";
+import { GameBoxService } from "../../services/gameBox.service";
 
 describe("GameBoxService", () => {
     beforeAll(async () => {
@@ -48,11 +48,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 0,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -66,11 +66,11 @@ describe("GameBoxService", () => {
                 remaining_tickets: 5,
                 winners_remaining: {
                     100: 1,
-                    50: 1,
                     20: 1,
                     10: 1,
                     5: 1,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -84,11 +84,11 @@ describe("GameBoxService", () => {
                 remaining_tickets: 100,
                 winners_remaining: {
                     100: 1,
-                    50: 1,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -113,11 +113,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 0,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
@@ -130,11 +130,11 @@ describe("GameBoxService", () => {
                 ...GameBox.createNewBox(),
                 winners_remaining: {
                     100: 0,
-                    50: 1,
                     20: 1,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 

@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../../app";
 import sequelize from "../../config/database";
-import { GameBox, User, Ticket, UserStatistics } from "../../models";
+import { GameBox, Ticket, User, UserStatistics } from "../../models";
 import { GameSymbol } from "../../models/Ticket";
 
 describe("GameBox Endpoints", () => {
@@ -52,11 +52,11 @@ describe("GameBox Endpoints", () => {
             const response = await request(app).get("/api/gamebox/current");
 
             expect(response.body.gameBox.winnersRemaining).toEqual({
-                2: 75,
-                5: 35,
-                10: 20,
-                20: 8,
-                50: 3,
+                1: 64,
+                2: 48,
+                5: 10,
+                10: 10,
+                20: 2,
                 100: 1,
             });
         });
@@ -116,11 +116,11 @@ describe("GameBox Endpoints", () => {
                 remaining_tickets: 10,
                 winners_remaining: {
                     100: 0,
-                    50: 1,
                     20: 0,
                     10: 0,
                     5: 0,
                     2: 0,
+                    1: 0,
                 },
             });
 
