@@ -59,13 +59,13 @@ export function Header() {
                             <>
                                 <Link
                                     to="/login"
-                                    className="hover:bg-navy-600 px-4 py-2 rounded-lg transition-colors ml-2"
+                                    className="hover:bg-navy-600 px-4 py-2 font-bold text-cream-100  rounded-lg transition-colors ml-2 mr-2"
                                 >
                                     Login
                                 </Link>
                                 <Link
                                     to="/register"
-                                    className="bg-gold-600 hover:bg-gold-700 px-4 py-2 rounded-lg text-white font-medium transition-colors"
+                                    className="bg-gold-600 hover:bg-gold-700 px-4 py-2  font-bold rounded-lg text-cream-100 transition-colors"
                                 >
                                     Register
                                 </Link>

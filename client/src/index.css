@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scrollbar-gutter: stable;
-  }
-  
   body {
     @apply min-h-screen;
     background: 

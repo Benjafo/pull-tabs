@@ -13,9 +13,10 @@ interface SymbolDisplayProps {
   isRevealed: boolean;
   isWinning?: boolean;
   size?: 'small' | 'medium' | 'large';
+  disableAnimation?: boolean;
 }
 
-export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 'medium' }: SymbolDisplayProps) {
+export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 'medium', disableAnimation = false }: SymbolDisplayProps) {
   const symbol = getSymbolById(symbolId);
   
   if (!symbol) {
@@ -34,8 +35,8 @@ export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 
     large: 80,
   };
 
-  const animationClass = isRevealed ? 'animate-bounce-slow' : '';
-  const winningClass = isWinning ? 'ring-4 ring-gold-400 ring-opacity-75 animate-pulse' : '';
+  const animationClass = isRevealed && !disableAnimation ? 'animate-bounce-slow' : '';
+  const winningClass = isWinning && !disableAnimation ? 'ring-4 ring-gold-400 ring-opacity-75 animate-pulse' : '';
 
   const renderSymbol = () => {
     const symbolSize = sizePixels[size];

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaAnchor, FaStar } from "react-icons/fa";
+import { FaAnchor, FaStar, FaTicketAlt } from "react-icons/fa";
 import type { Ticket } from "../../services/ticketService";
 import ticketService from "../../services/ticketService";
 import { checkWinningLine } from "../../utils/symbols";
@@ -12,9 +12,18 @@ interface TicketComponentProps {
     onComplete?: (totalWinnings: number) => void;
     onFlip?: () => void;
     onWinningsUpdate?: (amount: number) => void;
+    onNewTicket?: () => void;
+    isPurchasing?: boolean;
 }
 
-export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }: TicketComponentProps) {
+export function TicketComponent({
+    ticket,
+    onComplete,
+    onFlip,
+    onWinningsUpdate,
+    onNewTicket,
+    isPurchasing,
+}: TicketComponentProps) {
     const [isFlipped, setIsFlipped] = useState(false);
     // Convert boolean array to array of tab numbers for already revealed tabs
     const getInitialRevealedTabs = () => {
@@ -236,21 +245,16 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }
                         transform: "rotateY(180deg)",
                     }}
                 >
-                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-6 border-2 border-gold-600/30">
+                    <div className="w-full h-full bg-navy-500 rounded-xl shadow-2xl p-5 border-2 border-gold-600/30 flex flex-col">
                         {/* Header */}
-                        <div className="text-center mb-8">
-                            <h3 className="text-2xl font-bold text-cream-100 drop-shadow-lg">
+                        <div className="text-center mb-5">
+                            <h3 className="text-xl font-bold text-cream-100 drop-shadow-lg">
                                 Reveal the Treasure!
                             </h3>
-                            {/* {currentWinnings > 0 && (
-                                <div className="mt-2 text-3xl font-bold text-gold-400 animate-pulse">
-                                    Won: ${currentWinnings}
-                                </div>
-                            )} */}
                         </div>
 
                         {/* Tabs */}
-                        <div className="space-y-3">
+                        <div className="space-y-4 flex-1 flex flex-col justify-center">
                             {[1, 2, 3, 4, 5].map((tabNumber) => (
                                 <TabComponent
                                     key={tabNumber}
@@ -260,28 +264,53 @@ export function TicketComponent({ ticket, onComplete, onFlip, onWinningsUpdate }
                                     isWinning={isTabWinning(tabNumber)}
                                     onReveal={handleRevealTab}
                                     disabled={isRevealing}
+                                    size="medium"
                                 />
                             ))}
                         </div>
 
-                        {/* Status */}
-                        {(currentWinnings > 0 || revealedTabs.length === 5) && (
-                            <div className="mt-6 text-center">
-                                <div className="text-cream-100 text-xl font-bold">
-                                    {currentWinnings > 0 ? (
-                                        <span className="text-gold-400 text-2xl animate-bounce">
-                                            <span className="flex items-center justify-center gap-2">
-                                                <FaStar className="text-gold-400" />
-                                                You won ${currentWinnings}!
-                                                <FaStar className="text-gold-400" />
-                                            </span>
+                        {/* Status - Always rendered but visibility controlled */}
+                        <div className={`mt-3 text-center h-8 transition-opacity duration-300 ${
+                            (currentWinnings > 0 || revealedTabs.length === 5) ? 'opacity-100' : 'opacity-0'
+                        }`}>
+                            <div className="text-cream-100 font-bold">
+                                {currentWinnings > 0 ? (
+                                    <span className="text-gold-400 text-xl animate-bounce">
+                                        <span className="flex items-center justify-center gap-2">
+                                            <FaStar className="text-gold-400" />
+                                            You won ${currentWinnings}!
+                                            <FaStar className="text-gold-400" />
                                         </span>
-                                    ) : (
-                                        <span>Better luck next time!</span>
-                                    )}
-                                </div>
+                                    </span>
+                                ) : (
+                                    revealedTabs.length === 5 && (
+                                        <span className="text-base">Better luck next time!</span>
+                                    )
+                                )}
                             </div>
-                        )}
+                        </div>
+
+                        {/* Buy Another Ticket Button - Always rendered but visibility controlled */}
+                        <div className="mt-4 h-12">
+                            <button
+                                onClick={onNewTicket}
+                                disabled={isPurchasing || !onNewTicket}
+                                className={`w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-navy-900 py-2.5 px-5 rounded-lg text-base font-black transform hover:scale-105 hover:shadow-xl disabled:cursor-not-allowed transition-all duration-300 ${
+                                    onNewTicket ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                                }`}
+                            >
+                                <span className="flex items-center justify-center gap-2">
+                                    {isPurchasing ? (
+                                        <>Purchasing...</>
+                                    ) : (
+                                        <>
+                                            <FaTicketAlt className="text-lg" />
+                                            Buy Another Ticket ($1)
+                                        </>
+                                    )}
+                                </span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
