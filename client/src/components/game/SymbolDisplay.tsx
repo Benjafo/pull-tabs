@@ -13,9 +13,10 @@ interface SymbolDisplayProps {
   isRevealed: boolean;
   isWinning?: boolean;
   size?: 'small' | 'medium' | 'large';
+  disableAnimation?: boolean;
 }
 
-export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 'medium' }: SymbolDisplayProps) {
+export function SymbolDisplay({ symbolId, isRevealed, isWinning = false, size = 'medium', disableAnimation = false }: SymbolDisplayProps) {
   const symbol = getSymbolById(symbolId);
   
   if (!symbol) {
