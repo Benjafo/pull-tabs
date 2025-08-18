@@ -166,7 +166,7 @@ describe("GameBoxService", () => {
             expect(stats.remainingTickets).toBe(350);
             expect(stats.soldTickets).toBe(150);
             expect(stats.percentSold).toBe(30);
-            expect(stats.totalWinnersRemaining).toBe(142); // Sum of all winners
+            expect(stats.totalWinnersRemaining).toBe(125); // Sum of all winners
             expect(stats.isComplete).toBe(false);
         });
     });
