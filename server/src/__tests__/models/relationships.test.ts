@@ -201,10 +201,9 @@ describe("Model Relationships", () => {
             await gameBox.useWinner(100);
             expect(gameBox.winners_remaining[100]).toBe(0);
 
-            await gameBox.useWinner(50);
-            await gameBox.useWinner(50);
-            await gameBox.useWinner(50);
-            expect(gameBox.winners_remaining[50]).toBe(0);
+            await gameBox.useWinner(20);
+            await gameBox.useWinner(20);
+            expect(gameBox.winners_remaining[20]).toBe(0);
 
             // Should not go negative
             await gameBox.useWinner(100);
