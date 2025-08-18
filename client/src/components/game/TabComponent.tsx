@@ -339,7 +339,7 @@ export function TabComponent({
                         opacity: 1;
                     }
                     100% {
-                        transform: rotateY(90deg) translateX(60px) scaleX(0.8);
+                        transform: rotateY(90deg) translateX(0) scaleX(0.8);
                         opacity: 0;
                     }
                 }
