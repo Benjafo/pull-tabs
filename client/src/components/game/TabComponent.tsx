@@ -124,8 +124,8 @@ export function TabComponent({
         if (dragProgress > 0) {
             // Smooth, continuous animation that follows drag progress
             const rotateY = 90 * (dragProgress / 100);
-            // Reduced translateX to better match pointer movement
-            const translateX = 20 * (dragProgress / 100);
+            // Remove translateX to prevent rightward sliding
+            const translateX = 0;
             const scaleX = 1 - 0.15 * (dragProgress / 100);
             return `rotateY(${rotateY}deg) translateX(${translateX}px) scaleX(${scaleX})`;
         }
@@ -228,7 +228,7 @@ export function TabComponent({
                     <div className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none">
                         {/* Top perforation */}
                         <div
-                            className="absolute top-0 left-0 right-0 h-1"
+                            className="absolute top-0 left-0 right-0 h-0.5"
                             style={{
                                 backgroundImage:
                                     "repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)",
@@ -236,7 +236,7 @@ export function TabComponent({
                         />
                         {/* Bottom perforation */}
                         <div
-                            className="absolute bottom-0 left-0 right-0 h-1"
+                            className="absolute bottom-0 left-0 right-0 h-0.5"
                             style={{
                                 backgroundImage:
                                     "repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)",
@@ -244,7 +244,7 @@ export function TabComponent({
                         />
                         {/* Left perforation */}
                         <div
-                            className="absolute top-0 bottom-0 left-0 w-1"
+                            className="absolute top-0 bottom-0 left-0 w-0.5"
                             style={{
                                 backgroundImage:
                                     "repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px)",
@@ -280,7 +280,7 @@ export function TabComponent({
                                 {/* Pulsing glow effect */}
                                 <div className="absolute inset-0 bg-gradient-to-l from-cream-100/30 to-transparent rounded-l-lg animate-pulse" />
                                 {/* Arrow indicators */}
-                                <div className="flex flex-col gap-1">
+                                {/* <div className="flex flex-col gap-1">
                                     <div className="text-cream-100/80 animate-pulse" style={{ animationDelay: '0ms' }}>
                                         ◀
                                     </div>
@@ -290,7 +290,7 @@ export function TabComponent({
                                     <div className="text-cream-100/40 animate-pulse" style={{ animationDelay: '200ms' }}>
                                         ◀
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     )}
