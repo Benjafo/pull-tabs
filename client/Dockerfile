@@ -11,8 +11,5 @@ RUN npm ci
 # Copy application files
 COPY . .
 
-# Build the application
-RUN npm run build
-
-# Start the production server
-CMD ["npm", "start"]
+# Build and start the production server at runtime
+CMD ["sh", "-c", "npm run build && npm start"]
