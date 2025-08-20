@@ -3,53 +3,48 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const getDatabaseConfig = () => {
-    // Railway provides DATABASE_URL in production
-    if (process.env.DATABASE_URL) {
-        return {
-            url: process.env.DATABASE_URL,
-            dialect: "postgres" as const,
-            logging: process.env.NODE_ENV === "development" ? console.log : false,
-            pool: {
-                max: 5,
-                min: 0,
-                acquire: 30000,
-                idle: 10000,
-            },
-            dialectOptions: {
-                ssl:
-                    process.env.NODE_ENV === "production"
-                        ? {
-                              require: true,
-                              rejectUnauthorized: false,
-                          }
-                        : false,
-            },
-        };
-    }
-
-    // Local development configuration
-    return {
-        dialect: "postgres" as const,
-        host: process.env.DB_HOST || "localhost",
-        port: parseInt(process.env.DB_PORT || "5432"),
-        database: process.env.DB_NAME || "pulltabs",
-        username: process.env.DB_USER || "pulltabs_user",
-        password: process.env.DB_PASSWORD || "",
-        logging: process.env.NODE_ENV === "development" ? console.log : false,
-        pool: {
-            max: 5,
-            min: 0,
-            acquire: 30000,
-            idle: 10000,
-        },
-    };
-};
-
-const sequelize = new Sequelize(getDatabaseConfig());
+const sequelize = process.env.DATABASE_URL
+    ? new Sequelize(process.env.DATABASE_URL, {
+          dialect: "postgres",
+          logging: process.env.NODE_ENV === "development" ? console.log : false,
+          pool: {
+              max: 5,
+              min: 0,
+              acquire: 30000,
+              idle: 10000,
+          },
+          dialectOptions: {
+              ssl:
+                  process.env.NODE_ENV === "production"
+                      ? {
+                            require: true,
+                            rejectUnauthorized: false,
+                        }
+                      : false,
+          },
+      })
+    : new Sequelize({
+          dialect: "postgres",
+          host: process.env.DB_HOST || "localhost",
+          port: parseInt(process.env.DB_PORT || "5432"),
+          database: process.env.DB_NAME || "pulltabs",
+          username: process.env.DB_USER || "pulltabs_user",
+          password: process.env.DB_PASSWORD || "",
+          logging: process.env.NODE_ENV === "development" ? console.log : false,
+          pool: {
+              max: 5,
+              min: 0,
+              acquire: 30000,
+              idle: 10000,
+          },
+      });
 
 export const connectDatabase = async (): Promise<void> => {
     try {
+        console.log("Attempting database connection...");
+        console.log("NODE_ENV:", process.env.NODE_ENV);
+        console.log("DATABASE_URL exists:", !!process.env.DATABASE_URL);
+        
         await sequelize.authenticate();
         console.log("Database connection established successfully.");
 
@@ -59,6 +54,10 @@ export const connectDatabase = async (): Promise<void> => {
         }
     } catch (error) {
         console.error("Unable to connect to the database:", error);
+        console.error("Connection details:", {
+            hasDbUrl: !!process.env.DATABASE_URL,
+            nodeEnv: process.env.NODE_ENV,
+        });
         process.exit(1);
     }
 };
