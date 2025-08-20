@@ -11,5 +11,8 @@ RUN npm ci
 # Copy application files
 COPY . .
 
+# Make start script executable
+RUN chmod +x start.sh
+
 # Build and start the production server at runtime
-CMD ["npm", "run", "production"]
+CMD ["./start.sh"]
