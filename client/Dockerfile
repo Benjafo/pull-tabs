@@ -11,8 +11,8 @@ RUN npm ci
 # Copy application files
 COPY . .
 
-# Expose the Vite dev server port
-EXPOSE 5173
+# Build the application
+RUN npm run build
 
-# Start the development server
-CMD ["npm", "run", "dev"]
+# Start the production server
+CMD ["npm", "start"]
