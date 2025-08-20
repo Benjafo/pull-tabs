@@ -46,7 +46,7 @@ export const setTokenCookie = (res: Response, token: string): void => {
     res.cookie("token", token, {
         httpOnly: true,
         secure: isProduction,
-        sameSite: isProduction ? "strict" : "lax",
+        sameSite: isProduction ? "none" : "lax", // "none" for cross-origin in production
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
     });
 };
