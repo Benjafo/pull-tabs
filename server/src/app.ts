@@ -20,6 +20,11 @@ import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 // Create Express app
 const app: Application = express();
 
+// Health check endpoint (before any middleware that might block it)
+app.get("/health", (_req, res) => {
+    res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 // Security middleware
 app.use(helmet());
 
@@ -49,11 +54,6 @@ app.use("/api", limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-
-// Health check endpoint
-app.get("/health", (_req, res) => {
-    res.json({ status: "ok", timestamp: new Date().toISOString() });
-});
 
 // API routes
 app.use("/api/auth", authRoutes);

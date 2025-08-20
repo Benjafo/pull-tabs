@@ -6,7 +6,8 @@ dotenv.config();
 import app from "./app";
 import { connectDatabase } from "./config/database";
 
-const PORT = process.env.PORT || 3001;
+const PORT = parseInt(process.env.PORT || "3001", 10);
+const HOST = "0.0.0.0";
 
 /**
  * Start the server
@@ -17,10 +18,16 @@ const startServer = async (): Promise<void> => {
         await connectDatabase();
 
         // Start server - bind to 0.0.0.0 for Railway
-        app.listen(PORT as number, "0.0.0.0", () => {
-            console.log(`Server is running on 0.0.0.0:${PORT}`);
+        const server = app.listen(PORT, HOST, () => {
+            console.log(`Server is running on ${HOST}:${PORT}`);
             console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
-            console.log(`Health check: http://localhost:${PORT}/health`);
+            console.log(`Railway PORT: ${process.env.PORT}`);
+            console.log(`Health check available at /health`);
+        });
+
+        // Ensure server is listening
+        server.on("listening", () => {
+            console.log("Server is now listening for connections");
         });
     } catch (error) {
         console.error("Failed to start server:", error);
