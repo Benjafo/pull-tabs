@@ -12,4 +12,4 @@ RUN npm ci
 COPY . .
 
 # Build and start the production server at runtime
-CMD ["sh", "-c", "npm run build && npm start"]
+CMD ["npm", "run", "production"]
