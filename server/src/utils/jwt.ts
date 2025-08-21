@@ -48,6 +48,7 @@ export const setTokenCookie = (res: Response, token: string): void => {
         secure: isProduction,
         sameSite: isProduction ? "none" : "lax", // "none" for cross-origin in production
         maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        path: "/", // Explicitly set path for consistency
     });
 };
 
@@ -55,5 +56,12 @@ export const setTokenCookie = (res: Response, token: string): void => {
  * Clear JWT token cookie
  */
 export const clearTokenCookie = (res: Response): void => {
-    res.clearCookie("token");
+    const isProduction = process.env.NODE_ENV === "production";
+    
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
+        path: "/",
+    });
 };
