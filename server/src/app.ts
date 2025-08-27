@@ -20,6 +20,12 @@ import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 // Create Express app
 const app: Application = express();
 
+// Trust proxy - REQUIRED for Railway deployment
+// This allows Express to properly handle X-Forwarded headers
+if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+}
+
 // Health check endpoint (before any middleware that might block it)
 app.get("/health", (_req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
