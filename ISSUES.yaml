@@ -1,0 +1,7 @@
+UI:
+  - Icons should bounce in-sync on the back of the card
+  - UI spacing issue next to $100 for front of card
+  - Weird transition to right side of screen when flipping card
+  - Icons need rework
+  - When dragging pull tabs, it briefly reverts to an unpulled state and kicks off the animation again
+  - Add permissioning to only show box progress modal to authorized users

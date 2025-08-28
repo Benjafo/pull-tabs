@@ -153,12 +153,12 @@ export function StatsPage() {
                             </div>
                         </div>
 
-                        {/* Times Played */}
+                        {/* Sessions Played */}
                         <div className="bg-navy-500/95 backdrop-blur-sm rounded-lg shadow-lg p-6 text-cream-100 border border-navy-400">
                             <div>
                                 <FaGamepad className="text-2xl mb-3 text-gold-400/80" />
                                 <h3 className="text-xs font-medium text-cream-100/60 uppercase tracking-wider mb-2">
-                                    Times Played
+                                    Sessions Played
                                 </h3>
                                 <p className="text-3xl font-bold">{stats.sessionsPlayed}</p>
                             </div>
