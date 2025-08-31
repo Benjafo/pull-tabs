@@ -26,6 +26,13 @@ export function TabComponent({
     const [isHovering, setIsHovering] = useState(false);
     const startPosRef = useRef({ x: 0, y: 0 });
     const hasDraggedRef = useRef(false);
+    
+    // Centralized state reset function
+    const resetInteractionState = () => {
+        setIsDragging(false);
+        setDragProgress(0);
+        hasDraggedRef.current = false;
+    };
 
     // Document-level mouse and pointer handlers for drag tracking
     useEffect(() => {
@@ -69,9 +76,12 @@ export function TabComponent({
                 setDragProgress(0);
             }
 
-            setIsDragging(false);
-            // Always reset hasDraggedRef on mouse/pointer up
-            hasDraggedRef.current = false;
+            resetInteractionState();
+        };
+        
+        // Handle interrupted pointer events (Chromium fix)
+        const handlePointerCancel = () => {
+            resetInteractionState();
         };
 
         // Add both mouse and pointer event listeners for better browser support
@@ -79,6 +89,7 @@ export function TabComponent({
         document.addEventListener("mouseup", handleDocumentUp);
         document.addEventListener("pointermove", handleDocumentMove);
         document.addEventListener("pointerup", handleDocumentUp);
+        document.addEventListener("pointercancel", handlePointerCancel);
 
         // Cleanup function
         return () => {
@@ -86,6 +97,7 @@ export function TabComponent({
             document.removeEventListener("mouseup", handleDocumentUp);
             document.removeEventListener("pointermove", handleDocumentMove);
             document.removeEventListener("pointerup", handleDocumentUp);
+            document.removeEventListener("pointercancel", handlePointerCancel);
         };
     }, [isDragging, isRevealed, disabled, dragProgress]);
 
@@ -116,16 +128,13 @@ export function TabComponent({
         setIsHovering(false);
         // Reset drag state if mouse leaves while dragging (Chromium fix)
         if (isDragging && dragProgress < 75) {
-            setIsDragging(false);
-            setDragProgress(0);
-            hasDraggedRef.current = false;
+            resetInteractionState();
         }
     };
 
     const handleClick = () => {
         // Only trigger click animation if not dragging
-        // Add isDragging check for Chromium browsers
-        if (isRevealed || disabled || isPeeling || isDragging || hasDraggedRef.current) return;
+        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
 
         // Trigger smooth peel animation on click
         setIsPeeling(true);
@@ -224,8 +233,6 @@ export function TabComponent({
                             : "none",
                         touchAction: "none",
                         WebkitTouchCallout: "none",
-                        WebkitUserSelect: "none",
-                        userSelect: "none",
                         willChange: isDragging ? "transform, opacity" : "auto",
                         WebkitTapHighlightColor: "transparent",
                     }}
@@ -234,6 +241,7 @@ export function TabComponent({
                     onMouseLeave={handleMouseLeave}
                     onMouseEnter={() => setIsHovering(true)}
                     onClick={handleClick}
+                    onSelectStart={(e) => e.preventDefault()}
                 >
                     {/* Dynamic shadow based on interaction */}
                     <div
