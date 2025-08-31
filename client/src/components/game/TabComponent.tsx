@@ -86,20 +86,40 @@ export function TabComponent({
     const handleMouseDown = (e: React.MouseEvent) => {
         if (isRevealed || disabled || isPeeling) return;
 
-        setIsDragging(true);
+        // Reset state on every new interaction
         hasDraggedRef.current = false;
-        setDragProgress(0); // Reset drag progress on new interaction
+        setIsDragging(true);
+        setDragProgress(0);
+        startPosRef.current = { x: e.clientX, y: e.clientY };
+        e.preventDefault();
+    };
+
+    // Add pointer events for better Chromium support
+    const handlePointerDown = (e: React.PointerEvent) => {
+        if (isRevealed || disabled || isPeeling) return;
+        
+        // Reset state on every new interaction
+        hasDraggedRef.current = false;
+        setIsDragging(true);
+        setDragProgress(0);
         startPosRef.current = { x: e.clientX, y: e.clientY };
         e.preventDefault();
     };
 
     const handleMouseLeave = () => {
         setIsHovering(false);
+        // Reset drag state if mouse leaves while dragging (Chromium fix)
+        if (isDragging && dragProgress < 75) {
+            setIsDragging(false);
+            setDragProgress(0);
+            hasDraggedRef.current = false;
+        }
     };
 
     const handleClick = () => {
         // Only trigger click animation if not dragging
-        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
+        // Add isDragging check for Chromium browsers
+        if (isRevealed || disabled || isPeeling || isDragging || hasDraggedRef.current) return;
 
         // Trigger smooth peel animation on click
         setIsPeeling(true);
@@ -180,7 +200,6 @@ export function TabComponent({
                                 : ""
                         }
                         ${disabled ? "opacity-50 cursor-not-allowed" : ""}
-                        select-none
                     `}
                     style={{
                         transform:
@@ -197,8 +216,15 @@ export function TabComponent({
                             : dragProgress > 0
                             ? "all 0.3s ease-out"
                             : "none",
+                        touchAction: "none",
+                        WebkitTouchCallout: "none",
+                        WebkitUserSelect: "none",
+                        userSelect: "none",
+                        willChange: isDragging ? "transform, opacity" : "auto",
+                        WebkitTapHighlightColor: "transparent",
                     }}
                     onMouseDown={handleMouseDown}
+                    onPointerDown={handlePointerDown}
                     onMouseLeave={handleMouseLeave}
                     onMouseEnter={() => setIsHovering(true)}
                     onClick={handleClick}
