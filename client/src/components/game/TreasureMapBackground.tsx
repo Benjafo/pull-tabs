@@ -13,7 +13,7 @@ export function TreasureMapBackground() {
                     0 0 0 0 0.85
                     0 0 0 0 0.7
                     0 0 0 1 0" />
-          <feComposite operator="multiply" in2="SourceGraphic" />
+          <feComposite operator="arithmetic" k1="0" k2="1" k3="0" k4="0" in2="SourceGraphic" />
         </filter>
         <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
           <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#8B7355" strokeWidth="0.5" opacity="0.3" />
