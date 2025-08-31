@@ -27,11 +27,11 @@ export function TabComponent({
     const startPosRef = useRef({ x: 0, y: 0 });
     const hasDraggedRef = useRef(false);
 
-    // Document-level mouse handlers for drag tracking
+    // Document-level mouse and pointer handlers for drag tracking
     useEffect(() => {
         if (!isDragging) return;
 
-        const handleDocumentMouseMove = (e: MouseEvent) => {
+        const handleDocumentMove = (e: MouseEvent | PointerEvent) => {
             if (isRevealed || disabled) return;
 
             // Calculate horizontal drag distance (allow both directions)
@@ -60,7 +60,7 @@ export function TabComponent({
             }
         };
 
-        const handleDocumentMouseUp = () => {
+        const handleDocumentUp = () => {
             if (dragProgress >= 75) {
                 // Complete the peel if dragged more than 75% (increased from 60%)
                 completePeel();
@@ -70,16 +70,22 @@ export function TabComponent({
             }
 
             setIsDragging(false);
+            // Always reset hasDraggedRef on mouse/pointer up
+            hasDraggedRef.current = false;
         };
 
-        // Add document-level listeners
-        document.addEventListener("mousemove", handleDocumentMouseMove);
-        document.addEventListener("mouseup", handleDocumentMouseUp);
+        // Add both mouse and pointer event listeners for better browser support
+        document.addEventListener("mousemove", handleDocumentMove);
+        document.addEventListener("mouseup", handleDocumentUp);
+        document.addEventListener("pointermove", handleDocumentMove);
+        document.addEventListener("pointerup", handleDocumentUp);
 
         // Cleanup function
         return () => {
-            document.removeEventListener("mousemove", handleDocumentMouseMove);
-            document.removeEventListener("mouseup", handleDocumentMouseUp);
+            document.removeEventListener("mousemove", handleDocumentMove);
+            document.removeEventListener("mouseup", handleDocumentUp);
+            document.removeEventListener("pointermove", handleDocumentMove);
+            document.removeEventListener("pointerup", handleDocumentUp);
         };
     }, [isDragging, isRevealed, disabled, dragProgress]);
 
