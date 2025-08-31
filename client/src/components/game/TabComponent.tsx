@@ -45,9 +45,28 @@ export function TabComponent({
     }, []);
 
     const handleMouseDown = (e: React.MouseEvent) => {
+        console.log('[DEBUG] MouseDown event fired', {
+            isRevealed,
+            disabled,
+            isPeeling,
+            clientX: e.clientX,
+            clientY: e.clientY,
+            target: e.target,
+            currentTarget: e.currentTarget,
+            defaultPrevented: e.defaultPrevented,
+            userAgent: navigator.userAgent
+        });
+        
         e.preventDefault(); // Ensure Chromium doesn't start native drag
-        if (isRevealed || disabled || isPeeling) return;
+        e.stopPropagation(); // Stop event bubbling
+        
+        if (isRevealed || disabled || isPeeling) {
+            console.log('[DEBUG] Early return from handleMouseDown');
+            return;
+        }
 
+        console.log('[DEBUG] Proceeding with drag setup');
+        
         // Reset state
         hasDraggedRef.current = false;
         dragProgressRef.current = 0;
@@ -56,9 +75,25 @@ export function TabComponent({
 
         // Define event handlers
         const handleDocumentMouseMove = (e: MouseEvent) => {
-            if (isRevealed || disabled) return;
-
             const deltaX = e.clientX - startPosRef.current.x;
+            const deltaY = e.clientY - startPosRef.current.y;
+            
+            console.log('[DEBUG] MouseMove', {
+                deltaX,
+                deltaY,
+                clientX: e.clientX,
+                clientY: e.clientY,
+                startPos: startPosRef.current,
+                isRevealed,
+                disabled,
+                hasDragged: hasDraggedRef.current
+            });
+            
+            if (isRevealed || disabled) {
+                console.log('[DEBUG] MouseMove blocked by state');
+                return;
+            }
+
             if (Math.abs(deltaX) > 5) {
                 hasDraggedRef.current = true;
             }
@@ -77,10 +112,19 @@ export function TabComponent({
             }
         };
 
-        const handleDocumentMouseUp = () => {
+        const handleDocumentMouseUp = (e: MouseEvent) => {
+            console.log('[DEBUG] MouseUp', {
+                dragProgress: dragProgressRef.current,
+                hasDragged: hasDraggedRef.current,
+                clientX: e.clientX,
+                clientY: e.clientY
+            });
+            
             if (dragProgressRef.current >= 75) {
+                console.log('[DEBUG] Completing peel from drag');
                 completePeel();
             } else if (hasDraggedRef.current) {
+                console.log('[DEBUG] Resetting drag progress');
                 setDragProgress(0);
             }
             setIsDragging(false);
@@ -88,13 +132,21 @@ export function TabComponent({
         };
 
         // Attach listeners immediately (fixes Chromium issue)
-        document.addEventListener("mousemove", handleDocumentMouseMove);
-        document.addEventListener("mouseup", handleDocumentMouseUp);
+        console.log('[DEBUG] Attaching document listeners');
+        document.addEventListener("mousemove", handleDocumentMouseMove, { capture: true });
+        document.addEventListener("mouseup", handleDocumentMouseUp, { capture: true });
+        
+        // Also try with pointer events as fallback
+        document.addEventListener("pointermove", handleDocumentMouseMove as any, { capture: true });
+        document.addEventListener("pointerup", handleDocumentMouseUp as any, { capture: true });
 
         // Store cleanup function
         cleanupRef.current = () => {
-            document.removeEventListener("mousemove", handleDocumentMouseMove);
-            document.removeEventListener("mouseup", handleDocumentMouseUp);
+            console.log('[DEBUG] Cleaning up event listeners');
+            document.removeEventListener("mousemove", handleDocumentMouseMove, { capture: true });
+            document.removeEventListener("mouseup", handleDocumentMouseUp, { capture: true });
+            document.removeEventListener("pointermove", handleDocumentMouseMove as any, { capture: true });
+            document.removeEventListener("pointerup", handleDocumentMouseUp as any, { capture: true });
         };
 
         // Set dragging state after listeners are attached
@@ -103,8 +155,23 @@ export function TabComponent({
 
     const handleMouseLeave = () => setIsHovering(false);
 
-    const handleClick = () => {
-        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) return;
+    const handleClick = (e: React.MouseEvent) => {
+        console.log('[DEBUG] Click event', {
+            isRevealed,
+            disabled,
+            isPeeling,
+            hasDragged: hasDraggedRef.current,
+            isDragging,
+            target: e.target,
+            currentTarget: e.currentTarget
+        });
+        
+        if (isRevealed || disabled || isPeeling || hasDraggedRef.current) {
+            console.log('[DEBUG] Click blocked');
+            return;
+        }
+        
+        console.log('[DEBUG] Processing click - starting peel animation');
         setIsPeeling(true);
         setTimeout(() => {
             onReveal(tabNumber);
@@ -179,8 +246,15 @@ export function TabComponent({
                     }}
                     onMouseDown={handleMouseDown}
                     onMouseLeave={handleMouseLeave}
-                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseEnter={() => {
+                        console.log('[DEBUG] Mouse enter tab', tabNumber);
+                        setIsHovering(true);
+                    }}
                     onClick={handleClick}
+                    onPointerDown={(e) => {
+                        console.log('[DEBUG] PointerDown event (fallback)', e.pointerType);
+                        handleMouseDown(e as any);
+                    }}
                 >
                     <div
                         className="absolute inset-0 rounded-lg"
