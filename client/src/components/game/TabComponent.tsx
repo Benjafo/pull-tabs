@@ -34,11 +34,11 @@ export function TabComponent({
         hasDraggedRef.current = false;
     };
 
-    // Document-level mouse and pointer handlers for drag tracking
+    // Document-level pointer handlers for drag tracking
     useEffect(() => {
         if (!isDragging) return;
 
-        const handleDocumentMove = (e: MouseEvent | PointerEvent) => {
+        const handlePointerMove = (e: PointerEvent) => {
             if (isRevealed || disabled) return;
 
             // Calculate horizontal drag distance (allow both directions)
@@ -67,7 +67,7 @@ export function TabComponent({
             }
         };
 
-        const handleDocumentUp = () => {
+        const handlePointerUp = (e: PointerEvent) => {
             if (dragProgress >= 75) {
                 // Complete the peel if dragged more than 75% (increased from 60%)
                 completePeel();
@@ -76,43 +76,37 @@ export function TabComponent({
                 setDragProgress(0);
             }
 
+            // Release pointer capture if it was set
+            try {
+                (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+            } catch {}
+
             resetInteractionState();
         };
         
-        // Handle interrupted pointer events (Chromium fix)
-        const handlePointerCancel = () => {
+        // Handle interrupted pointer events
+        const handlePointerCancel = (e: PointerEvent) => {
+            // Release pointer capture if it was set
+            try {
+                (e.target as HTMLElement).releasePointerCapture(e.pointerId);
+            } catch {}
+            
             resetInteractionState();
         };
 
-        // Add both mouse and pointer event listeners for better browser support
-        document.addEventListener("mousemove", handleDocumentMove);
-        document.addEventListener("mouseup", handleDocumentUp);
-        document.addEventListener("pointermove", handleDocumentMove);
-        document.addEventListener("pointerup", handleDocumentUp);
+        // Add pointer event listeners only (unified for mouse, touch, pen)
+        document.addEventListener("pointermove", handlePointerMove);
+        document.addEventListener("pointerup", handlePointerUp);
         document.addEventListener("pointercancel", handlePointerCancel);
 
         // Cleanup function
         return () => {
-            document.removeEventListener("mousemove", handleDocumentMove);
-            document.removeEventListener("mouseup", handleDocumentUp);
-            document.removeEventListener("pointermove", handleDocumentMove);
-            document.removeEventListener("pointerup", handleDocumentUp);
+            document.removeEventListener("pointermove", handlePointerMove);
+            document.removeEventListener("pointerup", handlePointerUp);
             document.removeEventListener("pointercancel", handlePointerCancel);
         };
     }, [isDragging, isRevealed, disabled, dragProgress]);
 
-    const handleMouseDown = (e: React.MouseEvent) => {
-        if (isRevealed || disabled || isPeeling) return;
-
-        // Reset state on every new interaction
-        hasDraggedRef.current = false;
-        setIsDragging(true);
-        setDragProgress(0);
-        startPosRef.current = { x: e.clientX, y: e.clientY };
-        e.preventDefault();
-    };
-
-    // Add pointer events for better Chromium support
     const handlePointerDown = (e: React.PointerEvent) => {
         if (isRevealed || disabled || isPeeling) return;
         
@@ -121,6 +115,11 @@ export function TabComponent({
         setIsDragging(true);
         setDragProgress(0);
         startPosRef.current = { x: e.clientX, y: e.clientY };
+        
+        // Capture pointer to ensure we get all events even if cursor leaves element
+        // This is crucial for Chromium compatibility
+        (e.target as HTMLElement).setPointerCapture(e.pointerId);
+        
         e.preventDefault();
     };
 
@@ -232,11 +231,14 @@ export function TabComponent({
                             ? "all 0.3s ease-out"
                             : "none",
                         touchAction: "none",
+                        userSelect: "none",
+                        WebkitUserSelect: "none",
                         WebkitTouchCallout: "none",
                         willChange: isDragging ? "transform, opacity" : "auto",
                         WebkitTapHighlightColor: "transparent",
                     }}
-                    onMouseDown={handleMouseDown}
+                    draggable={false}
+                    onDragStart={(e) => e.preventDefault()}
                     onPointerDown={handlePointerDown}
                     onMouseLeave={handleMouseLeave}
                     onMouseEnter={() => setIsHovering(true)}
