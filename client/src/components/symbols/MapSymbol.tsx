@@ -25,7 +25,7 @@ export function MapSymbol({ className = "", size = 48 }: SymbolProps) {
                     0 0 0 0 0.85
                     0 0 0 0 0.7
                     0 0 0 1 0" />
-          <feComposite operator="multiply" in2="SourceGraphic" />
+          <feComposite operator="arithmetic" k1="0" k2="1" k3="0" k4="0" in2="SourceGraphic" />
         </filter>
         <filter id="mapShadow">
           <feDropShadow dx="2" dy="2" stdDeviation="2" floodOpacity="0.3" />
