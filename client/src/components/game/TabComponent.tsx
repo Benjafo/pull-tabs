@@ -152,7 +152,7 @@ export function TabComponent({
     const containerPadding = "p-2";
 
     return (
-        <div className="relative">
+        <div className="relative" style={{ perspective: "1000px" }}>
             {/* Symbols underneath */}
             <div
                 className={`flex ${gap} ${containerPadding} bg-navy-800/30 rounded-lg border border-navy-600/30`}
